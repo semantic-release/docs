@@ -15,6 +15,9 @@ export default defineConfig({
         replacesTitle: true,
         alt: "Semantic Release",
       },
+      editLink: {
+				baseUrl: 'https://github.com/semantic-release/docs/edit/main/',
+			},
       social: [
         {
           icon: "github",
