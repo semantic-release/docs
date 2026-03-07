@@ -6,7 +6,13 @@ import starlight from '@astrojs/starlight';
 export default defineConfig({
 	integrations: [
 		starlight({
-			title: 'semantic-release',
+			title: 'Semantic Release',
+			logo: {
+				light: './src/assets/sr-logo-light.svg',
+				dark: './src/assets/sr-logo-dark.svg',
+				replacesTitle: true,
+				alt: 'Semantic Release',
+			},
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/semantic-release/semantic-release' }],
 			sidebar: [
 				{
