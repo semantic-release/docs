@@ -1,0 +1,40 @@
+---
+title: Automate your release with semantic-release.
+description: Fully automated version management and package publishing.
+template: splash
+hero:
+  tagline: Fully automated version management and package publishing.
+  image:
+    file: ../../assets/hero.png
+  actions:
+    - text: Get started
+      link: /usage/getting-started/
+      icon: right-arrow
+    - text: View on GitHub
+      link: https://github.com/semantic-release/semantic-release
+      icon: external
+      variant: minimal
+---
+
+import { Card, CardGrid } from "@astrojs/starlight/components";
+
+<CardGrid stagger>
+  <Card title="Fully automated release" icon="rocket">
+    No manual steps required. **semantic-release** determines the next version
+    number, generates release notes, and publishes the package automatically.
+  </Card>
+  <Card title="Semantic Versioning" icon="approve-check-circle">
+    Strictly follows the [Semantic Versioning](https://semver.org) specification,
+    removing the connection between human emotions and version numbers.
+  </Card>
+  <Card title="CI/CD Integration" icon="setting">
+    Runs on your CI environment after every successful build on the release
+    branch, ensuring releases are consistent and reliable.
+  </Card>
+  <Card title="Extensible via plugins" icon="puzzle">
+    Support any package manager and language via
+    [plugins](/extending/plugins-list/). Use
+    [shareable configurations](/usage/shareable-configurations/) for simple,
+    reusable setups.
+  </Card>
+</CardGrid>
