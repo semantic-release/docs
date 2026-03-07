@@ -18,8 +18,8 @@ export default defineConfig({
         alt: "Semantic Release",
       },
       editLink: {
-				baseUrl: 'https://github.com/semantic-release/docs/edit/main/',
-			},
+        baseUrl: "https://github.com/semantic-release/docs/edit/main/",
+      },
       social: [
         {
           icon: "github",
