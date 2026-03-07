@@ -6,19 +6,41 @@ import starlight from '@astrojs/starlight';
 export default defineConfig({
 	integrations: [
 		starlight({
-			title: 'My Docs',
-			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/withastro/starlight' }],
+			title: 'semantic-release',
+			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/semantic-release/semantic-release' }],
 			sidebar: [
 				{
-					label: 'Guides',
+					label: 'Usage',
+					autogenerate: { directory: 'usage' },
+				},
+				{
+					label: 'Extending',
+					autogenerate: { directory: 'extending' },
+				},
+				{
+					label: 'Recipes',
 					items: [
-						// Each item here is one entry in the navigation menu.
-						{ label: 'Example Guide', slug: 'guides/example' },
+						{
+							label: 'CI Configurations',
+							autogenerate: { directory: 'recipes/ci-configurations' },
+						},
+						{
+							label: 'Git Hosted Services',
+							autogenerate: { directory: 'recipes/git-hosted-services' },
+						},
+						{
+							label: 'Release Workflow',
+							autogenerate: { directory: 'recipes/release-workflow' },
+						},
 					],
 				},
 				{
-					label: 'Reference',
-					autogenerate: { directory: 'reference' },
+					label: 'Developer Guide',
+					autogenerate: { directory: 'developer-guide' },
+				},
+				{
+					label: 'Support',
+					autogenerate: { directory: 'support' },
 				},
 			],
 		}),
