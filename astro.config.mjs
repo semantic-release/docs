@@ -16,6 +16,10 @@ export default defineConfig({
 			social: [{ icon: 'github', label: 'GitHub', href: 'https://github.com/semantic-release/semantic-release' }],
 			sidebar: [
 				{
+					label: 'Introduction',
+					slug: 'intro',
+				},
+				{
 					label: 'Usage',
 					items: [
 						{ slug: 'usage/getting-started' },
