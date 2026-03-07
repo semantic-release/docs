@@ -3,6 +3,14 @@
   "type": "module",
   "version": "0.0.0-development",
   "author": "Olabode Lawal-Shittabey (http://babblebey.dev)",
+  "bugs": {
+    "url": "https://github.com/semantic-release/docs/issues"
+  },
+  "contributors": [
+    "Gregor Martynus (https://twitter.com/gr2m)",
+    "Pierre Vanduynslager (https://twitter.com/@pvdlg_)",
+    "Matt Travi <npm@travi.org> (https://matt.travi.org/)"
+  ],
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
@@ -22,5 +30,9 @@
   },
   "devDependencies": {
     "prettier": "^3.8.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/semantic-release/docs.git"
   }
 }
