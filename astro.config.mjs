@@ -17,36 +17,73 @@ export default defineConfig({
 			sidebar: [
 				{
 					label: 'Usage',
-					autogenerate: { directory: 'usage' },
+					items: [
+						{ slug: 'usage/getting-started' },
+						{ slug: 'usage/installation' },
+						{ slug: 'usage/ci-configuration' },
+						{ slug: 'usage/configuration' },
+						{ slug: 'usage/plugins' },
+						{ slug: 'usage/workflow-configuration' },
+						{ slug: 'usage/shareable-configurations' },
+					],
 				},
 				{
 					label: 'Extending',
-					autogenerate: { directory: 'extending' },
+					items: [
+						{ slug: 'extending/plugins-list' },
+						{ slug: 'extending/shareable-configurations-list' },
+					],
 				},
 				{
 					label: 'Recipes',
 					items: [
 						{
 							label: 'CI Configurations',
-							autogenerate: { directory: 'recipes/ci-configurations' },
+							items: [
+								{ slug: 'recipes/ci-configurations' },
+								{ slug: 'recipes/ci-configurations/circleci-workflows' },
+								{ slug: 'recipes/ci-configurations/travis' },
+								{ slug: 'recipes/ci-configurations/gitlab-ci' },
+								{ slug: 'recipes/ci-configurations/github-actions' },
+								{ slug: 'recipes/ci-configurations/jenkins-ci' },
+							],
 						},
 						{
 							label: 'Git Hosted Services',
-							autogenerate: { directory: 'recipes/git-hosted-services' },
+							items: [
+								{ slug: 'recipes/git-hosted-services' },
+								{ slug: 'recipes/git-hosted-services/git-auth-ssh-keys' },
+							],
 						},
 						{
 							label: 'Release Workflow',
-							autogenerate: { directory: 'recipes/release-workflow' },
+							items: [
+								{ slug: 'recipes/release-workflow' },
+								{ slug: 'recipes/release-workflow/distribution-channels' },
+								{ slug: 'recipes/release-workflow/maintenance-releases' },
+								{ slug: 'recipes/release-workflow/pre-releases' },
+							],
 						},
 					],
 				},
 				{
 					label: 'Developer Guide',
-					autogenerate: { directory: 'developer-guide' },
+					items: [
+						{ slug: 'developer-guide/js-api' },
+						{ slug: 'developer-guide/plugin' },
+						{ slug: 'developer-guide/shareable-configuration' },
+					],
 				},
 				{
 					label: 'Support',
-					autogenerate: { directory: 'support' },
+					items: [
+						{ slug: 'support/resources' },
+						{ slug: 'support/faq' },
+						{ slug: 'support/troubleshooting' },
+						{ slug: 'support/node-version' },
+						{ slug: 'support/node-support-policy' },
+						{ slug: 'support/git-version' },
+					],
 				},
 			],
 		}),
