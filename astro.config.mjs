@@ -28,6 +28,9 @@ export default defineConfig({
         },
       ],
       customCss: ["~/styles/global.css"],
+      components: {
+        Hero: "~/components/Hero.astro",
+      },
       sidebar: [
         {
           label: "Introduction",
