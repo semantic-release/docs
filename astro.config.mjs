@@ -1,11 +1,13 @@
 // @ts-check
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
-
 import tailwindcss from "@tailwindcss/vite";
+
+const site = "https://semantic-release.org/";
 
 // https://astro.build/config
 export default defineConfig({
+  site,
   integrations: [
     starlight({
       title: "Semantic Release",
