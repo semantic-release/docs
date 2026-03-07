@@ -2,6 +2,6 @@
 title: "Release Workflow"
 ---
 
-* [Publishing on distribution channels](distribution-channels.md)
-* [Publishing maintenance releases](maintenance-releases.md)
-* [Publishing pre-releases](pre-releases.md)
+- [Publishing on distribution channels](distribution-channels.md)
+- [Publishing maintenance releases](maintenance-releases.md)
+- [Publishing pre-releases](pre-releases.md)

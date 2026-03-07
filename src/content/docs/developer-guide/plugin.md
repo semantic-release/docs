@@ -4,15 +4,15 @@ title: "Plugin development"
 
 To create a plugin for `semantic-release`, you need to decide which parts of the release lifecycle are important to that plugin. For example, it is best to always have a `verifyConditions` step because you may be receiving inputs from a user and want to make sure they exist. A plugin can abide by any of the following lifecycles:
 
-* `verifyConditions`
-* `analyzeCommits`
-* `verifyRelease`
-* `generateNotes`
-* `addChannel`
-* `prepare`
-* `publish`
-* `success`
-* `fail`
+- `verifyConditions`
+- `analyzeCommits`
+- `verifyRelease`
+- `generateNotes`
+- `addChannel`
+- `prepare`
+- `publish`
+- `success`
+- `fail`
 
 `semantic-release` will require the plugin via `node` and look through the required object for methods named like the lifecycles stated above. For example, if your plugin only had a `verifyConditions` and `success` step, the `main` file for your object would need to `export` an object with `verifyConditions` and `success` functions.
 
@@ -103,9 +103,9 @@ if (message.length) {
 
 ### Common context keys
 
-* `stdout`
-* `stderr`
-* `logger`
+- `stdout`
+- `stderr`
+- `logger`
 
 ### Context object keys by lifecycle
 
@@ -113,86 +113,86 @@ if (message.length) {
 
 Initially the context object contains the following keys (`verifyConditions` lifecycle):
 
-* `cwd`
-  * Current working directory
-* `env`
-  * Environment variables
-* `envCi`
-  * Information about CI environment
-  * Contains (at least) the following keys:
-    * `isCi`
-      * Boolean, true if the environment is a CI environment
-    * `commit`
-      * Commit hash
-    * `branch`
-      * Current branch
-* `options`
-  * Options passed to `semantic-release` via CLI, configuration files etc.
-* `branch`
-  * Information on the current branch
-  * Object keys:
-    * `channel`
-    * `tags`
-    * `type`
-    * `name`
-    * `range`
-    * `accept`
-    * `main`
-* `branches`
-  * Information on branches
-  * List of branch objects (see above)
+- `cwd`
+  - Current working directory
+- `env`
+  - Environment variables
+- `envCi`
+  - Information about CI environment
+  - Contains (at least) the following keys:
+    - `isCi`
+      - Boolean, true if the environment is a CI environment
+    - `commit`
+      - Commit hash
+    - `branch`
+      - Current branch
+- `options`
+  - Options passed to `semantic-release` via CLI, configuration files etc.
+- `branch`
+  - Information on the current branch
+  - Object keys:
+    - `channel`
+    - `tags`
+    - `type`
+    - `name`
+    - `range`
+    - `accept`
+    - `main`
+- `branches`
+  - Information on branches
+  - List of branch objects (see above)
 
 #### analyzeCommits
 
 Compared to the verifyConditions, `analyzeCommits` lifecycle context has keys
 
-* `commits` (List)
-  * List of commits taken into account when determining the new version.
-  * Keys:
-    * `commit` (Object)
-      * Keys:
-        * `long` (String, Commit hash)
-        * `short` (String, Commit hash)
-    * `tree` (Object)
-      * Keys:
-        * `long` (String, Commit hash)
-        * `short` (String, Commit hash)
-    * `author` (Object)
-      * Keys:
-        * `name` (String)
-        * `email` (String)
-        * `date` (String, ISO 8601 timestamp)
-    * `committer` (Object)
-      * Keys:
-        * `name` (String)
-        * `email` (String)
-        * `date` (String, ISO 8601 timestamp)
-    * `subject` (String, Commit message subject)
-    * `body` (String, Commit message body)
-    * `hash` (String, Commit hash)
-    * `committerDate` (String, ISO 8601 timestamp)
-    * `message` (String)
-    * `gitTags` (String, List of git tags)
-* `releases` (List)
-* `lastRelease` (Object)
-  * Keys
-    * `version` (String)
-    * `gitTag` (String)
-    * `channels` (List)
-    * `gitHead` (String, Commit hash)
-    * `name` (String)
+- `commits` (List)
+  - List of commits taken into account when determining the new version.
+  - Keys:
+    - `commit` (Object)
+      - Keys:
+        - `long` (String, Commit hash)
+        - `short` (String, Commit hash)
+    - `tree` (Object)
+      - Keys:
+        - `long` (String, Commit hash)
+        - `short` (String, Commit hash)
+    - `author` (Object)
+      - Keys:
+        - `name` (String)
+        - `email` (String)
+        - `date` (String, ISO 8601 timestamp)
+    - `committer` (Object)
+      - Keys:
+        - `name` (String)
+        - `email` (String)
+        - `date` (String, ISO 8601 timestamp)
+    - `subject` (String, Commit message subject)
+    - `body` (String, Commit message body)
+    - `hash` (String, Commit hash)
+    - `committerDate` (String, ISO 8601 timestamp)
+    - `message` (String)
+    - `gitTags` (String, List of git tags)
+- `releases` (List)
+- `lastRelease` (Object)
+  - Keys
+    - `version` (String)
+    - `gitTag` (String)
+    - `channels` (List)
+    - `gitHead` (String, Commit hash)
+    - `name` (String)
 
 #### verifyRelease
 
 Additional keys:
 
-* `nextRelease` (Object)
-  * `type` (String)
-  * `channel` (String)
-  * `gitHead` (String, Git hash)
-  * `version` (String, version without `v`)
-  * `gitTag` (String, version with `v`)
-  * `name` (String)
+- `nextRelease` (Object)
+  - `type` (String)
+  - `channel` (String)
+  - `gitHead` (String, Git hash)
+  - `version` (String, version without `v`)
+  - `gitTag` (String, version with `v`)
+  - `name` (String)
 
 #### generateNotes
 
@@ -218,8 +218,8 @@ Lifecycles `success` and `fail` are mutually exclusive, only one of them will be
 
 Additional keys:
 
-* `releases`
-  * Populated by `publish` lifecycle
+- `releases`
+  - Populated by `publish` lifecycle
 
 #### fail
 
@@ -227,7 +227,7 @@ Lifecycles `success` and `fail` are mutually exclusive, only one of them will be
 
 Additional keys:
 
-* `errors`
+- `errors`
 
 ### Supporting Environment Variables
 
@@ -275,12 +275,12 @@ While it may be trivial that multiple analyzeCommits (or any lifecycle plugins) 
 
 The commit must be a known release type, for example the commit-analyzer has the following default types:
 
-* major
-* premajor
-* minor
-* preminor
-* patch
-* prepatch
-* prerelease
+- major
+- premajor
+- minor
+- preminor
+- patch
+- prepatch
+- prerelease
 
 If the analyzeCommits-lifecycle plugin does not return anything, then the earlier result is used, but if it returns a supported string value, then that overrides the previous result.

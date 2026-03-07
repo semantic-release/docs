@@ -4,10 +4,10 @@ title: "Release Workflow configuration"
 
 **semantic-release** enables managing and automating complex release workflow, based on multiple Git branches and distribution channels. This enables:
 
-* Distributing certain releases to a particular group of users via distribution channels
-* Managing the availability of releases on distribution channels via branches merge
-* Maintaining multiple lines of releases in parallel
-* Working on large future releases outside the normal flow of one version increment per Git push
+- Distributing certain releases to a particular group of users via distribution channels
+- Managing the availability of releases on distribution channels via branches merge
+- Maintaining multiple lines of releases in parallel
+- Working on large future releases outside the normal flow of one version increment per Git push
 
 See [Release workflow recipes](../recipes/release-workflow/#release-workflow) for detailed examples.
 
@@ -15,9 +15,9 @@ The release workflow is configured via the [branches option](configuration.md#br
 
 A branch can be defined as one of three types:
 
-* [release](workflow-configuration.md#release-branches): to make releases on top of the last version released
-* [maintenance](workflow-configuration.md#maintenance-branches): to make releases on top of an old release
-* [pre-release](workflow-configuration.md#pre-release-branches): to make pre-releases
+- [release](workflow-configuration.md#release-branches): to make releases on top of the last version released
+- [maintenance](workflow-configuration.md#maintenance-branches): to make releases on top of an old release
+- [pre-release](workflow-configuration.md#pre-release-branches): to make pre-releases
 
 The type of the branch is automatically determined based on naming convention and/or [properties](workflow-configuration.md#branches-properties).
 
@@ -118,8 +118,8 @@ See [publishing on distribution channels recipe](../recipes/release-workflow/dis
 
 With the configuration `"branches": ["master", "next"]`, if the last release published from `master` is `1.0.0` and the last one from `next` is `2.0.0` then:
 
-* Only versions in range `1.x.x` can be published from `master`, so only `fix` and `feat` commits can be pushed to `master`
-* Once `next` get merged into `master` the release `2.0.0` will be made available on the channel associated with `master` and both `master` and `next` will accept any commit type
+- Only versions in range `1.x.x` can be published from `master`, so only `fix` and `feat` commits can be pushed to `master`
+- Once `next` get merged into `master` the release `2.0.0` will be made available on the channel associated with `master` and both `master` and `next` will accept any commit type
 
 This verification prevent scenario such as:
 
@@ -154,18 +154,18 @@ See [publishing maintenance releases recipe](../recipes/release-workflow/mainten
 
 With the configuration `"branches": ["1.0.x", "1.x", "master"]`, if the last release published from `master` is `1.5.0` then:
 
-* Only versions in range `>=1.0.0 <1.1.0` can be published from `1.0.x`, so only `fix` commits can be pushed to `1.0.x`
-* Only versions in range `>=1.1.0 <1.5.0` can be published from `1.x`, so only `fix` and `feat` commits can be pushed to `1.x` as long the resulting release is lower than `1.5.0`
-* Once `2.0.0` is released from `master`, versions in range `>=1.1.0 <2.0.0` can be published from `1.x`, so any number of `fix` and `feat` commits can be pushed to `1.x`
+- Only versions in range `>=1.0.0 <1.1.0` can be published from `1.0.x`, so only `fix` commits can be pushed to `1.0.x`
+- Only versions in range `>=1.1.0 <1.5.0` can be published from `1.x`, so only `fix` and `feat` commits can be pushed to `1.x` as long the resulting release is lower than `1.5.0`
+- Once `2.0.0` is released from `master`, versions in range `>=1.1.0 <2.0.0` can be published from `1.x`, so any number of `fix` and `feat` commits can be pushed to `1.x`
 
 #### Merging into a maintenance branch
 
 With the configuration `"branches": ["1.0.x", "1.x", "master"]`, if the last release published from `master` is `1.0.0` then:
 
-* Creating the branch `1.0.x` from `master` will make the `1.0.0` release available on the `1.0.x` distribution channel
-* Pushing a `fix` commit on the `1.0.x` branch will release the version `1.0.1` on the `1.0.x` distribution channel
-* Creating the branch `1.x` from `master` will make the `1.0.0` release available on the `1.x` distribution channel
-* Merging the branch `1.0.x` into `1.x` will make the version `1.0.1` available on the `1.x` distribution channel
+- Creating the branch `1.0.x` from `master` will make the `1.0.0` release available on the `1.0.x` distribution channel
+- Pushing a `fix` commit on the `1.0.x` branch will release the version `1.0.1` on the `1.0.x` distribution channel
+- Creating the branch `1.x` from `master` will make the `1.0.0` release available on the `1.x` distribution channel
+- Merging the branch `1.0.x` into `1.x` will make the version `1.0.1` available on the `1.x` distribution channel
 
 ### Pre-release branches
 
@@ -183,12 +183,12 @@ See [publishing pre-releases recipe](../recipes/release-workflow/pre-releases.md
 
 With the configuration `"branches": ["master", {"name": "beta", "prerelease": true}]`, if the last release published from `master` is `1.0.0` then:
 
-* Pushing a `BREAKING CHANGE` commit on the `beta` branch will release the version `2.0.0-beta.1` on the `beta` distribution channel
-* Pushing either a `fix`, `feat` or a `BREAKING CHANGE` commit on the `beta` branch will release the version `2.0.0-beta.2` (then `2.0.0-beta.3`, `2.0.0-beta.4`, etc...) on the `beta` distribution channel
+- Pushing a `BREAKING CHANGE` commit on the `beta` branch will release the version `2.0.0-beta.1` on the `beta` distribution channel
+- Pushing either a `fix`, `feat` or a `BREAKING CHANGE` commit on the `beta` branch will release the version `2.0.0-beta.2` (then `2.0.0-beta.3`, `2.0.0-beta.4`, etc...) on the `beta` distribution channel
 
 #### Merging into a pre-release branch
 
 With the configuration `"branches": ["master", {"name": "beta", "prerelease": true}]`, if the last release published from `master` is `1.0.0` and the last one published from `beta` is `2.0.0-beta.1` then:
 
-* Pushing a `fix` commit on the `master` branch will release the version `1.0.1` on the default distribution channel
-* Merging the branch `master` into `beta` will release the version `2.0.0-beta.2` on the `beta` distribution channel
+- Pushing a `fix` commit on the `master` branch will release the version `1.0.1` on the default distribution channel
+- Merging the branch `master` into `beta` will release the version `2.0.0-beta.2` on the `beta` distribution channel

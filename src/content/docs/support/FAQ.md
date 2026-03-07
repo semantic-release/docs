@@ -24,8 +24,8 @@ While the [`@semantic-release/git`](https://github.com/semantic-release/git) ena
 
 Making commits and pushing them back to the repository adds significant additional complexity to your release process that can be avoided:
 
-* Branch protection configuration must account for allowing the release user account to bypass restrictions enforced for human contributors, which might require elevating the access level of the release user beyond what would otherwise be desired/considered secure.
-* Pre-commit hooks configured for a project, which is a popular practice when enabling [commitlint](https://commitlint.js.org/) through [husky](https://typicode.github.io/husky/), for example, must be accounted for in the release process. (We recommend disabling tools like this for automated commits, but you need to decide what is appropriate for your project)
+- Branch protection configuration must account for allowing the release user account to bypass restrictions enforced for human contributors, which might require elevating the access level of the release user beyond what would otherwise be desired/considered secure.
+- Pre-commit hooks configured for a project, which is a popular practice when enabling [commitlint](https://commitlint.js.org/) through [husky](https://typicode.github.io/husky/), for example, must be accounted for in the release process. (We recommend disabling tools like this for automated commits, but you need to decide what is appropriate for your project)
 
 ### There are valid reasons to commit during a release
 
@@ -47,8 +47,8 @@ As the [`@semantic-release/npm`](https://github.com/semantic-release/npm) plugin
 
 You can run your build script in:
 
-* the `prepublishOnly` or `prepack` hook so it will be executed during the `publish` step of `@semantic-release/npm`
-* the `postversion` hook so it will be executed during the `prepare` step of `@semantic-release/npm`, which allow for example to update files before committing them with the [`@semantic-release/git`](https://github.com/semantic-release/git) plugin
+- the `prepublishOnly` or `prepack` hook so it will be executed during the `publish` step of `@semantic-release/npm`
+- the `postversion` hook so it will be executed during the `prepare` step of `@semantic-release/npm`, which allow for example to update files before committing them with the [`@semantic-release/git`](https://github.com/semantic-release/git) plugin
 
 If using npm hook scripts is not possible, and alternative solution is to [`@semantic-release/exec`](https://github.com/semantic-release/exec) plugin to run your script in the `prepare` step:
 
@@ -78,9 +78,9 @@ Yes, **semantic-release** is a Node CLI application, but it can be used to publi
 
 To publish a non-Node package (without a `package.json`) you would need to:
 
-* Use a [global](../usage/installation.md#global-installation) **semantic-release** installation
-* Set **semantic-release** [options](../usage/configuration.md#options) via [CLI arguments or `.rc` file](../usage/configuration.md#configuration)
-* Make sure your CI job executing the `semantic-release` command has access to a version of Node that [meets our version requirement](node-version.md) to execute the `semantic-release` command
+- Use a [global](../usage/installation.md#global-installation) **semantic-release** installation
+- Set **semantic-release** [options](../usage/configuration.md#options) via [CLI arguments or `.rc` file](../usage/configuration.md#configuration)
+- Make sure your CI job executing the `semantic-release` command has access to a version of Node that [meets our version requirement](node-version.md) to execute the `semantic-release` command
 
 See the [CI configuration recipes](../recipes/release-workflow/#ci-configurations) for more details on specific CI environments.
 
@@ -115,8 +115,8 @@ See the [package managers and languages recipes](../recipes/release-workflow/#pa
 
 Yes, **semantic-release** can be used with any CI service, as long as it provides:
 
-* A way to set [authentication](../usage/ci-configuration.md#authentication) via environment variables
-* A way to guarantee that the `semantic-release` command is [executed only after all the tests of all the jobs in the CI build pass](../usage/ci-configuration.md#run-semantic-release-only-after-all-tests-succeeded)
+- A way to set [authentication](../usage/ci-configuration.md#authentication) via environment variables
+- A way to guarantee that the `semantic-release` command is [executed only after all the tests of all the jobs in the CI build pass](../usage/ci-configuration.md#run-semantic-release-only-after-all-tests-succeeded)
 
 See the [CI configuration recipes](../recipes/release-workflow/#ci-configurations) for more details on specific CI environments.
 
@@ -152,8 +152,8 @@ See the [`@semantic-release/npm`](https://github.com/semantic-release/npm#semant
 
 If you have introduced a breaking bug in a release you have 2 options:
 
-* If you have a fix immediately ready, commit and push it (or merge it via a pull request) to the release branch
-* Otherwise, [revert the commit](https://git-scm.com/docs/git-revert) that introduced the bug and push the revert commit (or merge it via a pull request) to the release branch
+- If you have a fix immediately ready, commit and push it (or merge it via a pull request) to the release branch
+- Otherwise, [revert the commit](https://git-scm.com/docs/git-revert) that introduced the bug and push the revert commit (or merge it via a pull request) to the release branch
 
 In both cases **semantic-release** will publish a new release, so your package users will get the fixed/reverted version.
 

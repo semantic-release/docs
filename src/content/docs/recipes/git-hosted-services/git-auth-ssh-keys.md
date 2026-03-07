@@ -24,7 +24,7 @@ This will generate a public key in `git_deploy_key.pub` and a private key in `gi
 
 Step by step instructions are provided for the following Git hosted services:
 
-* [GitHub](git-auth-ssh-keys.md#adding-the-ssh-public-key-to-github)
+- [GitHub](git-auth-ssh-keys.md#adding-the-ssh-public-key-to-github)
 
 ### Adding the SSH public key to GitHub
 
@@ -48,8 +48,8 @@ In order to be available on the CI environment, the SSH private key must be encr
 
 Step by step instructions are provided for the following environments:
 
-* [Travis CI](git-auth-ssh-keys.md#adding-the-ssh-private-key-to-travis-ci)
-* [Circle CI](git-auth-ssh-keys.md#adding-the-ssh-private-key-to-circle-ci)
+- [Travis CI](git-auth-ssh-keys.md#adding-the-ssh-private-key-to-travis-ci)
+- [Circle CI](git-auth-ssh-keys.md#adding-the-ssh-private-key-to-circle-ci)
 
 ### Adding the SSH private key to Travis CI
 
@@ -124,9 +124,9 @@ iv =VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV
 
 Add the following [environment variables](https://circleci.com/docs/2.0/env-vars/#adding-environment-variables-in-the-app) to Circle CI:
 
-* `SSL_PASSPHRASE` - the value set during the [SSH keys generation](git-auth-ssh-keys.md#generating-the-ssh-keys) step.
-* `REPO_ENC_KEY` - the `key` (KKK) value from the `openssl` step above.
-* `REPO_ENC_IV` - the `iv` (VVV) value from the `openssl` step above.
+- `SSL_PASSPHRASE` - the value set during the [SSH keys generation](git-auth-ssh-keys.md#generating-the-ssh-keys) step.
+- `REPO_ENC_KEY` - the `key` (KKK) value from the `openssl` step above.
+- `REPO_ENC_IV` - the `iv` (VVV) value from the `openssl` step above.
 
 Then add to your `.circleci/config.yml` the commands to decrypt the ssh private key and make it available to `git`:
 

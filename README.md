@@ -14,17 +14,17 @@ This removes the immediate connection between human emotions and version numbers
 
 ## Highlights
 
-* Fully automated release
-* Enforce [Semantic Versioning](https://semver.org) specification
-* New features and fixes are immediately available to users
-* Notify maintainers and users of new releases
-* Use formalized commit message convention to document changes in the codebase
-* Publish on different distribution channels (such as [npm dist-tags](https://docs.npmjs.com/cli/dist-tag)) based on git merges
-* Integrate with your [continuous integration workflow](docs/recipes/release-workflow/#ci-configurations)
-* Avoid potential errors associated with manual releases
-* Support any [package managers and languages](docs/recipes/release-workflow/#package-managers-and-languages) via [plugins](docs/usage/plugins.md)
-* Simple and reusable configuration via [shareable configurations](docs/usage/shareable-configurations.md)
-* Support for [npm package provenance](https://github.com/semantic-release/npm#npm-provenance) that promotes increased supply-chain security via signed attestations on GitHub Actions
+- Fully automated release
+- Enforce [Semantic Versioning](https://semver.org) specification
+- New features and fixes are immediately available to users
+- Notify maintainers and users of new releases
+- Use formalized commit message convention to document changes in the codebase
+- Publish on different distribution channels (such as [npm dist-tags](https://docs.npmjs.com/cli/dist-tag)) based on git merges
+- Integrate with your [continuous integration workflow](docs/recipes/release-workflow/#ci-configurations)
+- Avoid potential errors associated with manual releases
+- Support any [package managers and languages](docs/recipes/release-workflow/#package-managers-and-languages) via [plugins](docs/usage/plugins.md)
+- Simple and reusable configuration via [shareable configurations](docs/usage/shareable-configurations.md)
+- Support for [npm package provenance](https://github.com/semantic-release/npm#npm-provenance) that promotes increased supply-chain security via signed attestations on GitHub Actions
 
 ## How does it work?
 
@@ -54,9 +54,9 @@ For each new commit added to one of the release branches (for example: `master`,
 
 **semantic-release** offers various ways to control the timing, the content and the audience of published releases. See example workflows in the following recipes:
 
-* [Using distribution channels](docs/recipes/release-workflow/distribution-channels.md#publishing-on-distribution-channels)
-* [Maintenance releases](docs/recipes/release-workflow/maintenance-releases.md#publishing-maintenance-releases)
-* [Pre-releases](docs/recipes/release-workflow/pre-releases.md#publishing-pre-releases)
+- [Using distribution channels](docs/recipes/release-workflow/distribution-channels.md#publishing-on-distribution-channels)
+- [Maintenance releases](docs/recipes/release-workflow/maintenance-releases.md#publishing-maintenance-releases)
+- [Pre-releases](docs/recipes/release-workflow/pre-releases.md#publishing-pre-releases)
 
 ### Release steps
 
@@ -78,43 +78,43 @@ After running the tests, the command `semantic-release` will execute the followi
 
 In order to use **semantic-release** you need:
 
-* To host your code in a [Git repository](https://git-scm.com)
-* Use a Continuous Integration service that allows you to [securely set up credentials](docs/usage/ci-configuration.md#authentication)
-* A Git CLI version that meets [our version requirement](docs/support/git-version.md) installed in your Continuous Integration environment
-* A [Node.js](https://nodejs.org) version that meets [our version requirement](docs/support/node-version.md) installed in your Continuous Integration environment
+- To host your code in a [Git repository](https://git-scm.com)
+- Use a Continuous Integration service that allows you to [securely set up credentials](docs/usage/ci-configuration.md#authentication)
+- A Git CLI version that meets [our version requirement](docs/support/git-version.md) installed in your Continuous Integration environment
+- A [Node.js](https://nodejs.org) version that meets [our version requirement](docs/support/node-version.md) installed in your Continuous Integration environment
 
 ## Documentation
 
-* Usage
-  * [Getting started](docs/usage/getting-started.md)
-  * [Installation](docs/usage/installation.md)
-  * [CI Configuration](docs/usage/ci-configuration.md)
-  * [Configuration](docs/usage/configuration.md#configuration)
-  * [Plugins](docs/usage/plugins.md)
-  * [Workflow configuration](docs/usage/workflow-configuration.md)
-  * [Shareable configurations](docs/usage/shareable-configurations.md)
-* Extending
-  * [Plugins](docs/extending/plugins-list.md)
-  * [Shareable configuration](docs/extending/shareable-configurations-list.md)
-* Recipes
-  * [CI configurations](docs/recipes/ci-configurations/)
-  * [Git hosted services](docs/recipes/git-hosted-services/)
-  * [Release workflow](docs/recipes/release-workflow/)
-* Developer guide
-  * [JavaScript API](docs/developer-guide/js-api.md)
-  * [Plugins development](docs/developer-guide/plugin.md)
-  * [Shareable configuration development](docs/developer-guide/shareable-configuration.md)
-* Support
-  * [Resources](docs/support/resources.md)
-  * [Frequently Asked Questions](docs/support/FAQ.md)
-  * [Troubleshooting](docs/support/troubleshooting.md)
-  * [Node version requirement](docs/support/node-version.md)
-  * [Node Support Policy](docs/support/node-support-policy.md)
+- Usage
+  - [Getting started](docs/usage/getting-started.md)
+  - [Installation](docs/usage/installation.md)
+  - [CI Configuration](docs/usage/ci-configuration.md)
+  - [Configuration](docs/usage/configuration.md#configuration)
+  - [Plugins](docs/usage/plugins.md)
+  - [Workflow configuration](docs/usage/workflow-configuration.md)
+  - [Shareable configurations](docs/usage/shareable-configurations.md)
+- Extending
+  - [Plugins](docs/extending/plugins-list.md)
+  - [Shareable configuration](docs/extending/shareable-configurations-list.md)
+- Recipes
+  - [CI configurations](docs/recipes/ci-configurations/)
+  - [Git hosted services](docs/recipes/git-hosted-services/)
+  - [Release workflow](docs/recipes/release-workflow/)
+- Developer guide
+  - [JavaScript API](docs/developer-guide/js-api.md)
+  - [Plugins development](docs/developer-guide/plugin.md)
+  - [Shareable configuration development](docs/developer-guide/shareable-configuration.md)
+- Support
+  - [Resources](docs/support/resources.md)
+  - [Frequently Asked Questions](docs/support/FAQ.md)
+  - [Troubleshooting](docs/support/troubleshooting.md)
+  - [Node version requirement](docs/support/node-version.md)
+  - [Node Support Policy](docs/support/node-support-policy.md)
 
 ## Get help
 
-* [GitHub Discussions](https://github.com/semantic-release/semantic-release/discussions)
-* [Stack Overflow](https://stackoverflow.com/questions/tagged/semantic-release)
+- [GitHub Discussions](https://github.com/semantic-release/semantic-release/discussions)
+- [Stack Overflow](https://stackoverflow.com/questions/tagged/semantic-release)
 
 ## Badge
 

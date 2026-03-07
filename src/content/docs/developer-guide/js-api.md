@@ -39,14 +39,14 @@ try {
       // Store stdout and stderr to use later instead of writing to `process.stdout` and `process.stderr`
       stdout: stdoutBuffer,
       stderr: stderrBuffer,
-    }
+    },
   );
 
   if (result) {
     const { lastRelease, commits, nextRelease, releases } = result;
 
     console.log(
-      `Published ${nextRelease.type} release version ${nextRelease.version} containing ${commits.length} commits.`
+      `Published ${nextRelease.type} release version ${nextRelease.version} containing ${commits.length} commits.`,
     );
 
     if (lastRelease.version) {
@@ -54,7 +54,9 @@ try {
     }
 
     for (const release of releases) {
-      console.log(`The release was published with plugin "${release.pluginName}".`);
+      console.log(
+        `The release was published with plugin "${release.pluginName}".`,
+      );
     }
   } else {
     console.log("No release published.");

@@ -49,7 +49,11 @@ Each plugin must be configured with the [`plugins` options](configuration.md#plu
 
 ```json
 {
-  "plugins": ["@semantic-release/commit-analyzer", "@semantic-release/release-notes-generator", "@semantic-release/npm"]
+  "plugins": [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/npm"
+  ]
 }
 ```
 
@@ -70,11 +74,11 @@ For each [release step](../../#release-steps) the plugins that implement that st
 
 With this configuration **semantic-release** will:
 
-* execute the `verifyConditions` implementation of `@semantic-release/npm` then `@semantic-release/git`
-* execute the `analyzeCommits` implementation of `@semantic-release/commit-analyzer`
-* execute the `generateNotes` implementation of `@semantic-release/release-notes-generator`
-* execute the `prepare` implementation of `@semantic-release/npm` then `@semantic-release/git`
-* execute the `publish` implementation of `@semantic-release/npm`
+- execute the `verifyConditions` implementation of `@semantic-release/npm` then `@semantic-release/git`
+- execute the `analyzeCommits` implementation of `@semantic-release/commit-analyzer`
+- execute the `generateNotes` implementation of `@semantic-release/release-notes-generator`
+- execute the `prepare` implementation of `@semantic-release/npm` then `@semantic-release/git`
+- execute the `publish` implementation of `@semantic-release/npm`
 
 Order is first determined by release steps (such as `verifyConditions` → `analyzeCommits`). At each release step, plugins are executed in the order in which they are defined.
 
@@ -103,5 +107,5 @@ Global plugin configuration can be defined at the root of the **semantic-release
 
 With this configuration:
 
-* All plugins will receive the `preset` option, which will be used by both `@semantic-release/commit-analyzer` and `@semantic-release/release-notes-generator` (and ignored by `@semantic-release/github` and `@semantic-release/git`)
-* The `@semantic-release/github` plugin will receive the `assets` options (`@semantic-release/git` will not receive it and therefore will use it's default value for that option)
+- All plugins will receive the `preset` option, which will be used by both `@semantic-release/commit-analyzer` and `@semantic-release/release-notes-generator` (and ignored by `@semantic-release/github` and `@semantic-release/git`)
+- The `@semantic-release/github` plugin will receive the `assets` options (`@semantic-release/git` will not receive it and therefore will use it's default value for that option)
