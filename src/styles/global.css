@@ -32,3 +32,11 @@
 [data-has-hero] .hero > img {
   filter: drop-shadow(0 0 3rem var(--overlay-blurple));
 }
+
+[data-open-modal], 
+[data-open-modal] kbd, 
+article.card, 
+[aria-current=page], 
+.pagination-links a {
+  @apply rounded
+}
