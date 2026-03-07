@@ -10,8 +10,8 @@ export default defineConfig({
     starlight({
       title: "Semantic Release",
       logo: {
-        light: "./src/assets/sr-logo-light.svg",
-        dark: "./src/assets/sr-logo-dark.svg",
+        light: "~/assets/sr-logo-light.svg",
+        dark: "~/assets/sr-logo-dark.svg",
         replacesTitle: true,
         alt: "Semantic Release",
       },
@@ -22,7 +22,7 @@ export default defineConfig({
           href: "https://github.com/semantic-release/semantic-release",
         },
       ],
-      customCss: ["./src/styles/global.css"],
+      customCss: ["~/styles/global.css"],
       sidebar: [
         {
           label: "Introduction",
