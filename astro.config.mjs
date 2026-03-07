@@ -2,6 +2,8 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 
+import tailwindcss from "@tailwindcss/vite";
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [
@@ -20,6 +22,7 @@ export default defineConfig({
           href: "https://github.com/semantic-release/semantic-release",
         },
       ],
+      customCss: ["./src/styles/global.css"],
       sidebar: [
         {
           label: "Introduction",
@@ -98,4 +101,8 @@ export default defineConfig({
       ],
     }),
   ],
+
+  vite: {
+    plugins: [tailwindcss()],
+  },
 });
