@@ -57,3 +57,7 @@ article.card,
 .pagination-links a {
   @apply rounded
 }
+
+[data-has-sidebar] .main-pane .sl-container {
+  @apply max-w-3xl mx-auto;
+}
