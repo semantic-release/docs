@@ -83,34 +83,6 @@ In order to use **semantic-release** you need:
 - A Git CLI version that meets [our version requirement](docs/support/git-version.md) installed in your Continuous Integration environment
 - A [Node.js](https://nodejs.org) version that meets [our version requirement](docs/support/node-version.md) installed in your Continuous Integration environment
 
-## Documentation
-
-- Usage
-  - [Getting started](docs/usage/getting-started.md)
-  - [Installation](docs/usage/installation.md)
-  - [CI Configuration](docs/usage/ci-configuration.md)
-  - [Configuration](docs/usage/configuration.md#configuration)
-  - [Plugins](docs/usage/plugins.md)
-  - [Workflow configuration](docs/usage/workflow-configuration.md)
-  - [Shareable configurations](docs/usage/shareable-configurations.md)
-- Extending
-  - [Plugins](docs/extending/plugins-list.md)
-  - [Shareable configuration](docs/extending/shareable-configurations-list.md)
-- Recipes
-  - [CI configurations](docs/recipes/ci-configurations/)
-  - [Git hosted services](docs/recipes/git-hosted-services/)
-  - [Release workflow](docs/recipes/release-workflow/)
-- Developer guide
-  - [JavaScript API](docs/developer-guide/js-api.md)
-  - [Plugins development](docs/developer-guide/plugin.md)
-  - [Shareable configuration development](docs/developer-guide/shareable-configuration.md)
-- Support
-  - [Resources](docs/support/resources.md)
-  - [Frequently Asked Questions](docs/support/FAQ.md)
-  - [Troubleshooting](docs/support/troubleshooting.md)
-  - [Node version requirement](docs/support/node-version.md)
-  - [Node Support Policy](docs/support/node-support-policy.md)
-
 ## Get help
 
 - [GitHub Discussions](https://github.com/semantic-release/semantic-release/discussions)
