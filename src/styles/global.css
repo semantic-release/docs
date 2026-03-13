@@ -24,6 +24,7 @@
 :root {
   --purple-hsl: 255, 60%, 60%;
   --overlay-blurple: hsla(var(--purple-hsl), 0.2);
+  scroll-behavior: smooth;
 }
 
 :root[data-theme="light"] {
@@ -51,10 +52,13 @@
 }
 
 [data-open-modal],
+dialog,
 [data-open-modal] kbd,
 article.card,
 [aria-current="page"],
-.pagination-links a {
+.pagination-links a,
+.dialog-frame,
+dialog-frame {
   @apply rounded;
 }
 
