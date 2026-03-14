@@ -1,4 +1,3 @@
-import { type CollectionEntry, getCollection } from "astro:content";
 import satori from "satori";
 import sharp from "sharp";
 import fs from "node:fs";
@@ -14,10 +13,7 @@ const logoSvg = fs.readFileSync(
 );
 const logoBase64 = `data:image/svg+xml;base64,${logoSvg.toString("base64")}`;
 
-async function loadGoogleFont(
-  family: string,
-  weight: number,
-): Promise<ArrayBuffer> {
+async function loadGoogleFont(family, weight) {
   const url = `https://fonts.googleapis.com/css2?family=${family}:wght@${weight}&display=swap`;
   const cssRes = await fetch(url);
   const css = await cssRes.text();
@@ -29,7 +25,7 @@ async function loadGoogleFont(
 
 export async function getStaticPaths() {
   const docs = await getCollection("docs");
-  return docs.map((doc: CollectionEntry<"docs">) => ({
+  return docs.map((doc) => ({
     params: { slug: doc.id || undefined },
     props: {
       title: doc.data.title,
@@ -39,13 +35,7 @@ export async function getStaticPaths() {
   }));
 }
 
-interface Props {
-  title: string;
-  description?: string;
-  slug: string;
-}
-
-export async function GET({ props }: { props: Props }) {
+export async function GET({ props }) {
   const { title, description, slug } = props;
 
   const segments = slug.split("/").filter((s) => s && s !== "index");
