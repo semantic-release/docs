@@ -3,7 +3,9 @@ import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import tailwindcss from "@tailwindcss/vite";
 
-const site = "https://semantic-release.org/";
+const VERCEL_PREVIEW_SITE = process.env.VERCEL_ENV !== "production" && `https://${process.env.VERCEL_BRANCH_URL}`;
+
+const site = VERCEL_PREVIEW_SITE ||"https://semantic-release.org/";
 
 // https://astro.build/config
 export default defineConfig({
