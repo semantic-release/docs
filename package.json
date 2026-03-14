@@ -1,0 +1,41 @@
+{
+  "name": "@semantic-release/docs",
+  "type": "module",
+  "version": "0.0.0-development",
+  "author": "Olabode Lawal-Shittabey (http://babblebey.dev)",
+  "bugs": {
+    "url": "https://github.com/semantic-release/docs/issues"
+  },
+  "contributors": [
+    "Gregor Martynus (https://twitter.com/gr2m)",
+    "Pierre Vanduynslager (https://twitter.com/@pvdlg_)",
+    "Matt Travi <npm@travi.org> (https://matt.travi.org/)"
+  ],
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "lint": "prettier --check .",
+    "lint:fix": "prettier --write ."
+  },
+  "dependencies": {
+    "@astrojs/starlight": "^0.37.7",
+    "@astrojs/starlight-tailwind": "^4.0.2",
+    "@tailwindcss/vite": "^4.2.1",
+    "astro": "^5.6.1",
+    "satori": "^0.25.0",
+    "satori-html": "^0.3.2",
+    "sharp": "^0.34.2",
+    "tailwindcss": "^4.2.1"
+  },
+  "devDependencies": {
+    "prettier": "^3.8.1",
+    "prettier-plugin-astro": "^0.14.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/semantic-release/docs.git"
+  }
+}

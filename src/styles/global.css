@@ -1,0 +1,78 @@
+@layer base, starlight, theme, components, utilities;
+
+@import "@astrojs/starlight-tailwind";
+@import "tailwindcss/theme.css" layer(theme);
+@import "tailwindcss/utilities.css" layer(utilities);
+
+@theme {
+  /* Generated accent color palettes. */
+  --color-accent-200: #b3c7ff;
+  --color-accent-600: #364bff;
+  --color-accent-900: #182775;
+  --color-accent-950: #131e4f;
+  /* Generated gray color palettes. */
+  --color-gray-100: #f5f6f8;
+  --color-gray-200: #eceef2;
+  --color-gray-300: #c0c2c7;
+  --color-gray-400: #888b96;
+  --color-gray-500: #545861;
+  --color-gray-700: #353841;
+  --color-gray-800: #24272f;
+  --color-gray-900: #17181c;
+}
+
+:root {
+  --purple-hsl: 255, 60%, 60%;
+  --overlay-blurple: hsla(var(--purple-hsl), 0.2);
+  scroll-behavior: smooth;
+}
+
+:root[data-theme="light"] {
+  --purple-hsl: 255, 85%, 65%;
+}
+
+[data-has-hero] .page {
+  background:
+    linear-gradient(215deg, var(--overlay-blurple), transparent 40%),
+    radial-gradient(var(--overlay-blurple), transparent 40%)
+      no-repeat -60vw -40vh / 105vw 200vh,
+    radial-gradient(var(--overlay-blurple), transparent 65%) no-repeat 50%
+      calc(100% + 20rem) / 60rem 30rem;
+}
+
+[data-has-hero] header {
+  border-bottom: 1px solid transparent;
+  background-color: transparent;
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+[data-has-hero] .hero > img {
+  filter: drop-shadow(0 0 3rem var(--overlay-blurple));
+}
+
+[data-open-modal],
+dialog,
+[data-open-modal] kbd,
+article.card,
+[aria-current="page"],
+.pagination-links a,
+.dialog-frame,
+.pagefind-ui__search-input,
+dialog-frame {
+  @apply rounded;
+}
+
+[data-has-sidebar] .main-pane .sl-container {
+  @apply max-w-3xl mx-auto;
+}
+
+@media (min-width: 72rem) {
+  [data-has-sidebar][data-has-toc] .main-pane {
+    width: calc(100% - var(--sl-sidebar-width));
+  }
+
+  .right-sidebar-container {
+    width: var(--sl-sidebar-width);
+  }
+}

@@ -1,0 +1,13 @@
+---
+import Default from "@astrojs/starlight/components/Head.astro";
+
+const { pathname } = Astro.url;
+const slug = pathname.replace(/^\/|\/$/g, "");
+const ogImagePath = slug ? `/og/${slug}.png` : "/og/index.png";
+const ogImageUrl = new URL(ogImagePath, Astro.url.origin);
+---
+
+<Default {...Astro.props}><slot /></Default>
+<meta property="og:image" content={ogImageUrl.href} />
+<meta name="twitter:image" content={ogImageUrl.href} />
+<meta name="twitter:card" content="summary_large_image" />
