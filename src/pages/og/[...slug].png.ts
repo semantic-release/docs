@@ -31,7 +31,11 @@ export async function getStaticPaths() {
   const docs = await getCollection("docs");
   return docs.map((doc: CollectionEntry<"docs">) => ({
     params: { slug: doc.id || undefined },
-    props: { title: doc.data.title, description: doc.data.description, slug: doc.id || "" },
+    props: {
+      title: doc.data.title,
+      description: doc.data.description,
+      slug: doc.id || "",
+    },
   }));
 }
 
@@ -60,7 +64,8 @@ export async function GET({ props }: { props: Props }) {
           display: "flex",
           width: "100%",
           height: "100%",
-          background: "linear-gradient(135deg, #17181c 0%, #1e1f3b 50%, #17181c 100%)",
+          background:
+            "linear-gradient(135deg, #17181c 0%, #1e1f3b 50%, #17181c 100%)",
           padding: "60px",
           fontFamily: "Inter",
           color: "#ffffff",
@@ -78,7 +83,8 @@ export async function GET({ props }: { props: Props }) {
                 right: 0,
                 width: "600px",
                 height: "100%",
-                background: "radial-gradient(circle at 80% 50%, rgba(54, 75, 255, 0.15), transparent 70%)",
+                background:
+                  "radial-gradient(circle at 80% 50%, rgba(54, 75, 255, 0.15), transparent 70%)",
               },
             },
           },
@@ -124,7 +130,10 @@ export async function GET({ props }: { props: Props }) {
                             letterSpacing: "-0.03em",
                             color: "#ffffff",
                           },
-                          children: title.length > 60 ? title.slice(0, 57) + "..." : title,
+                          children:
+                            title.length > 60
+                              ? title.slice(0, 57) + "..."
+                              : title,
                         },
                       },
                       ...(description
