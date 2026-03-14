@@ -33,6 +33,7 @@ export default defineConfig({
       components: {
         Hero: "~/components/Hero.astro",
         Header: "~/components/Header.astro",
+        Head: "~/components/Head.astro",
       },
       sidebar: [
         {
