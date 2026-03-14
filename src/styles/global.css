@@ -65,3 +65,13 @@ dialog-frame {
 [data-has-sidebar] .main-pane .sl-container {
   @apply max-w-3xl mx-auto;
 }
+
+@media (min-width: 72rem) {
+  [data-has-sidebar][data-has-toc] .main-pane {
+    width: calc(100% - var(--sl-sidebar-width));
+  }
+
+  .right-sidebar-container {
+    width: var(--sl-sidebar-width);
+  }
+}
