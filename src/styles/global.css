@@ -58,6 +58,7 @@ article.card,
 [aria-current="page"],
 .pagination-links a,
 .dialog-frame,
+.pagefind-ui__search-input,
 dialog-frame {
   @apply rounded;
 }
