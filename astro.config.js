@@ -2,6 +2,7 @@
 import { defineConfig } from "astro/config";
 import starlight from "@astrojs/starlight";
 import tailwindcss from "@tailwindcss/vite";
+import starlightPageContextAction from "starlight-page-context-action";
 
 const VERCEL_PREVIEW_SITE =
   process.env.VERCEL_ENV !== "production" &&
@@ -113,6 +114,10 @@ export default defineConfig({
           ],
         },
       ],
+      plugins: [starlightPageContextAction({
+        position: "below-toc",
+        sticky: true,
+      })],
     }),
   ],
 
