@@ -59,8 +59,11 @@ article.card,
 .pagination-links a,
 .dialog-frame,
 .pagefind-ui__search-input,
-dialog-frame {
-  @apply rounded;
+dialog-frame,
+.compact-copy-btn,
+.compact-scroll-top-btn,
+.compact-kebab-btn {
+  @apply !rounded;
 }
 
 [data-has-sidebar] .main-pane .sl-container {
