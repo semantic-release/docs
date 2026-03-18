@@ -60,12 +60,12 @@ article.card,
 .dialog-frame,
 .pagefind-ui__search-input,
 dialog-frame,
-.compact-copy-btn,
-.compact-scroll-top-btn,
-.compact-kebab-btn,
-.page-context-action-popup,
-.page-context-action-popup-item:hover,
-.action-item:hover {
+.page-context-action__compact-copy-btn,
+.page-context-action__compact-scroll-top-btn,
+.page-context-action__compact-kebab-btn,
+.page-context-action__popup,
+.page-context-action__popup-item:hover,
+.page-context-action__action-item:hover {
   @apply !rounded;
 }
 
