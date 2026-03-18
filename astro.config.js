@@ -114,10 +114,12 @@ export default defineConfig({
           ],
         },
       ],
-      plugins: [starlightPageContextAction({
-        position: "below-toc",
-        sticky: true,
-      })],
+      plugins: [
+        starlightPageContextAction({
+          position: "below-toc",
+          sticky: true,
+        }),
+      ],
     }),
   ],
 

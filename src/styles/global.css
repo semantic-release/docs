@@ -62,7 +62,10 @@ article.card,
 dialog-frame,
 .compact-copy-btn,
 .compact-scroll-top-btn,
-.compact-kebab-btn {
+.compact-kebab-btn,
+.page-context-action-popup,
+.page-context-action-popup-item:hover,
+.action-item:hover {
   @apply !rounded;
 }
 
