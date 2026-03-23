@@ -28,6 +28,7 @@
     "satori": "^0.25.0",
     "satori-html": "^0.3.2",
     "sharp": "^0.34.2",
+    "starlight-page-context-action": "^0.2.0",
     "tailwindcss": "^4.2.1"
   },
   "devDependencies": {

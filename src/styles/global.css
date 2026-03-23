@@ -59,8 +59,14 @@ article.card,
 .pagination-links a,
 .dialog-frame,
 .pagefind-ui__search-input,
-dialog-frame {
-  @apply rounded;
+dialog-frame,
+.page-context-action__compact-copy-btn,
+.page-context-action__compact-scroll-top-btn,
+.page-context-action__compact-kebab-btn,
+.page-context-action__popup,
+.page-context-action__popup-item:hover,
+.page-context-action__action-item:hover {
+  @apply !rounded;
 }
 
 [data-has-sidebar] .main-pane .sl-container {
