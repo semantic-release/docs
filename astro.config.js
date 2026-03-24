@@ -48,8 +48,8 @@ export default defineConfig({
           items: [
             { slug: "usage/getting-started" },
             { slug: "usage/installation" },
-            { slug: "usage/ci-configuration" },
             { slug: "usage/configuration" },
+            { slug: "usage/ci-configuration" },
             { slug: "usage/plugins" },
             { slug: "usage/workflow-configuration" },
             { slug: "usage/shareable-configurations" },
