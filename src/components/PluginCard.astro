@@ -1,0 +1,181 @@
+---
+type PluginStep = {
+  verifyConditions?: string;
+  analyseCommits?: string;
+  verifyRelease?: string;
+  generateNotes?: string;
+  prepare?: string;
+  publish?: string;
+  addChannel?: string;
+  success?: string;
+  fail?: string;
+}
+
+interface Props {
+  name: string;
+  url: string;
+  description?: string;
+  steps?: PluginStep;
+}
+
+const { name, url, description, steps = {} } = Astro.props;
+const stepEntries = Object.entries(steps);
+---
+
+<article class="plugin-card">
+  <header class="plugin-card-header">
+    <h3 class="plugin-card-name">{name}</h3>
+    <a
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
+      class="plugin-card-link"
+      aria-label={`View ${name}`}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="18"
+        height="18"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
+        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"
+        ></path>
+        <polyline points="15 3 21 3 21 9"></polyline>
+        <line x1="10" y1="14" x2="21" y2="3"></line>
+      </svg>
+    </a>
+  </header>
+  {description && <p class="plugin-card-description">{description}</p>}
+  {
+    stepEntries.length > 0 && (
+      <dl class="plugin-card-steps">
+        {stepEntries.map(([stepName, descriptionription]) => (
+          <details class="plugin-step">
+            <summary class="plugin-step-summary">
+              <dt class="plugin-step-name">{stepName}</dt>
+              <svg
+                class="plugin-step-chevron"
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </summary>
+            <dd class="plugin-step-description" set:html={descriptionription} />
+          </details>
+        ))}
+      </dl>
+    )
+  }
+</article>
+
+<style>
+  .plugin-card {
+    border: 1px solid var(--sl-color-gray-5);
+    border-radius: 0.25rem;
+    padding: 1.25rem;
+    transition: border-color 0.2s;
+    height: fit-content;
+    box-shadow: var(--sl-shadow-sm);
+    margin-top: 0;
+  }
+  .plugin-card:hover {
+    border-color: var(--sl-color-gray-300);
+  }
+  .plugin-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    margin-bottom: 1rem;
+  }
+  .plugin-card-name {
+    font-size: var(--sl-text-lg);
+    font-weight: 600;
+    color: var(--sl-color-white);
+    word-break: break-word;
+    margin: 0;
+  }
+  .plugin-card-link {
+    flex-shrink: 0;
+    color: var(--sl-color-gray-400);
+    transition: color 0.2s;
+  }
+  .plugin-card-link:hover {
+    color: var(--sl-color-white);
+  }
+  .plugin-card-description {
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-300);
+    margin: 0 0 0.75rem;
+    line-height: 1.5;
+  }
+  .plugin-card-steps {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--sl-color-gray-600);
+    margin: 0;
+    padding: 0;
+  }
+  .plugin-step {
+    border-bottom: 1px solid var(--sl-color-gray-600);
+  }
+  .plugin-step:last-child {
+    border-bottom: none;
+  }
+  .plugin-step-summary {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.1rem 0;
+    cursor: pointer;
+    list-style: none;
+    user-select: none;
+    margin-bottom: 0;
+  }
+  .plugin-step-summary::-webkit-details-marker {
+    display: none;
+  }
+  .plugin-step-summary::marker {
+    display: none;
+    content: "";
+  }
+  .plugin-step-summary::before {
+    display: none !important;
+    content: none !important;
+  }
+  .plugin-step-name {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--sl-color-white);
+    font-family: var(--sl-font-system-mono, ui-monospace, monospace);
+  }
+  .plugin-step-chevron {
+    flex-shrink: 0;
+    color: var(--sl-color-gray-400);
+    transition: transform 0.2s ease;
+    margin-top: 0;
+  }
+  .plugin-step[open] .plugin-step-chevron {
+    transform: rotate(180deg);
+  }
+  .plugin-step-description {
+    padding: 0 0 0.25rem;
+    font-size: var(--sl-text-sm);
+    color: var(--sl-color-gray-300);
+    line-height: 1.6;
+    margin: 0.25rem 0 0;
+  }
+</style>
