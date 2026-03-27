@@ -82,3 +82,17 @@ dialog-frame,
     width: var(--sl-sidebar-width);
   }
 }
+
+/* Plugin card grid */
+.plugin-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 40rem) {
+  .plugin-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
