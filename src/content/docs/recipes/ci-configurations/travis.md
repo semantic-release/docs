@@ -45,7 +45,7 @@ jobs:
 
 ### `package.json` configuration for multiple Node jobs
 
-A `package.json` is required only for [local](../../usage/installation.md#local-installation) **semantic-release** installation.
+A `package.json` is required only for [local](../../usage/running.md#local-installation-not-recommended) **semantic-release** installation.
 
 ```json
 {

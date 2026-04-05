@@ -78,7 +78,7 @@ Yes, **semantic-release** is a Node CLI application, but it can be used to publi
 
 To publish a non-Node package (without a `package.json`) you would need to:
 
-- Use a [global](../usage/installation.md#global-installation) **semantic-release** installation
+- Use a [global](../usage/running.md#using-npx-recommended) **semantic-release** installation
 - Set **semantic-release** [options](../usage/configuration.md#options) via [CLI arguments or `.rc` file](../usage/configuration.md#configuration)
 - Make sure your CI job executing the `semantic-release` command has access to a version of Node that [meets our version requirement](node-version.md) to execute the `semantic-release` command
 
