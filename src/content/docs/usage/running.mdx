@@ -49,4 +49,6 @@ Since **semantic-release** isn't truly a development dependency, but rather a re
 - installing a different version of **npm** into `node_modules/` than the one used to run the release, which can lead to conflicts and unexpected behavior
 - installing dependencies that could conflict with other development dependencies, like **commitlint**
 
-**Note**: A tradeoff of running via `npx` instead of installing locally is that the full **semantic-release** dependency graph is not pinned by your project's lockfile. The [version pinning strategies](#notes) above help mitigate this.
+:::note
+A tradeoff of running via `npx` instead of installing locally is that the full **semantic-release** dependency graph is not pinned by your project's lockfile. The [version pinning strategies](#notes) above help mitigate this.
+:::
