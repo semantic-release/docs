@@ -4,7 +4,7 @@ title: "Running semantic-release"
 
 ## Using npx (recommended)
 
-We recommend running **semantic-release** directly in the CI environment with [npx](../support/FAQ.md#what-is-npx):
+We recommend running **semantic-release** directly in the CI environment with [npx](/support/faq#what-is-npx):
 
 ```sh
 npx semantic-release
@@ -39,16 +39,18 @@ npx --package semantic-release --package @semantic-release/exec --package conven
    }
    ```
 
-4. `npx` is a tool bundled with `npm@>=5.2.0`. You can use it to download and run the **semantic-release** binary in a single step. See [What is npx](../support/FAQ.md#what-is-npx) for more details.
+4. `npx` is a tool bundled with `npm@>=5.2.0`. You can use it to download and run the **semantic-release** binary in a single step. See [What is npx](/support/faq#what-is-npx) for more details.
 
 ## Local installation (not recommended)
 
-Since **semantic-release** isn't truly a development dependency, but rather a release dependency, we recommend against installing it as a local dependency of your project. Instead, we recommend running it in your CI environment with [npx](../support/FAQ.md#what-is-npx) as described [above](#using-npx-recommended). Running only during the release process avoids:
+Since **semantic-release** isn't truly a development dependency, but rather a release dependency, we recommend against installing it as a local dependency of your project. Instead, we recommend running it in your CI environment with [npx](/support/faq#what-is-npx) as described [above](#using-npx-recommended). Running only during the release process avoids:
 
 - installing unnecessary dependencies during development and testing, including the fairly sizable dependency on **npm**
 - installing a different version of **npm** into `node_modules/` than the one used to run the release, which can lead to conflicts and unexpected behavior
 - installing dependencies that could conflict with other development dependencies, like **commitlint**
 
 :::note
-A tradeoff of running via `npx` instead of installing locally is that the full **semantic-release** dependency graph is not pinned by your project's lockfile. The [version pinning strategies](#notes) above help mitigate this.
+A tradeoff of running via `npx` instead of installing locally is that the full **semantic-release** dependency graph is not pinned by your project's lockfile. 
+
+The [version pinning strategies](#notes) above help mitigate this.
 :::
