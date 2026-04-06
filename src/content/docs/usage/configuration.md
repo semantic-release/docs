@@ -78,6 +78,8 @@ $ semantic-release --branches next
 
 ## Options
 
+The following options can be set in the [configuration file](#configuration-file), passed as [CLI arguments](#cli-arguments), or defined in a [shareable configuration](/usage/shareable-configurations).
+
 ### `extends`
 
 **type**: `Array`, `String`\
