@@ -72,9 +72,7 @@ $ semantic-release --branches next
 
 :::note
 - CLI arguments take precedence over options configured in the configuration file.
-
 - Plugin options cannot be defined via CLI arguments and must be defined in the configuration file.
-
 - When configuring via `package.json`, the configuration must be under the `release` property. However, when using a `.releaserc` or a `release.config` file, the configuration must be set without a `release` property.
 :::
 
@@ -87,7 +85,9 @@ $ semantic-release --branches next
 
 List of modules or file paths containing a [shareable configuration](shareable-configurations.md). If multiple shareable configurations are set, they will be imported in the order defined with each configuration option taking precedence over the options defined in a previous shareable configuration.
 
-**Note**: Options defined via CLI arguments or in the configuration file will take precedence over the ones defined in any shareable configuration.
+:::note
+Options defined via CLI arguments or in the configuration file will take precedence over the ones defined in any shareable configuration.
+:::
 
 ### `branches`
 
@@ -104,13 +104,13 @@ The branches on which releases should happen. By default **semantic-release** wi
 - pre-releases to the `beta` distribution channel from the branch `beta` if it exists
 - pre-releases to the `alpha` distribution channel from the branch `alpha` if it exists
 
-**Note**: Branches configuration key accepts [**micromatch**](https://github.com/micromatch/micromatch?tab=readme-ov-file#matching-features) globs.
-
-**Note**: If your repository does not have a release branch, then **semantic-release** will fail with an `ERELEASEBRANCHES` error message. If you are using the default configuration, you can fix this error by pushing a `master` or `main` branch.
-
-**Note**: Once **semantic-release** is configured, any user with the permission to push commits on one of those branches will be able to publish a release. It is recommended to protect those branches, for example with [GitHub protected branches](https://docs.github.com/github/administering-a-repository/about-protected-branches).
+:::note
+- Branches configuration key accepts [**micromatch**](https://github.com/micromatch/micromatch?tab=readme-ov-file#matching-features) globs.
+- If your repository does not have a release branch, then **semantic-release** will fail with an `ERELEASEBRANCHES` error message. If you are using the default configuration, you can fix this error by pushing a `master` or `main` branch.
+- Once **semantic-release** is configured, any user with the permission to push commits on one of those branches will be able to publish a release. It is recommended to protect those branches, for example with [GitHub protected branches](https://docs.github.com/github/administering-a-repository/about-protected-branches).
 
 See [Workflow configuration](workflow-#workflow-configuration) for more details.
+:::
 
 ### `repositoryUrl`
 
@@ -130,7 +130,9 @@ Any valid git url format is supported (See [Git protocols](https://git-scm.com/b
 
 The [Git tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging) format used by **semantic-release** to identify releases. The tag name is generated with [Lodash template](https://lodash.com/docs#template) and will be compiled with the `version` variable.
 
-**Note**: The `tagFormat` must contain the `version` variable exactly once and compile to a [valid Git reference](https://git-scm.com/docs/git-check-ref-format#_description).
+:::note
+The `tagFormat` must contain the `version` variable exactly once and compile to a [valid Git reference](https://git-scm.com/docs/git-check-ref-format#_description).
+:::
 
 ### `plugins`
 
@@ -152,7 +154,9 @@ See [Plugins configuration](plugins.md#plugins) for more details.
 
 The objective of the dry-run mode is to get a preview of the pending release. Dry-run mode skips the following steps: prepare, publish, addChannel, success and fail. In addition to this it prints the next version and release notes to the console.
 
-**Note**: The Dry-run mode verifies the repository push permission, even though nothing will be pushed. The verification is done to help user to figure out potential configuration issues.
+:::note
+The Dry-run mode verifies the repository push permission, even though nothing will be pushed. The verification is done to help user to figure out potential configuration issues.
+:::
 
 ### `ci`
 
@@ -162,7 +166,9 @@ The objective of the dry-run mode is to get a preview of the pending release. Dr
 
 Set to `false` to skip Continuous Integration environment verifications. This allows for making releases from a local machine.
 
-**Note**: The CLI arguments `--no-ci` is equivalent to `--ci false`.
+:::note
+The CLI arguments `--no-ci` is equivalent to `--ci false`.
+:::
 
 ### `debug`
 
@@ -172,7 +178,9 @@ Set to `false` to skip Continuous Integration environment verifications. This al
 
 Output debugging information. This can also be enabled by setting the `DEBUG` environment variable to `semantic-release:*`.
 
-**Note**: The `debug` option is only supported via CLI argument. To enable debug mode from the [JS API](../developer-guide/js-api.md#javascript-api) use `require('debug').enable('semantic-release:*')`.
+:::note
+The `debug` option is only supported via CLI argument. To enable debug mode from the [JS API](../developer-guide/js-api.md#javascript-api) use `require('debug').enable('semantic-release:*')`.
+:::
 
 ## Git environment variables
 
