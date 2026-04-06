@@ -64,7 +64,7 @@ export default {
 };
 ```
 
-- Via CLI argument:
+- Via CLI arguments:
 
 ```bash
 $ semantic-release --branches next
@@ -80,20 +80,20 @@ $ semantic-release --branches next
 
 ## Options
 
-### extends
+### `extends`
 
-Type: `Array`, `String`\
-CLI arguments: `-e`, `--extends`
+**type**: `Array`, `String`\
+**CLI arguments**: `-e`, `--extends`
 
 List of modules or file paths containing a [shareable configuration](shareable-configurations.md). If multiple shareable configurations are set, they will be imported in the order defined with each configuration option taking precedence over the options defined in a previous shareable configuration.
 
 **Note**: Options defined via CLI arguments or in the configuration file will take precedence over the ones defined in any shareable configuration.
 
-### branches
+### `branches`
 
-Type: `Array`, `String`, `Object`\
-Default: `['+([0-9])?(.{+([0-9]),x}).x', 'master', 'main', 'next', 'next-major', {name: 'beta', prerelease: true}, {name: 'alpha', prerelease: true}]`\
-CLI arguments: `--branches`
+**type**: `Array`, `String`, `Object`\
+**default**: `['+([0-9])?(.{+([0-9]),x}).x', 'master', 'main', 'next', 'next-major', {name: 'beta', prerelease: true}, {name: 'alpha', prerelease: true}]`\
+**CLI arguments**: `--branches`
 
 The branches on which releases should happen. By default **semantic-release** will release:
 
@@ -112,31 +112,31 @@ The branches on which releases should happen. By default **semantic-release** wi
 
 See [Workflow configuration](workflow-#workflow-configuration) for more details.
 
-### repositoryUrl
+### `repositoryUrl`
 
-Type: `String`\
-Default: `repository` property in `package.json` or [git origin url](https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes)\
-CLI arguments: `-r`, `--repository-url`
+**type**: `String`\
+**default**: `repository` property in `package.json` or [git origin url](https://git-scm.com/book/en/v2/Git-Basics-Working-with-Remotes)\
+**CLI arguments**: `-r`, `--repository-url`
 
 The git repository URL.
 
 Any valid git url format is supported (See [Git protocols](https://git-scm.com/book/en/v2/Git-on-the-Server-The-Protocols)).
 
-### tagFormat
+### `tagFormat`
 
-Type: `String`\
-Default: `v${version}`\
-CLI arguments: `-t`, `--tag-format`
+**type**: `String`\
+**default**: `v${version}`\
+**CLI arguments**: `-t`, `--tag-format`
 
 The [Git tag](https://git-scm.com/book/en/v2/Git-Basics-Tagging) format used by **semantic-release** to identify releases. The tag name is generated with [Lodash template](https://lodash.com/docs#template) and will be compiled with the `version` variable.
 
 **Note**: The `tagFormat` must contain the `version` variable exactly once and compile to a [valid Git reference](https://git-scm.com/docs/git-check-ref-format#_description).
 
-### plugins
+### `plugins`
 
-Type: `Array`\
-Default: `['@semantic-release/commit-analyzer', '@semantic-release/release-notes-generator', '@semantic-release/npm', '@semantic-release/github']`\
-CLI arguments: `-p`, `--plugins`
+**type**: `Array`\
+**default**: `['@semantic-release/commit-analyzer', '@semantic-release/release-notes-generator', '@semantic-release/npm', '@semantic-release/github']`\
+**CLI arguments**: `-p`, `--plugins`
 
 Define the list of plugins to use. Plugins will run in series, in the order defined, for each [steps](../../intro/#release-steps) if they implement it.
 
@@ -144,31 +144,31 @@ Plugins configuration can defined by wrapping the name and an options object in 
 
 See [Plugins configuration](plugins.md#plugins) for more details.
 
-### dryRun
+### `dryRun`
 
-Type: `Boolean`\
-Default: `false` if running in a CI environment, `true` otherwise\
-CLI arguments: `-d`, `--dry-run`
+**type**: `Boolean`\
+**default**: `false` if running in a CI environment, `true` otherwise\
+**CLI arguments**: `-d`, `--dry-run`
 
 The objective of the dry-run mode is to get a preview of the pending release. Dry-run mode skips the following steps: prepare, publish, addChannel, success and fail. In addition to this it prints the next version and release notes to the console.
 
 **Note**: The Dry-run mode verifies the repository push permission, even though nothing will be pushed. The verification is done to help user to figure out potential configuration issues.
 
-### ci
+### `ci`
 
-Type: `Boolean`\
-Default: `true`\
-CLI arguments: `--ci` / `--no-ci`
+**type**: `Boolean`\
+**default**: `true`\
+**CLI arguments**: `--ci` / `--no-ci`
 
 Set to `false` to skip Continuous Integration environment verifications. This allows for making releases from a local machine.
 
 **Note**: The CLI arguments `--no-ci` is equivalent to `--ci false`.
 
-### debug
+### `debug`
 
-Type: `Boolean`\
-Default: `false`\
-CLI argument: `--debug`
+**type**: `Boolean`\
+**default**: `false`\
+**CLI arguments**: `--debug`
 
 Output debugging information. This can also be enabled by setting the `DEBUG` environment variable to `semantic-release:*`.
 
