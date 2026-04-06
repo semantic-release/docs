@@ -22,7 +22,7 @@ GitLab CI supports [Pipelines](https://docs.gitlab.com/ee/ci/pipelines.html) all
 
 This example is a minimal configuration for **semantic-release** with a build running Node 10 and 12. See [GitLab CI - Configuration of your jobs with `.gitlab-ci.yml`](https://docs.gitlab.com/ee/ci/yaml/README.html) for additional configuration options.
 
-**Note**: The`semantic-release` execution command varies depending on whether you are using a [local](../../usage/installation.md#local-installation) or [global](../../usage/installation.md#global-installation) **semantic-release** installation.
+**Note**: The`semantic-release` execution command varies depending on whether you are using a [local](../../usage/running.md#local-installation-not-recommended) or [global](../../usage/running.md#using-npx-recommended) **semantic-release** installation.
 
 ```yaml
 # The release pipeline will run only if all jobs in the test pipeline are successful
@@ -56,7 +56,7 @@ publish:
 
 This example is a minimal configuration for **semantic-release** with a build running Node 10 and 12. See [GitLab CI - Configuration of your jobs with `.gitlab-ci.yml`](https://docs.gitlab.com/ee/ci/yaml/README.html) for additional configuration options.
 
-**Note**: The`semantic-release` execution command varies depending if you are using a [local](../../usage/installation.md#local-installation) or [global](../../usage/installation.md#global-installation) **semantic-release** installation.
+**Note**: The`semantic-release` execution command varies depending if you are using a [local](../../usage/running.md#local-installation-not-recommended) or [global](../../usage/running.md#using-npx-recommended) **semantic-release** installation.
 
 ```yaml
 # The release pipeline will run only on the master/main branch a commit is triggered
@@ -88,7 +88,7 @@ release:
 
 ### `package.json` configuration
 
-A `package.json` is required only for [local](../../usage/installation.md#local-installation) **semantic-release** installation.
+A `package.json` is required only for [local](../../usage/running.md#local-installation-not-recommended) **semantic-release** installation.
 
 ```json
 {
