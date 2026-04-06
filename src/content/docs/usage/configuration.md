@@ -60,7 +60,7 @@ The following three examples are the same. Use main instead of master if your de
   ```
 
 :::note
-When configuring via `package.json`, the configuration must be under the `release` property. However, when using a `.releaserc` or a `release.config` file, the configuration must be set without a `release` property.
+When configuring via `package.json`, the configuration must be under the `release` property. However, when using a `.releaserc` or a `release.config.**` file, the configuration must be set without a `release` property.
 :::
 
 ## CLI arguments
@@ -78,7 +78,7 @@ $ semantic-release --branches next
 
 ## Options
 
-The following options can be set in the [configuration file](#configuration-file), passed as [CLI arguments](#cli-arguments), or defined in a [shareable configuration](/usage/shareable-configurations).
+The following are **semantic-release** options you can set in the [configuration file](#configuration-file), pass as [CLI arguments](#cli-arguments), or define in a [shareable configuration](/usage/shareable-configurations).
 
 ### `extends`
 
