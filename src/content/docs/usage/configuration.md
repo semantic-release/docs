@@ -70,11 +70,13 @@ export default {
 $ semantic-release --branches next
 ```
 
-**Note**: CLI arguments take precedence over options configured in the configuration file.
+:::note
+- CLI arguments take precedence over options configured in the configuration file.
 
-**Note**: Plugin options cannot be defined via CLI arguments and must be defined in the configuration file.
+- Plugin options cannot be defined via CLI arguments and must be defined in the configuration file.
 
-**Note**: When configuring via `package.json`, the configuration must be under the `release` property. However, when using a `.releaserc` or a `release.config` file, the configuration must be set without a `release` property.
+- When configuring via `package.json`, the configuration must be under the `release` property. However, when using a `.releaserc` or a `release.config` file, the configuration must be set without a `release` property.
+:::
 
 ## Options
 
