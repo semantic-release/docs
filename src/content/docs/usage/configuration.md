@@ -1,6 +1,7 @@
 ---
 title: "Configuration"
 ---
+Configure semantic-release options, plugins, and release branches via config files, CLI arguments, or shareable configurations.
 
 **semantic-release** configuration consists of:
 
