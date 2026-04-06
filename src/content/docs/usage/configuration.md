@@ -136,7 +136,7 @@ Type: `Array`\
 Default: `['@semantic-release/commit-analyzer', '@semantic-release/release-notes-generator', '@semantic-release/npm', '@semantic-release/github']`\
 CLI arguments: `-p`, `--plugins`
 
-Define the list of plugins to use. Plugins will run in series, in the order defined, for each [steps](../../#release-steps) if they implement it.
+Define the list of plugins to use. Plugins will run in series, in the order defined, for each [steps](../../intro/#release-steps) if they implement it.
 
 Plugins configuration can defined by wrapping the name and an options object in an array.
 
@@ -170,7 +170,7 @@ CLI argument: `--debug`
 
 Output debugging information. This can also be enabled by setting the `DEBUG` environment variable to `semantic-release:*`.
 
-**Note**: The `debug` is used only supported via CLI argument. To enable debug mode from the [JS API](../developer-guide/js-api.md#javascript-api) use `require('debug').enable('semantic-release:*')`.
+**Note**: The `debug` option is only supported via CLI argument. To enable debug mode from the [JS API](../developer-guide/js-api.md#javascript-api) use `require('debug').enable('semantic-release:*')`.
 
 ## Git environment variables
 
