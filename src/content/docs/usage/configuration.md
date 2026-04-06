@@ -25,50 +25,45 @@ Alternatively, some options can be set via CLI arguments.
 The following three examples are the same. Use main instead of master if your default branch is main.
 
 - Via `release` key in the project's `package.json` file:
-
-```json
-{
-  "release": {
-    "branches": ["master", "next"]
+  ```json
+  {
+    "release": {
+      "branches": ["master", "next"]
+    }
   }
-}
-```
+  ```
 
 - Via `.releaserc` file:
-
-```json
-{
-  "branches": ["master", "next"]
-}
-```
+  ```json
+  {
+    "branches": ["master", "next"]
+  }
+  ```
 
 - Via `release.config.cjs` file:
-
-```js
-/**
- * @type {import('semantic-release').GlobalConfig}
- */
-module.exports = {
-  branches: ["master", "next"],
-};
-```
+  ```js
+  /**
+   * @type {import('semantic-release').GlobalConfig}
+   */
+  module.exports = {
+    branches: ["master", "next"],
+  };
+  ```
 
 - Via `release.config.mjs` file:
-
-```js
-/**
- * @type {import('semantic-release').GlobalConfig}
- */
-export default {
-  branches: ["master", "next"],
-};
-```
+  ```js
+  /**
+   * @type {import('semantic-release').GlobalConfig}
+   */
+  export default {
+    branches: ["master", "next"],
+  };
+  ```
 
 - Via CLI arguments:
-
-```bash
-$ semantic-release --branches next
-```
+  ```bash
+  $ semantic-release --branches next
+  ```
 
 :::note
 - CLI arguments take precedence over options configured in the configuration file.
