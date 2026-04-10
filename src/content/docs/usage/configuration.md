@@ -195,7 +195,7 @@ The `debug` option is only supported via CLI argument. To enable debug mode from
 
 ## Existing version tags
 
-**semantic-release** uses [Git tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging) to determine the commits added since the last release. If a release has been published before setting up **semantic-release** you must make sure the most recent commit included in the last published release is in the [release branches](#branches) history and is tagged with the version released, formatted according to the [tag format](#tagformat) configured (defaults to `vx.y.z`).
+**semantic-release** uses [Git tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging) to determine the commits added since the last release. If a release has been published before setting up **semantic-release** you must make sure the most recent commit included in the last published release is in the history of the [release branch(es)](#branches) and is tagged with the version released, formatted according to the [tag format](#tagformat) configured (defaults to `vx.y.z`).
 
 If the previous releases were published with [`npm publish`](https://docs.npmjs.com/cli/publish) this should already be the case.
 
