@@ -73,7 +73,7 @@ $ semantic-release --branches next
 
 :::note
 - CLI arguments take precedence over options configured in the configuration file.
-- Plugin options cannot be defined via CLI arguments and must be defined in the configuration file.
+- Plugin options cannot be configured through CLI arguments. See [`plugins`](#plugins) for details.
 :::
 
 ## Options
@@ -145,6 +145,10 @@ The `tagFormat` must contain the `version` variable exactly once and compile to 
 Define the list of plugins to use. Plugins will run in series, in the order defined, for each [steps](/intro/#release-steps) if they implement it.
 
 Plugins configuration can defined by wrapping the name and an options object in an array.
+
+:::note
+While plugins can be listed by name via the `--plugins` CLI argument, individual plugin options cannot be configured through CLI arguments. If you need to configure plugin options beyond specifying which plugins to use, a [configuration file](#configuration-file) is required.
+:::
 
 See [Plugins](#plugins) for more details.
 
