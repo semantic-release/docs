@@ -150,7 +150,7 @@ Plugins configuration can defined by wrapping the name and an options object in 
 While plugins can be listed by name via the `--plugins` CLI argument, individual plugin options cannot be configured through CLI arguments. If you need to configure plugin options beyond specifying which plugins to use, a [configuration file](#configuration-file) is required.
 :::
 
-See [Plugins](#plugins) for more details.
+See [Plugins](/usage/plugins) for more details.
 
 ### `dryRun`
 
