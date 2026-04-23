@@ -17,13 +17,15 @@ See [CI configuration recipes](../recipes/ci-configurations/) for more details.
 
 ## Authentication
 
+**semantic-release** requires authentication to push to your repository and publish releases. Several authentication methods are available depending on your CI service and repository hosting platform. See [CI configuration recipes](/recipes/ci-configurations/) for detailed setup instructions for your specific service.
+
 ### Push access to the remote repository
 
 **semantic-release** requires push access to the project Git repository in order to create [Git tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging). The Git authentication can be set with one of the following environment variables:
 
 | Variable                                              | Description                                                                                                                                                                                                                  |
 | ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `GH_TOKEN` or `GITHUB_TOKEN`                          | A GitHub [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens).                                                                                                    |
+| `GH_TOKEN` or `GITHUB_TOKEN`                          | A GitHub [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens). _Note: In GitHub Actions, `GITHUB_TOKEN` is automatically provided by the runner._                                                                                                    |
 | `GL_TOKEN` or `GITLAB_TOKEN`                          | A GitLab [personal access token](https://docs.gitlab.com/user/profile/personal_access_tokens/).                                                                                                                       |
 | `BB_TOKEN` or `BITBUCKET_TOKEN`                       | A Bitbucket [personal access token](https://confluence.atlassian.com/bitbucketserver/personal-access-tokens-939515499.html).                                                                                                 |
 | `BB_TOKEN_BASIC_AUTH` or `BITBUCKET_TOKEN_BASIC_AUTH` | A Bitbucket [personal access token](https://confluence.atlassian.com/bitbucketserver/personal-access-tokens-939515499.html) with basic auth support. For clarification `user:token` has to be the value of this env.         |
@@ -37,8 +39,8 @@ Most **semantic-release** [plugins](/usage/plugins) require setting up authentic
 
 | Variable    | Description                                                                                                                                                                                                                                                                                                                                                                   |
 | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `NPM_TOKEN` | <p>npm token created via <a href="https://docs.npmjs.com/creating-and-viewing-authentication-tokens">npm token create</a>.<br><strong>Note</strong>: Only the <code>auth-only</code> <a href="https://docs.npmjs.com/about-two-factor-authentication">level of npm two-factor authentication</a> is supported.</p> |
-| `GH_TOKEN`  | <p>GitHub authentication token.<br><strong>Note</strong>: Only the <a href="https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens">personal token</a> authentication is supported.</p>                                                                                                                                                       |
+| `NPM_TOKEN` | <p>npm token for publishing to npm. Trusted publishing is now the preferred approach where supported. See <a href="/recipes/ci-configurations/">CI configuration recipes</a> for details on setup options.</p> |
+| `GH_TOKEN`  | <p>GitHub authentication token for publishing releases. See <a href="/recipes/ci-configurations/">CI configuration recipes</a> for setup options.</p>                                                                                                                                                       |
 
 See each plugin's documentation for the environment variables required.
 
