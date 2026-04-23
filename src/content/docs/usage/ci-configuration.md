@@ -4,7 +4,9 @@ title: "CI Configuration"
 
 ## Run `semantic-release` only after all tests succeeded
 
-The `semantic-release` command must be executed only after all the tests in the CI build pass. If the build runs multiple jobs (for example to test on multiple Operating Systems or Node versions) the CI has to be configured to guarantee that the `semantic-release` command is executed only after all jobs are successful. Here are a few examples of the CI services that can be used to achieve this:
+The `semantic-release` command must be executed only after all the tests in the CI build pass. If the build runs multiple jobs (for example to test on multiple Operating Systems or Node versions) the CI has to be configured to guarantee that the `semantic-release` command is executed only after all jobs are successful. 
+
+Here are a few examples of the CI services that can be used to achieve this:
 
 - [GitHub Actions](https://github.com/features/actions)
 - [GitLab Pipelines](https://docs.gitlab.com/ee/ci/pipelines/)
