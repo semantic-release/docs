@@ -9,8 +9,10 @@ In order to use **semantic-release** you must follow these steps:
 <Steps>
 
 1. Configure **semantic-release** [options and plugins](/usage/configuration)
-2. Configure your Continuous Integration service to [run **semantic-release**](/usage/ci-configuration#run-semantic-release-only-after-all-tests-succeeded)
-3. Configure your Git repository and package manager repository [authentication](/usage/ci-configuration#authentication) in your Continuous Integration service
-4. [Run **semantic-release**](/usage/running) in your CI pipeline
+2. Configure your Continuous Integration service by following [CI configuration](/usage/ci-configuration)
+   - Choose the guide for your CI service in [Choose your CI recipe](/usage/ci-configuration#choose-your-ci-recipe)
+   - Ensure **semantic-release** runs only after all tests succeed in [Run semantic-release only after all tests succeeded](/usage/ci-configuration#run-semantic-release-only-after-all-tests-succeeded)
+   - Configure Git and package manager authentication in [Authentication](/usage/ci-configuration#authentication)
+3. [Run **semantic-release**](/usage/running) in your CI pipeline
 
 </Steps>
