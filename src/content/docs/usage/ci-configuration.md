@@ -5,7 +5,7 @@ Configure CI to run **semantic-release** by following two requirements: run it o
 
 ## Choose your CI recipe
 
-Start with the recipe for your CI service:
+Choose the guide for your CI service, then apply the requirements in this page:
 
 - [GitHub Actions recipe](/recipes/ci-configurations/github-actions)
 - [GitLab CI recipe](/recipes/ci-configurations/gitlab-ci)
