@@ -1,12 +1,7 @@
 ---
 title: "CI Configuration"
 ---
-
-## Run `semantic-release` only after all tests succeeded
-
-The `semantic-release` command must be executed only after all the tests in the CI build pass. If the build runs multiple jobs (for example to test on multiple Operating Systems or Node versions) the CI has to be configured to guarantee that the `semantic-release` command is executed only after all jobs are successful. 
-
-## Choose your CI recipe
+Configure CI to run **semantic-release** after successful builds and set up the authentication required to publish releases.
 
 Start with the recipe for your CI service:
 
@@ -16,7 +11,13 @@ Start with the recipe for your CI service:
 - [Travis CI recipe](/recipes/ci-configurations/travis)
 - [Jenkins CI recipe](/recipes/ci-configurations/jenkins-ci)
 
+:::note
 If your CI service is not listed, use the guidance on this page together with your provider documentation.
+:::
+
+## Run `semantic-release` only after all tests succeeded
+
+The `semantic-release` command must be executed only after all the tests in the CI build pass. If the build runs multiple jobs (for example to test on multiple Operating Systems or Node versions) the CI has to be configured to guarantee that the `semantic-release` command is executed only after all jobs are successful. 
 
 ## Authentication
 
