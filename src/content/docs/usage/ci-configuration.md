@@ -29,11 +29,11 @@ See [CI configuration recipes](../recipes/ci-configurations/) for more details.
 | `BB_TOKEN_BASIC_AUTH` or `BITBUCKET_TOKEN_BASIC_AUTH` | A Bitbucket [personal access token](https://confluence.atlassian.com/bitbucketserver/personal-access-tokens-939515499.html) with basic auth support. For clarification `user:token` has to be the value of this env.         |
 | `GIT_CREDENTIALS`                                     | [URL encoded](https://en.wikipedia.org/wiki/Percent-encoding) Git username and password in the format `<username>:<password>`. The username and password must each be individually URL encoded, not the `:` separating them. |
 
-Alternatively the Git authentication can be set up via [SSH keys](../recipes/git-hosted-services/git-auth-ssh-keys.md).
+Alternatively the Git authentication can be set up via [SSH keys](/recipes/git-hosted-services/git-auth-ssh-keys).
 
 ### Authentication for plugins
 
-Most **semantic-release** [plugins](plugins.md) require setting up authentication in order to publish to a package manager registry. The default [@semantic-release/npm](https://github.com/semantic-release/npm#environment-variables) and [@semantic-release/github](https://github.com/semantic-release/github#environment-variables) plugins require the following environment variables:
+Most **semantic-release** [plugins](/usage/plugins) require setting up authentication in order to publish to a package manager registry. The default [@semantic-release/npm](https://github.com/semantic-release/npm#environment-variables) and [@semantic-release/github](https://github.com/semantic-release/github#environment-variables) plugins require the following environment variables:
 
 | Variable    | Description                                                                                                                                                                                                                                                                                                                                                                   |
 | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
