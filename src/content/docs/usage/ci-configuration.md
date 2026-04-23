@@ -6,14 +6,14 @@ title: "CI Configuration"
 
 The `semantic-release` command must be executed only after all the tests in the CI build pass. If the build runs multiple jobs (for example to test on multiple Operating Systems or Node versions) the CI has to be configured to guarantee that the `semantic-release` command is executed only after all jobs are successful. Here are a few examples of the CI services that can be used to achieve this:
 
-- [Travis Build Stages](https://docs.travis-ci.com/user/build-stages)
-- [CircleCI Workflows](https://circleci.com/docs/2.0/workflows)
 - [GitHub Actions](https://github.com/features/actions)
 - [GitLab Pipelines](https://docs.gitlab.com/ee/ci/pipelines/)
-- [Codefresh Pipelines](https://codefresh.io/docs/docs/configure-ci-cd-pipeline/introduction-to-codefresh-pipelines)
+- [CircleCI Workflows](https://circleci.com/docs/guides/orchestrate/workflows/)
+- [Travis Build Stages](https://docs.travis-ci.com/user/build-stages)
+- [Codefresh Pipelines](https://codefresh.io/docs/docs/pipelines/introduction-to-codefresh-pipelines/)
 - [GoCD Pipelines](https://docs.gocd.org/current/introduction/concepts_in_go.html#pipeline).
 
-See [CI configuration recipes](../recipes/ci-configurations/) for more details.
+See [CI configuration recipes](/recipes/ci-configurations/) for more details.
 
 ## Authentication
 
