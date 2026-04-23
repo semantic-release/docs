@@ -1,7 +1,9 @@
 ---
 title: "CI Configuration"
 ---
-Configure CI to run **semantic-release** after successful builds and set up the authentication required to publish releases.
+Configure CI to run **semantic-release** by following two requirements: run it only after all tests pass, and configure the authentication needed to publish releases.
+
+## Choose your CI recipe
 
 Start with the recipe for your CI service:
 
@@ -12,7 +14,7 @@ Start with the recipe for your CI service:
 - [Jenkins CI recipe](/recipes/ci-configurations/jenkins-ci)
 
 :::note
-If your CI service is not listed, use the guidance on this page together with your provider documentation.
+If your CI service is not listed, follow the same requirements below: [run `semantic-release` only after all tests succeeded](#run-semantic-release-only-after-all-tests-succeeded) and configure [authentication](#authentication). Then adapt those steps to your provider's syntax.
 :::
 
 ## Run `semantic-release` only after all tests succeeded
