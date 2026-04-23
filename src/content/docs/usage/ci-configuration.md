@@ -6,20 +6,21 @@ title: "CI Configuration"
 
 The `semantic-release` command must be executed only after all the tests in the CI build pass. If the build runs multiple jobs (for example to test on multiple Operating Systems or Node versions) the CI has to be configured to guarantee that the `semantic-release` command is executed only after all jobs are successful. 
 
-Here are a few examples of the CI services that can be used to achieve this:
+## Choose your CI recipe
 
-- [GitHub Actions](https://github.com/features/actions)
-- [GitLab Pipelines](https://docs.gitlab.com/ee/ci/pipelines/)
-- [CircleCI Workflows](https://circleci.com/docs/guides/orchestrate/workflows/)
-- [Travis Build Stages](https://docs.travis-ci.com/user/build-stages)
-- [Codefresh Pipelines](https://codefresh.io/docs/docs/pipelines/introduction-to-codefresh-pipelines/)
-- [GoCD Pipelines](https://docs.gocd.org/current/introduction/concepts_in_go.html#pipeline).
+Start with the recipe for your CI service:
 
-See [CI configuration recipes](/recipes/ci-configurations/) for more details.
+- [GitHub Actions recipe](/recipes/ci-configurations/github-actions)
+- [GitLab CI recipe](/recipes/ci-configurations/gitlab-ci)
+- [CircleCI workflows recipe](/recipes/ci-configurations/circleci-workflows)
+- [Travis CI recipe](/recipes/ci-configurations/travis)
+- [Jenkins CI recipe](/recipes/ci-configurations/jenkins-ci)
+
+If your CI service is not listed, use the guidance on this page together with your provider documentation.
 
 ## Authentication
 
-**semantic-release** requires authentication to push to your repository and publish releases. Several authentication methods are available depending on your CI service and repository hosting platform. See [CI configuration recipes](/recipes/ci-configurations/) for detailed setup instructions for your specific service.
+**semantic-release** requires authentication to push to your repository and publish releases. Several authentication methods are available depending on your CI service and repository hosting platform.
 
 ### Push access to the remote repository
 
@@ -48,6 +49,6 @@ See each plugin's documentation for the environment variables required.
 
 The authentication token/credentials have to be made available in the CI service via environment variables.
 
-See [CI configuration recipes](../recipes/ci-configurations/) for more details on how to configure environment variables in your CI service.
+See [CI configuration recipes](/recipes/ci-configurations/) for examples of how to configure environment variables in your CI service.
 
 **Note**: The environment variables `GH_TOKEN`, `GITHUB_TOKEN`, `GL_TOKEN` and `GITLAB_TOKEN` can be used for both the Git authentication and the API authentication required by [@semantic-release/github](https://github.com/semantic-release/github) and [@semantic-release/gitlab](https://github.com/semantic-release/gitlab).
