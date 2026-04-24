@@ -16,7 +16,7 @@ Start by choosing your CI service. Each guide shows provider-specific syntax for
 :::note
 Whether your CI service is listed above or not, follow the same requirements below: [run `semantic-release` only after all tests succeeded](#run-semantic-release-only-after-all-tests-succeeded) and configure [authentication](#authentication). Then adapt those steps to your provider's syntax.
 
-For details about the CI environment variables that semantic-release detects, see [env-ci](https://github.com/semantic-release/env-ci/).
+For details about the CI environment variables that **semantic-release** detects, see [env-ci](https://github.com/semantic-release/env-ci/).
 :::
 
 ## Run `semantic-release` only after all tests succeeded
