@@ -33,13 +33,15 @@ The `semantic-release` command must be executed only after all the tests in the 
 
 | Variable                                              | Description                                                                                                                                                                                                                  |
 | ----------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `GH_TOKEN` or `GITHUB_TOKEN`                          | A GitHub [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens). _Note: In GitHub Actions, `GITHUB_TOKEN` is automatically provided by the runner._                                                                                                    |
+| `GH_TOKEN` or `GITHUB_TOKEN`                          | A GitHub token for repository authentication. Prefer the workflow-provided `GITHUB_TOKEN` or GitHub App installation token when available; use a [personal access token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) only when required. _Note: In GitHub Actions, `GITHUB_TOKEN` is automatically provided by the runner._                                                                                                    |
 | `GL_TOKEN` or `GITLAB_TOKEN`                          | A GitLab [personal access token](https://docs.gitlab.com/user/profile/personal_access_tokens/).                                                                                                                       |
 | `BB_TOKEN` or `BITBUCKET_TOKEN`                       | A Bitbucket [personal access token](https://confluence.atlassian.com/bitbucketserver/personal-access-tokens-939515499.html).                                                                                                 |
 | `BB_TOKEN_BASIC_AUTH` or `BITBUCKET_TOKEN_BASIC_AUTH` | A Bitbucket [personal access token](https://confluence.atlassian.com/bitbucketserver/personal-access-tokens-939515499.html) with basic auth support. For clarification `user:token` has to be the value of this env.         |
 | `GIT_CREDENTIALS`                                     | [URL encoded](https://en.wikipedia.org/wiki/Percent-encoding) Git username and password in the format `<username>:<password>`. The username and password must each be individually URL encoded, not the `:` separating them. |
 
 Alternatively the Git authentication can be set up via [SSH keys](/recipes/git-hosted-services/git-auth-ssh-keys).
+
+For GitHub releases, see [@semantic-release/github authentication and permissions](https://github.com/semantic-release/github#github-authentication).
 
 ### Authentication for plugins
 
