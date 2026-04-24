@@ -3,15 +3,15 @@ title: "CI Configuration"
 ---
 Configure CI to run **semantic-release** by following two requirements: run it only after all tests pass, and configure the authentication needed to publish releases.
 
-## Choose your CI recipe
+## Choose your CI Service
 
-Choose the guide for your CI service, then apply the requirements in this page:
+Start by choosing your CI service. Each guide shows how to set up your workflow for **semantic-release** in that CI provider. Then apply the requirements on this page
 
-- [GitHub Actions recipe](/recipes/ci-configurations/github-actions)
-- [GitLab CI recipe](/recipes/ci-configurations/gitlab-ci)
-- [CircleCI workflows recipe](/recipes/ci-configurations/circleci-workflows)
-- [Travis CI recipe](/recipes/ci-configurations/travis)
-- [Jenkins CI recipe](/recipes/ci-configurations/jenkins-ci)
+- [GitHub Actions](/recipes/ci-configurations/github-actions)
+- [GitLab CI](/recipes/ci-configurations/gitlab-ci)
+- [CircleCI workflows](/recipes/ci-configurations/circleci-workflows)
+- [Travis CI](/recipes/ci-configurations/travis)
+- [Jenkins CI](/recipes/ci-configurations/jenkins-ci)
 
 :::note
 If your CI service is not listed, follow the same requirements below: [run `semantic-release` only after all tests succeeded](#run-semantic-release-only-after-all-tests-succeeded) and configure [authentication](#authentication). Then adapt those steps to your provider's syntax.
