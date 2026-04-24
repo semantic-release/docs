@@ -5,7 +5,7 @@ Configure CI to run **semantic-release** by following two requirements: run it o
 
 ## Choose your CI Service
 
-Start by choosing your CI service. Each guide shows how to set up your workflow for **semantic-release** in that CI provider. Then apply the requirements on this page
+Start by choosing your CI service. Each guide shows provider-specific syntax for applying the same core requirements on this page.
 
 - [GitHub Actions](/recipes/ci-configurations/github-actions)
 - [GitLab CI](/recipes/ci-configurations/gitlab-ci)
@@ -14,7 +14,9 @@ Start by choosing your CI service. Each guide shows how to set up your workflow 
 - [Jenkins CI](/recipes/ci-configurations/jenkins-ci)
 
 :::note
-If your CI service is not listed, follow the same requirements below: [run `semantic-release` only after all tests succeeded](#run-semantic-release-only-after-all-tests-succeeded) and configure [authentication](#authentication). Then adapt those steps to your provider's syntax.
+Whether your CI service is listed above or not, follow the same requirements below: [run `semantic-release` only after all tests succeeded](#run-semantic-release-only-after-all-tests-succeeded) and configure [authentication](#authentication). Then adapt those steps to your provider's syntax.
+
+For details about the CI environment variables that semantic-release detects, see [env-ci](https://github.com/semantic-release/env-ci/).
 :::
 
 ## Run `semantic-release` only after all tests succeeded
