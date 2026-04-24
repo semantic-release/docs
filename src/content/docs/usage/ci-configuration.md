@@ -27,6 +27,10 @@ The `semantic-release` command must be executed only after all the tests in the 
 
 **semantic-release** requires authentication to push to your repository and publish releases. Several authentication methods are available depending on your CI service and repository hosting platform.
 
+:::note
+Prefer short-lived credentials over long-lived secrets when your platform supports them (for example, OIDC-based trusted publishing or GitHub App installation tokens).
+:::
+
 ### Push access to the remote repository
 
 **semantic-release** requires push access to the project Git repository in order to create [Git tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging). The Git authentication can be set with one of the following environment variables:
