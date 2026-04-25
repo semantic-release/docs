@@ -50,9 +50,19 @@ export default defineConfig({
             { slug: "usage/configuration" },
             { slug: "usage/ci-configuration" },
             { slug: "usage/running" },
-            { slug: "usage/plugins" },
-            { slug: "usage/workflow-configuration" },
-            { slug: "usage/shareable-configurations" },
+          ],
+        },
+        {
+          label: "Foundations",
+          items: [
+            { slug: "foundation" },
+            { slug: "foundation/how-it-works" },
+            { slug: "foundation/steps" },
+            { slug: "foundation/considerations" }, 
+            { slug: "foundation/supported-branching" }, 
+            { slug: "foundation/workflow-configuration" },
+            { slug: "foundation/plugins" },
+            { slug: "foundation/shareable-configurations" },
           ],
         },
         {
