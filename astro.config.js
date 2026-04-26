@@ -55,7 +55,7 @@ export default defineConfig({
         {
           label: "Foundations",
           items: [
-            { slug: "foundation" },
+            { slug: "foundation", label: "Overview" },
             { slug: "foundation/how-it-works" },
             { slug: "foundation/steps" },
             { slug: "foundation/considerations" }, 
