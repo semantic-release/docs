@@ -8,17 +8,17 @@ This page explains the release lifecycle that runs when `semantic-release` is ex
 
 After tests pass and `semantic-release` starts, it evaluates the repository state and executes release steps in a fixed order.
 
-| Step | Purpose |
-| --- | --- |
-| Verify Conditions | Confirm required configuration and credentials are available. |
-| Get Last Release | Find the most recent release by reading Git tags/history. |
-| Analyze Commits | Determine whether to release and which version type to produce. |
-| Verify Release | Validate the computed release metadata before publishing. |
-| Generate Notes | Build release notes for the commits included in this release. |
-| Create Git Tag | Tag the release version in Git. |
-| Prepare | Perform pre-publish updates such as assets or files. |
-| Publish | Publish artifacts to configured destinations and channels. |
-| Notify | Report success or failure through provider integrations. |
+| Step              | Purpose                                                         |
+| ----------------- | --------------------------------------------------------------- |
+| Verify Conditions | Confirm required configuration and credentials are available.   |
+| Get Last Release  | Find the most recent release by reading Git tags/history.       |
+| Analyze Commits   | Determine whether to release and which version type to produce. |
+| Verify Release    | Validate the computed release metadata before publishing.       |
+| Generate Notes    | Build release notes for the commits included in this release.   |
+| Create Git Tag    | Tag the release version in Git.                                 |
+| Prepare           | Perform pre-publish updates such as assets or files.            |
+| Publish           | Publish artifacts to configured destinations and channels.      |
+| Notify            | Report success or failure through provider integrations.        |
 
 The order is important. A failure in an early step prevents later steps from running.
 

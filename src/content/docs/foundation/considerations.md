@@ -1,6 +1,7 @@
 ---
 title: Considerations
 ---
+
 **semantic-release** is
 
 - an opinionated release tool

@@ -1,6 +1,7 @@
 ---
 title: Supported Branching Models
 ---
+
 ## Trunk Based Development
 
 - https://trunkbaseddevelopment.com/
