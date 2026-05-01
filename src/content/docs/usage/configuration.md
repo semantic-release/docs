@@ -148,7 +148,7 @@ The `tagFormat` must contain the `version` variable exactly once and compile to 
 **default**: `['@semantic-release/commit-analyzer', '@semantic-release/release-notes-generator', '@semantic-release/npm', '@semantic-release/github']`\
 **CLI arguments**: `-p`, `--plugins`
 
-Define the list of plugins to use. Plugins will run in series, in the order defined, for each [steps](/intro/#release-steps) if they implement it.
+Define the list of plugins to use. Plugins will run in series, in the order defined, for each [release step](/foundation/steps/) whose lifecycle hook they implement.
 
 Plugins configuration can defined by wrapping the name and an options object in an array.
 
@@ -156,7 +156,7 @@ Plugins configuration can defined by wrapping the name and an options object in 
 While plugins can be listed by name via the `--plugins` CLI argument, individual plugin options cannot be configured through CLI arguments. If you need to configure plugin options beyond specifying which plugins to use, a [configuration file](#configuration-file) is required.
 :::
 
-See [Plugins](/usage/plugins) for more details.
+See [Plugins](/foundation/plugins/) for more details.
 
 ### `dryRun`
 
@@ -164,7 +164,7 @@ See [Plugins](/usage/plugins) for more details.
 **default**: `false` if running in a CI environment, `true` otherwise\
 **CLI arguments**: `-d`, `--dry-run`
 
-The objective of the dry-run mode is to get a preview of the pending release. Dry-run mode skips the following steps: prepare, publish, addChannel, success and fail. In addition to this it prints the next version and release notes to the console.
+The objective of the dry-run mode is to get a preview of the pending release. Dry-run mode skips the following lifecycle hooks: `prepare`, `publish`, `addChannel`, `success`, and `fail`. In addition to this it prints the next version and release notes to the console.
 
 :::note
 The Dry-run mode verifies the repository push permission, even though nothing will be pushed. The verification is done to help user to figure out potential configuration issues.
