@@ -2,33 +2,49 @@
 title: Release Steps
 ---
 
-This page explains the release lifecycle that runs when `semantic-release` is executed. If you are new to the overall model, read [How it Works](/foundation/how-it-works/) first.
+This page explains the release steps that make up a `semantic-release` run.
 
-## Lifecycle overview
+- A **release lifecycle** is the full recurring process that starts from the previous release state and ends with the next release state.
+- **Release steps** are the individual phases within one run of that lifecycle.
+- Some release steps expose **lifecycle hooks** that plugins can bind to.
+- Plugins participate by exposing **lifecycle methods** such as `analyzeCommits` or `publish`.
+
+If you are new to the overall model, read [How it Works](/foundation/how-it-works/) first.
+
+## Release step sequence
 
 After tests pass and `semantic-release` starts, it evaluates the repository state and executes release steps in a fixed order.
 
-| Step              | Purpose                                                         |
-| ----------------- | --------------------------------------------------------------- |
-| Verify Conditions | Confirm required configuration and credentials are available.   |
-| Get Last Release  | Find the most recent release by reading Git tags/history.       |
-| Analyze Commits   | Determine whether to release and which version type to produce. |
-| Verify Release    | Validate the computed release metadata before publishing.       |
-| Generate Notes    | Build release notes for the commits included in this release.   |
-| Create Git Tag    | Tag the release version in Git.                                 |
-| Prepare           | Perform pre-publish updates such as assets or files.            |
-| Publish           | Publish artifacts to configured destinations and channels.      |
-| Notify            | Report success or failure through provider integrations.        |
+| Release Step      | Lifecycle Hook(s)  | Purpose                                                         |
+| ----------------- | ------------------ | --------------------------------------------------------------- |
+| Verify Conditions | `verifyConditions` | Confirm required configuration and credentials are available.   |
+| Get Last Release  | None               | Find the most recent release by reading Git tags and history.   |
+| Analyze Commits   | `analyzeCommits`   | Determine whether to release and which version type to produce. |
+| Verify Release    | `verifyRelease`    | Validate the computed release metadata before publishing.       |
+| Generate Notes    | `generateNotes`    | Build release notes for the commits included in this release.   |
+| Create Git Tag    | None               | Tag the release version in Git.                                 |
+| Prepare           | `prepare`          | Perform pre-publish updates such as assets or files.            |
+| Publish           | `publish`          | Publish artifacts to configured destinations and channels.      |
+| Notify            | `success`, `fail`  | Report success or failure through provider integrations.        |
 
 The order is important. A failure in an early step prevents later steps from running.
 
+## Optional and conditional steps
+
+Not every release-related action appears in the always-run sequence above.
+
+- Some release steps are core-only and do not expose lifecycle hooks. `Get Last Release` is the clearest example.
+- Some steps expose more than one lifecycle hook. `Notify` is implemented through the `success` and `fail` hooks.
+- Some hooks are conditional. `addChannel` is used for channel management flows, such as associating a release with a distribution channel, and only runs when that behavior is needed.
+
 ## How steps are implemented
 
-Each lifecycle step is implemented by plugins. Some steps are optional, some are required for a valid release pipeline.
+Release steps are executed by a combination of core behavior and plugins.
 
+- Core handles some behavior directly, including steps that are not exposed as hooks
 - `analyzeCommits` is required to decide version impact
-- Most other steps depend on which plugins you configure
-- If multiple plugins implement the same step, they execute in plugin order
+- Most hook-backed steps depend on which plugins you configure
+- If multiple plugins implement the same lifecycle hook, they execute in plugin order
 
 For plugin responsibilities and execution details, see [Plugins](/foundation/plugins/).
 
