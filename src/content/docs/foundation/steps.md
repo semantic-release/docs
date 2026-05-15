@@ -15,27 +15,28 @@ If you are new to the overall model, read [How it Works](/foundation/how-it-work
 
 After tests pass and `semantic-release` starts, it evaluates the repository state and executes release steps in a fixed order.
 
-| Release Step      | Lifecycle Hook(s)  | Purpose                                                         |
-| ----------------- | ------------------ | --------------------------------------------------------------- |
-| Verify Conditions | `verifyConditions` | Confirm required configuration and credentials are available.   |
-| Get Last Release  | None               | Find the most recent release by reading Git tags and history.   |
-| Analyze Commits   | `analyzeCommits`   | Determine whether to release and which version type to produce. |
-| Verify Release    | `verifyRelease`    | Validate the computed release metadata before publishing.       |
-| Generate Notes    | `generateNotes`    | Build release notes for the commits included in this release.   |
-| Create Git Tag    | None               | Tag the release version in Git.                                 |
-| Prepare           | `prepare`          | Perform pre-publish updates such as assets or files.            |
-| Publish           | `publish`          | Publish artifacts to configured destinations and channels.      |
-| Notify            | `success`, `fail`  | Report success or failure through provider integrations.        |
+| Release Step           | Lifecycle Hook(s)  | Purpose                                                         |
+| ---------------------- | ------------------ | --------------------------------------------------------------- |
+| Verify Conditions      | `verifyConditions` | Confirm required configuration and credentials are available.   |
+| Get Last Release       | None               | Find the most recent release by reading Git tags and history.   |
+| Analyze Commits        | `analyzeCommits`   | Determine whether to release and which version type to produce. |
+| Verify Release         | `verifyRelease`    | Validate the computed release metadata before publishing.       |
+| Generate Notes         | `generateNotes`    | Build release notes for the commits included in this release.   |
+| Create Git Tag         | None               | Tag the release version in Git.                                 |
+| Add Channel (Optional) | `addChannel`       | Associate the release with a distribution channel when needed.  |
+| Prepare                | `prepare`          | Perform pre-publish updates such as assets or files.            |
+| Publish                | `publish`          | Publish artifacts to configured destinations and channels.      |
+| Notify                 | `success`, `fail`  | Report success or failure through provider integrations.        |
 
 The order is important. A failure in an early step prevents later steps from running.
 
 ## Optional and conditional steps
 
-Not every release-related action appears in the always-run sequence above.
+Not every release step in the table above runs on every release.
 
 - Some release steps are core-only and do not expose lifecycle hooks. `Get Last Release` is the clearest example.
 - Some steps expose more than one lifecycle hook. `Notify` is implemented through the `success` and `fail` hooks.
-- Some hooks are conditional. `addChannel` is used for channel management flows, such as associating a release with a distribution channel, and only runs when that behavior is needed.
+- Some release steps are conditional. The `Add Channel` release step is an example; it runs only when channel management behavior is needed.
 
 ## How steps are implemented
 
