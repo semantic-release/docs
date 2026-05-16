@@ -31,3 +31,7 @@ For example, a project can extend a shared base config and still override its ow
 
 If multiple shareable configurations are defined, they are loaded in order. Local configuration and CLI arguments take precedence over values defined in a shareable configuration.
 
+## Shareable Configurations list
+
+See the [shareable configurations list](/extending/shareable-configurations-list) for official and community-maintained packages you can extend.
+

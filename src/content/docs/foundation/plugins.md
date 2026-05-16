@@ -43,7 +43,7 @@ These four plugins are already part of **semantic-release** and are listed in or
 
 ### Additional plugins
 
-[Additional plugins](/extending/plugins-list) should be provided to `npx` with `--package` when running `semantic-release`:
+Additional plugins should be provided to `npx` with `--package` when running `semantic-release`:
 
 ```bash
 $ npx \
@@ -52,6 +52,8 @@ $ npx \
   --package @semantic-release/changelog \
   semantic-release
 ```
+
+See the [official and community plugins list](/extending/plugins-list) for packages that extend **semantic-release** beyond the default set.
 
 ## Plugins declaration and execution order
 
