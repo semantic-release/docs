@@ -1,40 +1,44 @@
 ---
-title: "Release Workflow configuration"
+title: "Release Workflow Configuration"
 ---
 
-**semantic-release** enables managing and automating complex release workflow, based on multiple Git branches and distribution channels. This enables:
+**semantic-release** enables managing and automating complex release workflows, based on multiple Git branches and distribution channels. This enables:
 
 - Distributing certain releases to a particular group of users via distribution channels
-- Managing the availability of releases on distribution channels via branches merge
+- Managing the availability of releases on distribution channels via branch merges
 - Maintaining multiple lines of releases in parallel
 - Working on large future releases outside the normal flow of one version increment per Git push
 
 See [Release workflow recipes](../recipes/release-workflow/#release-workflow) for detailed examples.
 
-The release workflow is configured via the [branches option](configuration.md#branches) which accepts a single or an array of branch definitions. Each branch can be defined either as a string, a [glob](https://github.com/micromatch/micromatch#matching-features) or an object. For string and glob definitions each [property](workflow-configuration.md#branches-properties) will be defaulted.
+The release workflow is configured via the [branches option](/usage/configuration/#branches), which accepts either a single branch definition or an array of branch definitions. Each branch can be defined as a string, a [glob](https://github.com/micromatch/micromatch#matching-features), or an object. For string and glob definitions, defaults are applied to each [property](#branch-properties).
 
 A branch can be defined as one of three types:
 
-- [release](workflow-configuration.md#release-branches): to make releases on top of the last version released
-- [maintenance](workflow-configuration.md#maintenance-branches): to make releases on top of an old release
-- [pre-release](workflow-configuration.md#pre-release-branches): to make pre-releases
+- [release](#release-branches): to make releases on top of the last version released
+- [maintenance](#maintenance-branches): to make releases on top of an old release
+- [pre-release](#pre-release-branches): to make pre-releases
 
-The type of the branch is automatically determined based on naming convention and/or [properties](workflow-configuration.md#branches-properties).
+The type of the branch is automatically determined based on naming conventions and/or [properties](#branch-properties).
 
-## Branches properties
+## Branch Properties
 
 | Property     | Branch type                                                        | Description                                                                                                                                                                                                      | Default                                                                                         |
 | ------------ | ------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------- |
-| `name`       | All                                                                | **Required.** The Git branch holding the commits to analyze and the code to release. See [name](workflow-configuration.md#name).                                                                                 | - The value itself if defined as a `String` or the matching branches name if defined as a glob. |
-| `channel`    | All                                                                | The distribution channel on which to publish releases from this branch. Set to `false` to force the default distribution channel instead of using the default. See [channel](workflow-configuration.md#channel). | `undefined` for the first release branch, the value of `name` for subsequent ones.              |
-| `range`      | [maintenance](workflow-configuration.md#maintenance-branches) only | **Required unless `name` is formatted like `N.N.x` or `N.x` (`N` is a number).** The range of [semantic versions](https://semver.org) to support on this branch. See [range](workflow-configuration.md#range).   | The value of `name`.                                                                            |
-| `prerelease` | [pre-release](workflow-configuration.md#pre-release-branches) only | **Required.** The pre-release denotation to append to [semantic versions](https://semver.org) released from this branch. See [prerelease](workflow-configuration.md#prerelease).                                 | -                                                                                               |
+| `name`       | All                                                                | **Required.** The Git branch holding the commits to analyze and the code to release. See [name](#name).                                                                                 | - The value itself if defined as a `String` or the matching branches name if defined as a glob. |
+| `channel`    | All                                                                | The distribution channel on which to publish releases from this branch. Set to `false` to force the default distribution channel instead of using the default. See [channel](#channel). | `undefined` for the first release branch, the value of `name` for subsequent ones.              |
+| `range`      | [maintenance](#maintenance-branches) only | **Required unless `name` is formatted like `N.N.x` or `N.x` (`N` is a number).** The range of [semantic versions](https://semver.org) to support on this branch. See [range](#range).   | The value of `name`.                                                                            |
+| `prerelease` | [pre-release](#pre-release-branches) only | **Required.** The pre-release denotation to append to [semantic versions](https://semver.org) released from this branch. See [prerelease](#prerelease).                                 | -                                                                                               |
 
-### name
+### `name`
+
+**type**: `String`, `Glob`\
+**branch type**: All\
+**default**: The value itself if defined as a `String`, or the matching branch name if defined as a glob.
 
 A `name` is required for any type of branch. It can be defined as a [glob](https://github.com/micromatch/micromatch#matching-features) in which case the definition will be expanded to one per matching branch existing in the repository.
 
-If `name` doesn't match to any branch existing in the repository, the definition will be ignored. For example the default configuration includes the definition `next` and `next-major` which will become active only when the branches `next` and/or `next-major` are created in the repository. This allow to define your workflow once with all potential branches you might use and have the effective configuration evolving as you create new branches.
+If `name` doesn't match any branch that exists in the repository, the definition will be ignored. For example, the default configuration includes the definitions `next` and `next-major`, which become active only when the branches `next` and/or `next-major` are created in the repository. This allows you to define your workflow once with all potential branches you might use and have the effective configuration evolve as you create new branches.
 
 For example the configuration `['+([0-9])?(.{+([0-9]),x}).x', 'master', 'next']` will be expanded as:
 
@@ -49,9 +53,13 @@ For example the configuration `['+([0-9])?(.{+([0-9]),x}).x', 'master', 'next']`
 }
 ```
 
-### channel
+### `channel`
 
-The `channel` can be defined for any branch type. By default releases will be done on the default distribution channel (for example the `@latest` [dist-tag](https://docs.npmjs.com/cli/dist-tag) for npm) for the first [release branch](workflow-configuration.md#release-branches) and on a distribution channel named based on the branch `name` for any other branch. If the `channel` property is set to `false` the default channel will be used.
+**type**: `String`, `Boolean`\
+**branch type**: All\
+**default**: `undefined` for the first release branch; the value of `name` for subsequent ones.
+
+The `channel` can be defined for any branch type. By default releases will be done on the default distribution channel (for example the `@latest` [dist-tag](https://docs.npmjs.com/cli/dist-tag) for npm) for the first [release branch](#release-branches) and on a distribution channel named based on the branch `name` for any other branch. If the `channel` property is set to `false` the default channel will be used.
 
 The value of `channel`, if defined as a string, is generated with [Lodash template](https://lodash.com/docs#template) with the variable `name` available.
 
@@ -66,9 +74,13 @@ For example the configuration `['master', {name: 'next', channel: 'channel-${nam
 }
 ```
 
-### range
+### `range`
 
-A `range` only applies to maintenance branches, is required and must be formatted like `N.N.x` or `N.x` (`N` is a number). In case the `name` is formatted as a range (for example `1.x` or `1.5.x`) the branch will be considered a maintenance branch and the `name` value will be used for the `range`.
+**type**: `String`\
+**branch type**: [Maintenance](#maintenance-branches) only\
+**default**: The value of `name`.
+
+A `range` only applies to maintenance branches, is required (unless `name` is formatted like `N.N.x` or `N.x`), and must be formatted like `N.N.x` or `N.x` (`N` is a number). In case the `name` is formatted as a range (for example `1.x` or `1.5.x`) the branch will be considered a maintenance branch and the `name` value will be used for the `range`.
 
 For example the configuration `['1.1.x', '1.2.x', 'master']` will be expanded as:
 
@@ -82,9 +94,13 @@ For example the configuration `['1.1.x', '1.2.x', 'master']` will be expanded as
 }
 ```
 
-### prerelease
+### `prerelease`
 
-A `prerelease` property applies only to pre-release branches and the `prerelease` value must be valid per the [Semantic Versioning Specification](https://semver.org/#spec-item-9). It will determine the name of versions (for example if `prerelease` is set to `beta` the version be formatted like `2.0.0-beta.1`, `2.0.0-beta.2` etc...). If the `prerelease` property is set to `true` the `name` value will be used.
+**type**: `String`, `Boolean`\
+**branch type**: [Pre-release](#pre-release-branches) only\
+**default**: -
+
+A `prerelease` property applies only to pre-release branches and is required. The `prerelease` value must be valid per the [Semantic Versioning Specification](https://semver.org/#spec-item-9). It determines the format of versions (for example, if `prerelease` is set to `beta`, versions will be formatted like `2.0.0-beta.1`, `2.0.0-beta.2`, etc.). If the `prerelease` property is set to `true`, the `name` value will be used.
 
 The value of `prerelease`, if defined as a string, is generated with [Lodash template](https://lodash.com/docs#template) with the variable `name` available.
 
@@ -106,22 +122,24 @@ For example the configuration `['master', {name: 'pre/rc', prerelease: '${name.r
 
 A release branch is the base type of branch used by **semantic-release** that allows to publish releases with a [semantic version](https://semver.org), optionally on a specific distribution channel. Distribution channels (for example [npm dist-tags](https://docs.npmjs.com/cli/dist-tag) or [Chrome release channels](https://www.chromium.org/getting-involved/dev-channel)) are a way to distribute new releases only to a subset of users in order to get early feedback. Later on, those releases can be added to the general distribution channel to be made available to all users.
 
-**semantic-release** will automatically add releases to the corresponding distribution channel when code is [merged from a release branch to another](workflow-configuration.md#merging-into-a-release-branch).
+**semantic-release** will automatically add releases to the corresponding distribution channel when code is [merged from a release branch to another](#merging-into-a-release-branch).
 
-A project must define a minimum of 1 release branch and can have a maximum of 3. The order of the release branch definitions is significant, as versions released on a given branch must always be higher than the last release made on the previous branch. This allow to avoid situation that would lead to an attempt to publish releases with the same version number but different codebase. When multiple release branches are configured and a commit that would create a version conflict is pushed, **semantic-release** will not perform the release and will throw an `EINVALIDNEXTVERSION` error, listing the problematic commits and the valid branches on which to move them.
+A project must define a minimum of 1 release branch and can have a maximum of 3. The order of the release branch definitions is significant, as versions released on a given branch must always be higher than the last release made on the previous branch. This allows avoiding situations that would lead to attempts to publish releases with the same version number but different codebases. When multiple release branches are configured and a commit that would create a version conflict is pushed, **semantic-release** will not perform the release and will throw an `EINVALIDNEXTVERSION` error, listing the problematic commits and the valid branches on which to move them.
 
-**Note:** With **semantic-release** as with most package managers, a release version must be unique, independently of the distribution channel on which it is available.
+:::note
+With **semantic-release** as with most package managers, a release version must be unique, independently of the distribution channel on which it is available.
+:::
 
-See [publishing on distribution channels recipe](../recipes/release-workflow/distribution-channels.md) for a detailed example.
+See [publishing on distribution channels recipe](/recipes/release-workflow/distribution-channels) for a detailed example.
 
 #### Pushing to a release branch
 
 With the configuration `"branches": ["master", "next"]`, if the last release published from `master` is `1.0.0` and the last one from `next` is `2.0.0` then:
 
 - Only versions in range `1.x.x` can be published from `master`, so only `fix` and `feat` commits can be pushed to `master`
-- Once `next` get merged into `master` the release `2.0.0` will be made available on the channel associated with `master` and both `master` and `next` will accept any commit type
+- Once `next` gets merged into `master`, the release `2.0.0` will be made available on the channel associated with `master`, and both `master` and `next` will accept any commit type
 
-This verification prevent scenario such as:
+This verification prevents scenarios such as:
 
 1. Create a `feat` commit on `next` which triggers the release of version `1.0.0` on the `next` channel
 2. Merge `next` into `master` which adds `1.0.0` on the default channel
@@ -134,28 +152,28 @@ In step 4 **semantic-release** will throw an `EINVALIDNEXTVERSION` error to prev
 
 When merging commits associated with a release from one release branch to another, **semantic-release** will make the corresponding version available on the channel associated with the target branch.
 
-When merging commits not associated with a release, commits from a [maintenance branch](workflow-configuration.md#maintenance-branches) or commits from a [pre-release branch](workflow-configuration.md#pre-release-branches) **semantic-release** will treat them as [pushed commits](workflow-configuration.md#pushing-to-a-release-branch) and publish a new release if necessary.
+When merging commits not associated with a release, commits from a [maintenance branch](#maintenance-branches) or commits from a [pre-release branch](#pre-release-branches) **semantic-release** will treat them as [pushed commits](#pushing-to-a-release-branch) and publish a new release if necessary.
 
 ### Maintenance branches
 
 A maintenance branch is a type of branch used by **semantic-release** that allows to publish releases with a [semantic version](https://semver.org) on top of the codebase of an old release. This is useful when you need to provide fixes or features to users who cannot upgrade to the last version of your package.
 
-A maintenance branch is characterized by a range which defines the versions that can be published from it. The [`range`](workflow-configuration.md#range) value of each maintenance branch must be unique across the project.
+A maintenance branch is characterized by a range which defines the versions that can be published from it. The [`range`](#range) value of each maintenance branch must be unique across the project.
 
 **semantic-release** will always publish releases to a distribution channel specific to the range, so only the users who choose to use that particular line of versions will receive new releases.
 
-Maintenance branches are always considered lower than [release branches](workflow-configuration.md#release-branches) and similarly to them, when a commit that would create a version conflict is pushed, **semantic-release** will not perform the release and will throw an `EINVALIDNEXTVERSION` error, listing the problematic commits and the valid branches on which to move them.
+Maintenance branches are always considered lower than [release branches](#release-branches) and similarly to them, when a commit that would create a version conflict is pushed, **semantic-release** will not perform the release and will throw an `EINVALIDNEXTVERSION` error, listing the problematic commits and the valid branches on which to move them.
 
-**semantic-release** will automatically add releases to the corresponding distribution channel when code is [merged from a release or maintenance branch to another maintenance branch](workflow-configuration.md#merging-into-a-maintenance-branch), however only versions within the branch `range` can be merged. If a merged version is outside the maintenance branch `range`, **semantic-release** will not add to the corresponding channel and will throw an `EINVALIDMAINTENANCEMERGE` error.
+**semantic-release** will automatically add releases to the corresponding distribution channel when code is [merged from a release or maintenance branch to another maintenance branch](#merging-into-a-maintenance-branch), however only versions within the branch `range` can be merged. If a merged version is outside the maintenance branch `range`, **semantic-release** will not add to the corresponding channel and will throw an `EINVALIDMAINTENANCEMERGE` error.
 
-See [publishing maintenance releases recipe](../recipes/release-workflow/maintenance-releases.md) for a detailed example.
+See [publishing maintenance releases recipe](/recipes/release-workflow/maintenance-releases) for a detailed example.
 
 #### Pushing to a maintenance branch
 
 With the configuration `"branches": ["1.0.x", "1.x", "master"]`, if the last release published from `master` is `1.5.0` then:
 
 - Only versions in range `>=1.0.0 <1.1.0` can be published from `1.0.x`, so only `fix` commits can be pushed to `1.0.x`
-- Only versions in range `>=1.1.0 <1.5.0` can be published from `1.x`, so only `fix` and `feat` commits can be pushed to `1.x` as long the resulting release is lower than `1.5.0`
+- Only versions in range `>=1.1.0 <1.5.0` can be published from `1.x`, so only `fix` and `feat` commits can be pushed to `1.x` as long as the resulting release is lower than `1.5.0`
 - Once `2.0.0` is released from `master`, versions in range `>=1.1.0 <2.0.0` can be published from `1.x`, so any number of `fix` and `feat` commits can be pushed to `1.x`
 
 #### Merging into a maintenance branch
@@ -169,15 +187,15 @@ With the configuration `"branches": ["1.0.x", "1.x", "master"]`, if the last rel
 
 ### Pre-release branches
 
-A pre-release branch is a type of branch used by **semantic-release** that allows to publish releases with a [pre-release version](https://semver.org/#spec-item-9). Using a pre-release version allow to publish multiple releases with the same version. Those release will be differentiated via their identifiers (in `1.0.0-alpha.1` the identifier is `alpha.1`). This is useful when you need to work on a future major release that will include many breaking changes but you do not want to increment the version number for each breaking change commit.
+A pre-release branch is a type of branch used by **semantic-release** that allows publishing releases with a [pre-release version](https://semver.org/#spec-item-9). Using a pre-release version allows publishing multiple releases with the same version. Those releases are differentiated via their identifiers (in `1.0.0-alpha.1`, the identifier is `alpha.1`). This is useful when you need to work on a future major release that will include many breaking changes, but you do not want to increment the version number for each breaking change commit.
 
-A pre-release branch is characterized by the `prerelease` property that defines the static part of the version released (in `1.0.0-alpha.1` the static part fo the identifier is `alpha`). The [`prerelease`](workflow-configuration.md#prerelease) value of each pre-release branch must be unique across the project.
+A pre-release branch is characterized by the `prerelease` property that defines the static part of the version released (in `1.0.0-alpha.1`, the static part of the identifier is `alpha`). The [`prerelease`](#prerelease) value of each pre-release branch must be unique across the project.
 
 **semantic-release** will always publish pre-releases to a specific distribution channel, so only the users who choose to use that particular line of versions will receive new releases.
 
-When merging commits associated with an existing release, **semantic-release** will treat them as [pushed commits](workflow-configuration.md#pushing-to-a-pre-release-branch) and publish a new release if necessary, but it will never add those releases to the distribution channel corresponding to the pre-release branch.
+When merging commits associated with an existing release, **semantic-release** will treat them as [pushed commits](#pushing-to-a-pre-release-branch) and publish a new release if necessary, but it will never add those releases to the distribution channel corresponding to the pre-release branch.
 
-See [publishing pre-releases recipe](../recipes/release-workflow/pre-releases.md) for a detailed example.
+See [publishing pre-releases recipe](/recipes/release-workflow/pre-releases) for a detailed example.
 
 #### Pushing to a pre-release branch
 
