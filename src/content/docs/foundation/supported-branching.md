@@ -16,6 +16,7 @@ These models align with the delivery and release assumptions built into **semant
 
 - [Trunk-Based Development](https://trunkbaseddevelopment.com/)
 - [MinimumCD: Trunk-Based Development](https://minimumcd.org/minimumcd/tbd/)
+- [Release from Trunk](https://trunkbaseddevelopment.com/release-from-trunk/)
 
 #### Committing Straight to Trunk
 
