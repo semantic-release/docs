@@ -50,7 +50,7 @@ For GitHub releases, see [@semantic-release/github authentication and permission
 
 ### Authentication for plugins
 
-Most **semantic-release** [plugins](/usage/plugins) require setting up authentication in order to publish to a package manager registry. The default [@semantic-release/npm](https://github.com/semantic-release/npm#environment-variables) and [@semantic-release/github](https://github.com/semantic-release/github#environment-variables) plugins require the following environment variables:
+Most **semantic-release** [plugins](/foundation/plugins) require setting up authentication in order to publish to a package manager registry. The default [@semantic-release/npm](https://github.com/semantic-release/npm#environment-variables) and [@semantic-release/github](https://github.com/semantic-release/github#environment-variables) plugins require the following environment variables:
 
 | Variable                     | Description                                                                                                                                                                                                                                                                               |
 | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
