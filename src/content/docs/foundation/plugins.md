@@ -55,6 +55,8 @@ $ npx \
 
 See the [official and community plugins list](/extending/plugins-list) for packages that extend **semantic-release** beyond the default set.
 
+If you want to build your own plugin, see [Plugin development](/developer-guide/plugin/).
+
 ## Plugins declaration and execution order
 
 If you need to customize the default plugin set or execution order, configure the [`plugins` option](/usage/configuration/#plugins) by listing plugins by npm module name.

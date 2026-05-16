@@ -35,3 +35,5 @@ If multiple shareable configurations are defined, they are loaded in order. Loca
 
 See the [shareable configurations list](/extending/shareable-configurations-list) for official and community-maintained packages you can extend.
 
+If you want to build your own shareable configuration, see [Shareable configuration development](/developer-guide/shareable-configuration/).
+
