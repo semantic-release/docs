@@ -55,7 +55,7 @@ $ npx \
 
 ## Plugins declaration and execution order
 
-Each plugin must be configured with the [`plugins` options](/usage/configuration/#plugins) by specifying the list of plugins by npm module name.
+If you need to customize the default plugin set or execution order, configure the [`plugins` option](/usage/configuration/#plugins) by listing plugins by npm module name.
 
 ```json
 {
