@@ -4,19 +4,19 @@ title: "Plugins"
 
 Plugins let `semantic-release` extend release steps through configurable lifecycle methods. Core owns the release lifecycle, exposes lifecycle hooks for selected release steps, and invokes plugin methods bound to those hooks.
 
-This allows for support of different [commit message formats](../../#commit-message-format), release note generators, and publishing platforms.
+This enables support for different [commit message conventions](/foundation/how-it-works/#the-core-model), release note generators, and publishing platforms.
 
 A plugin is a npm module that can implement one or more lifecycle methods for the following hooks:
 
 | Lifecycle Hook     | Related Release Step  | Required | Description                                                                                                                                                    |
 | ------------------ | --------------------- | -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `verifyConditions` | Verify Conditions     | No       | Verify conditions necessary to proceed with the release: configuration is correct, authentication tokens are valid, and so on.                                 |
-| `analyzeCommits`   | Analyze Commits       | Yes      | Determine the type of the next release (`major`, `minor`, or `patch`). If multiple plugins implement `analyzeCommits`, the highest release type returned wins. |
+| `analyzeCommits`   | Analyze Commits       | Yes      | Determine the type of the next release (`major`, `minor`, or `patch`). This hook is required to decide the next release type. If multiple plugins implement `analyzeCommits`, the highest release type returned wins. |
 | `verifyRelease`    | Verify Release        | No       | Verify the parameters of the release that is about to be published, such as version, type, or distribution tag.                                                |
 | `generateNotes`    | Generate Notes        | No       | Generate the content of the release note. If multiple plugins implement `generateNotes`, the release notes will be the concatenation of each plugin output.    |
 | `prepare`          | Prepare               | No       | Prepare the release, for example by creating or updating files such as `package.json`, `CHANGELOG.md`, documentation, or compiled assets and pushing a commit. |
 | `publish`          | Publish               | No       | Publish the release.                                                                                                                                           |
-| `addChannel`       | Optional channel step | No       | Assign the release to a distribution channel when channel management is needed, for example by adding an npm dist-tag.                                         |
+| `addChannel`       | Add Channel (optional) | No       | Assign the release to a distribution channel when channel management is needed, for example by adding an npm dist-tag.                                         |
 | `success`          | Notify                | No       | Notify consumers or maintainers after a successful release.                                                                                                    |
 | `fail`             | Notify                | No       | Notify consumers or maintainers after a failed release.                                                                                                        |
 
@@ -24,13 +24,15 @@ For each [release step](/foundation/steps/), **semantic-release** runs every plu
 
 Not every release step is hook-backed. For example, core handles `Get Last Release` and `Create Git Tag` directly. `addChannel` is a special-case hook used only when channel management applies.
 
-**Note:** If no plugin with an `analyzeCommits` method is defined `@semantic-release/commit-analyzer` will be used.
+:::note
+If no plugin with an `analyzeCommits` method is defined `@semantic-release/commit-analyzer` will be used.
+:::
 
 ## Plugins installation
 
 ### Default plugins
 
-These four plugins are already part of **semantic-release** and are listed in order of execution. They do not have to be installed separately:
+These four plugins are already part of **semantic-release** and are listed in order of execution. They should not be installed separately; installing them independently can result in conflicting behavior if multiple versions are present:
 
 ```
 "@semantic-release/commit-analyzer"
@@ -41,15 +43,19 @@ These four plugins are already part of **semantic-release** and are listed in or
 
 ### Additional plugins
 
-[Additional plugins](../extending/plugins-list.md) have to be installed via npm:
+[Additional plugins](/extending/plugins-list) should be provided to `npx` with `--package` when running `semantic-release`:
 
 ```bash
-$ npm install @semantic-release/git @semantic-release/changelog -D
+$ npx \
+  --package semantic-release \
+  --package @semantic-release/git \
+  --package @semantic-release/changelog \
+  semantic-release
 ```
 
 ## Plugins declaration and execution order
 
-Each plugin must be configured with the [`plugins` options](configuration.md#plugins) by specifying the list of plugins by npm module name.
+Each plugin must be configured with the [`plugins` options](/usage/configuration/#plugins) by specifying the list of plugins by npm module name.
 
 ```json
 {
@@ -61,7 +67,9 @@ Each plugin must be configured with the [`plugins` options](configuration.md#plu
 }
 ```
 
-**Note:** If the `plugins` option is defined, it overrides the default plugin list, rather than merging with it.
+:::note
+If the `plugins` option is defined, it overrides the default plugin list, rather than merging with it.
+:::
 
 For each [release step](/foundation/steps/), the plugins that implement that step's lifecycle hook will be executed in the order in which they are defined.
 
@@ -112,4 +120,4 @@ Global plugin configuration can be defined at the root of the **semantic-release
 With this configuration:
 
 - All plugins will receive the `preset` option, which will be used by both `@semantic-release/commit-analyzer` and `@semantic-release/release-notes-generator` (and ignored by `@semantic-release/github` and `@semantic-release/git`)
-- The `@semantic-release/github` plugin will receive the `assets` options (`@semantic-release/git` will not receive it and therefore will use it's default value for that option)
+- The `@semantic-release/github` plugin will receive the `assets` option (`@semantic-release/git` will not receive it and therefore will use its default value for that option)
