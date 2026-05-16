@@ -53,9 +53,11 @@ For plugin responsibilities and execution details, see [Plugins](/foundation/plu
 
 The `analyzeCommits` step is the decision point for whether a release is created.
 
+The examples below assume the default Conventional Commits mapping and that the highest-impact commit type since the last release determines the version bump
+
 - No relevant commits since the last release means no new release
-- `fix` commits typically result in a patch release
-- `feat` commits typically result in a minor release
+- `fix` commits result in a patch release
+- `feat` commits result in a minor release
 - `BREAKING CHANGE` results in a major release
 
 Commit parsing depends on your configured commit analyzer and presets. See [How it Works](/foundation/how-it-works/) for the conceptual model and [Configuration](/usage/configuration/) for setup details.
