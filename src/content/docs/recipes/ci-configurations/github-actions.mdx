@@ -125,16 +125,26 @@ This is because npm's Trusted Publisher mechanism authorizes the workflow that i
 
 If you choose to commit changes to your `package.json` [against our recommendation](/support/faq#making-commits-during-the-release-process-adds-significant-complexity), the [`@semantic-release/git`](https://github.com/semantic-release/git) plugin can be used.
 
-**Note**: The automatically populated `GITHUB_TOKEN` cannot be used if branch protection is enabled for the target branch. It is **not** advised to mitigate this limitation by overriding an automatically populated `GITHUB_TOKEN` variable with a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens), as it poses a security risk. Since secrets are available for workflows triggered by any branch, it becomes a potential attack vector where a workflow triggered from a non-protected branch can expose and use a token with elevated permissions, making branch protection ineffective. Personal Access Tokens should only be used in trusted environments, where all developers are allowed to perform administrative actions in the repository and branch protection is enabled solely for convenience (for example, to remind about required reviews or CI checks).
+:::note
+The automatically populated `GITHUB_TOKEN` cannot be used if branch protection is enabled for the target branch. In that case, prefer [GitHub App authentication](https://github.com/actions/create-github-app-token) so the release job can create commits without relying on a long-lived secret.
 
-If the risk is acceptable, some extra configuration is needed. The [actions/checkout `persist-credentials`](https://github.com/marketplace/actions/checkout#usage) option needs to be `false`, otherwise the generated `GITHUB_TOKEN` will interfere with the custom one. Example:
+Personal Access Tokens are not recommended here. They create a broader security risk because a secret exposed to any workflow run can be reused with elevated permissions, which makes branch protection much less effective. Only consider a PAT in tightly controlled environments where the security tradeoff is acceptable.
+:::
+
+Example using GitHub App authentication:
 
 ```yaml
+- name: Create GitHub App token
+  id: app-token
+  uses: actions/create-github-app-token@v1
+  with:
+    app-id: ${{ vars.RELEASE_APP_ID }}
+    private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
 - name: Checkout
   uses: actions/checkout@v4
   with:
     fetch-depth: 0
-    persist-credentials: false # <--- this
+    token: ${{ steps.app-token.outputs.token }}
 ```
 
 ## Release readiness checklist
