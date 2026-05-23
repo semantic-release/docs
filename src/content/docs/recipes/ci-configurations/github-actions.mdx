@@ -76,8 +76,10 @@ jobs:
       - name: Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
+        run: npx semantic-release # <- The Run Commnand
 ```
+
+The workflow above shows a simple release setup with the default semantic-release flow. If your release process needs a different invocation style or non-default behavior (for example, plugins or shareable configurations), refer to [Running semantic-release](/usage/running).
 
 ## Environment variables
 
