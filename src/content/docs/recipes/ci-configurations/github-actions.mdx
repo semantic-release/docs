@@ -33,7 +33,9 @@ Use this recipe to run semantic-release on GitHub Actions with a secure default 
 
 Use this as a starting point for `.github/workflows/release.yml`.
 
-**Note**: The publish pipeline must run on a [Node version that meets our version requirement](/support/node-version).
+:::note
+The publish pipeline must run on a [Node version that meets our version requirement](/support/node-version).
+:::
 
 ```yaml
 name: Release
@@ -83,9 +85,13 @@ If you are not using trusted publishing, an [`NPM_TOKEN`](https://docs.npmjs.com
 
 For improved security and automation, it is recommended to leverage [trusted publishing](https://docs.npmjs.com/trusted-publishers) through [OpenID Connect (OIDC)](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect) when publishing to npm from GitHub Actions. GitHub Actions is a [trusted identity provider](https://docs.npmjs.com/trusted-publishers#identity-providers) for npm, enabling configuration of a trust relationship between your GitHub repository and npm so that no long-lived secret (like an `NPM_TOKEN`) is required to publish packages to npm from GitHub Actions. The npm registry [recently increased restrictions for use of long-lived access tokens](https://github.blog/changelog/2025-09-29-strengthening-npm-security-important-changes-to-authentication-and-token-management/), further encouraging trusted publishing as the preferred approach for publishing to npm from GitHub Actions. Enabling trusted publishing requires granting the `id-token: write` permission to the job performing the publish step and [configuring a trust relationship](https://docs.npmjs.com/trusted-publishers#step-1-add-a-trusted-publisher-on-npmjscom) between your GitHub repository and npm.
 
-**Note**: When setting up a Trusted Publisher on npmjs for GitHub Actions, it's crucial to specify the workflow file that triggers the release process, not necessarily the one that contains the release logic itself.\
-If your release job is encapsulated in a [reusable workflow](https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows), the workflow file you must reference is the caller workflow—typically the one triggered by events like `push` or `workflow_dispatch` on your main branch.\
+:::note
+When setting up a Trusted Publisher on npmjs for GitHub Actions, it's crucial to specify the workflow file that triggers the release process, not necessarily the one that contains the release logic itself.
+
+If your release job is encapsulated in a [reusable workflow](https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows), the workflow file you must reference is the caller workflow—typically the one triggered by events like `push` or `workflow_dispatch` on your main branch.
+
 This is because npm's Trusted Publisher mechanism authorizes the workflow that initiates the run, not any downstream workflows it invokes.
+:::
 
 [npm provenance](https://docs.npmjs.com/generating-provenance-statements) is valuable for increasing supply-chain security for your npm packages. Before trusted publishing was available, generating provenance attestations required configuring your project to enable publishing with provenance. With trusted publishing, npm provenance is automatically generated for packages published to npm from GitHub Actions without any additional configuration.
 
