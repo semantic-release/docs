@@ -8,10 +8,10 @@ Use this recipe to run semantic-release on GitHub Actions with a secure default 
 ## Quick start
 
 <Steps>
-1. Create `.github/workflows/release.yml` using the minimal workflow in this page.
-2. Use **trusted publishing** (recommended): configure npm Trusted Publisher for your repository and keep `id-token: write` in the release job.
-3. If you cannot use trusted publishing, add `NPM_TOKEN` as a GitHub Actions secret.
-4. Push a commit to `main`/`master` (or run `workflow_dispatch`) and let semantic-release publish.
+1. Create `.github/workflows/release.yml` using the [minimal workflow configuration](#githubworkflowsreleaseyml-configuration-for-node-projects).
+2. Use **trusted publishing** (recommended): follow [Path A](#path-a-recommended-trusted-publishing-oidc), then review [Trusted publishing and npm provenance](#trusted-publishing-and-npm-provenance).
+3. If you cannot use trusted publishing, add `NPM_TOKEN` as a GitHub Actions secret as described in [Environment variables](#environment-variables) and [Choose a publishing path](#choose-a-publishing-path).
+4. Push a commit to `main`/`master` (or run `workflow_dispatch`) and verify with the [Release readiness checklist](#release-readiness-checklist). For manual runs, see [Trigger semantic-release on demand](#trigger-semantic-release-on-demand).
 </Steps>
 
 ## Choose a publishing path
@@ -29,9 +29,13 @@ Use this recipe to run semantic-release on GitHub Actions with a secure default 
 - Keep `GITHUB_TOKEN` for GitHub release notes, issue comments, and pull request comments.
 - Use this only when trusted publishing is not available for your setup.
 
-## Minimal release workflow (copy/paste)
+## Node project configuration
 
-Use this as a starting point for `.github/workflows/release.yml`.
+[GitHub Actions](https://github.com/features/actions) supports [workflows](https://docs.github.com/en/actions/writing-workflows), allowing you to run tests on multiple Node versions and publish a release only when all tests pass.
+
+### `.github/workflows/release.yml` configuration for Node projects
+
+Use this as a starting point for `.github/workflows/release.yml`. Make sure to adjust the trigger and branch name as needed. The example below is configured for trusted publishing with OIDC, but it can be easily adapted to use `NPM_TOKEN` instead by removing the `id-token: write` permission and ensuring `NPM_TOKEN` is available in secrets.
 
 :::note
 The publish pipeline must run on a [Node version that meets our version requirement](/support/node-version).
