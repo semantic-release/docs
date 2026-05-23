@@ -4,9 +4,9 @@ title: "GitHub Actions"
 
 ## Environment variables
 
-The [Authentication](../../usage/ci-configuration.md#authentication) environment variables can be configured with [Secret Variables](https://docs.github.com/en/actions/reference/encrypted-secrets).
+The [Authentication](/usage/ci-configuration#authentication) environment variables can be configured with [GitHub Actions secrets](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions).
 
-In this example a publish type [`NPM_TOKEN`](https://docs.npmjs.com/creating-and-viewing-authentication-tokens) is required to publish a package to the npm registry. GitHub Actions [automatically populate](https://docs.github.com/en/actions/security-guides/automatic-token-authentication) a [`GITHUB_TOKEN`](https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line) environment variable which can be used in Workflows.
+If you are not using trusted publishing, an [`NPM_TOKEN`](https://docs.npmjs.com/creating-and-viewing-authentication-tokens) is required to publish a package to the npm registry. GitHub Actions [automatically populates](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) a [`GITHUB_TOKEN`](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) environment variable that can be used in workflows.
 
 ## Trusted publishing and npm provenance
 
@@ -41,9 +41,9 @@ If you need to specify a custom registry, configure it in your project's `.npmrc
 
 ## Node project configuration
 
-[GitHub Actions](https://github.com/features/actions) support [Workflows](https://help.github.com/en/articles/configuring-workflows), allowing to run tests on multiple Node versions and publish a release only when all test pass.
+[GitHub Actions](https://github.com/features/actions) supports [workflows](https://docs.github.com/en/actions/writing-workflows), allowing you to run tests on multiple Node versions and publish a release only when all tests pass.
 
-**Note**: The publish pipeline must run on a [Node version that meets our version requirement](../../support/node-version.md).
+**Note**: The publish pipeline must run on a [Node version that meets our version requirement](/support/node-version).
 
 ### `.github/workflows/release.yml` configuration for Node projects
 
@@ -89,15 +89,15 @@ jobs:
 
 ## Pushing `package.json` changes to your repository
 
-If you choose to commit changes to your `package.json` [against our recommendation](../../support/FAQ.md#making-commits-during-the-release-process-adds-significant-complexity), the [`@semantic-release/git`](https://github.com/semantic-release/git) plugin can be used.
+If you choose to commit changes to your `package.json` [against our recommendation](/support/faq#making-commits-during-the-release-process-adds-significant-complexity), the [`@semantic-release/git`](https://github.com/semantic-release/git) plugin can be used.
 
-**Note**: Automatically populated `GITHUB_TOKEN` cannot be used if branch protection is enabled for the target branch. It is **not** advised to mitigate this limitation by overriding an automatically populated `GITHUB_TOKEN` variable with a [Personal Access Tokens](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line), as it poses a security risk. Since Secret Variables are available for Workflows triggered by any branch, it becomes a potential vector of attack, where a Workflow triggered from a non-protected branch can expose and use a token with elevated permissions, yielding branch protection insignificant. One can use Personal Access Tokens in trusted environments, where all developers should have the ability to perform administrative actions in the given repository and branch protection is enabled solely for convenience purposes, to remind about required reviews or CI checks.
+**Note**: The automatically populated `GITHUB_TOKEN` cannot be used if branch protection is enabled for the target branch. It is **not** advised to mitigate this limitation by overriding an automatically populated `GITHUB_TOKEN` variable with a [Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens), as it poses a security risk. Since secrets are available for workflows triggered by any branch, it becomes a potential attack vector where a workflow triggered from a non-protected branch can expose and use a token with elevated permissions, making branch protection ineffective. Personal Access Tokens should only be used in trusted environments, where all developers are allowed to perform administrative actions in the repository and branch protection is enabled solely for convenience (for example, to remind about required reviews or CI checks).
 
 If the risk is acceptable, some extra configuration is needed. The [actions/checkout `persist-credentials`](https://github.com/marketplace/actions/checkout#usage) option needs to be `false`, otherwise the generated `GITHUB_TOKEN` will interfere with the custom one. Example:
 
 ```yaml
 - name: Checkout
-  uses: actions/checkout@v2
+  uses: actions/checkout@v4
   with:
     fetch-depth: 0
     persist-credentials: false # <--- this
@@ -107,11 +107,11 @@ If the risk is acceptable, some extra configuration is needed. The [actions/chec
 
 ### Using GUI:
 
-You can use [Manual Triggers](https://github.blog/changelog/2020-07-06-github-actions-manual-triggers-with-workflow_dispatch/) for GitHub Actions.
+You can use [`workflow_dispatch`](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#onworkflow_dispatch) to run the release workflow manually from the GitHub UI.
 
 ### Using HTTP:
 
-Use [`repository_dispatch`](https://docs.github.com/en/actions/reference/events-that-trigger-workflows#repository_dispatch) event to have control on when to generate a release by making an HTTP request, e.g.:
+Use the [`repository_dispatch`](https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#repository_dispatch) event to control when to generate a release by making an HTTP request, for example:
 
 ```yaml
 name: Release
@@ -122,8 +122,13 @@ jobs:
 # ...
 ```
 
-To trigger a release, call (with a [Personal Access Tokens](https://help.github.com/en/github/authenticating-to-github/creating-a-personal-access-token-for-the-command-line) stored in `GITHUB_TOKEN` environment variable):
+To trigger a release, call the GitHub API with a [Personal Access Token](https://docs.github.com/en/rest/authentication/authenticating-to-the-rest-api) stored in the `GITHUB_TOKEN` environment variable:
 
 ```
-$ curl -v -H "Accept: application/vnd.github.everest-preview+json" -H "Authorization: token ${GITHUB_TOKEN}" https://api.github.com/repos/[org-name-or-username]/[repository]/dispatches -d '{ "event_type": "semantic-release" }'
+$ curl -v -X POST \
+  -H "Accept: application/vnd.github+json" \
+  -H "Authorization: Bearer ${GITHUB_TOKEN}" \
+  -H "X-GitHub-Api-Version: 2022-11-28" \
+  https://api.github.com/repos/[org-name-or-username]/[repository]/dispatches \
+  -d '{ "event_type": "semantic-release" }'
 ```
