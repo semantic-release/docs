@@ -29,52 +29,11 @@ Use this recipe to run semantic-release on GitHub Actions with a secure default 
 - Keep `GITHUB_TOKEN` for GitHub release notes, issue comments, and pull request comments.
 - Use this only when trusted publishing is not available for your setup.
 
-## Environment variables
+## Minimal release workflow (copy/paste)
 
-The [Authentication](/usage/ci-configuration#authentication) environment variables can be configured with [GitHub Actions secrets](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions).
-
-If you are not using trusted publishing, an [`NPM_TOKEN`](https://docs.npmjs.com/creating-and-viewing-authentication-tokens) is required to publish a package to the npm registry. GitHub Actions [automatically populates](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) a [`GITHUB_TOKEN`](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) environment variable that can be used in workflows.
-
-## Trusted publishing and npm provenance
-
-For improved security and automation, it is recommended to leverage [trusted publishing](https://docs.npmjs.com/trusted-publishers) through [OpenID Connect (OIDC)](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect) when publishing to npm from GitHub Actions. GitHub Actions is a [trusted identity provider](https://docs.npmjs.com/trusted-publishers#identity-providers) for npm, enabling configuration of a trust relationship between your GitHub repository and npm so that no long-lived secret (like an `NPM_TOKEN`) is required to publish packages to npm from GitHub Actions. The npm registry [recently increased restrictions for use of long-lived access tokens](https://github.blog/changelog/2025-09-29-strengthening-npm-security-important-changes-to-authentication-and-token-management/), further encouraging trusted publishing as the preferred approach for publishing to npm from GitHub Actions. Enabling trusted publishing requires granting the `id-token: write` permission to the job performing the publish step and [configuring a trust relationship](https://docs.npmjs.com/trusted-publishers#step-1-add-a-trusted-publisher-on-npmjscom) between your GitHub repository and npm.
-
-**Note**: When setting up a Trusted Publisher on npmjs for GitHub Actions, it's crucial to specify the workflow file that triggers the release process, not necessarily the one that contains the release logic itself.\
-If your release job is encapsulated in a [reusable workflow](https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows), the workflow file you must reference is the caller workflow—typically the one triggered by events like `push` or `workflow_dispatch` on your main branch.\
-This is because npm's Trusted Publisher mechanism authorizes the workflow that initiates the run, not any downstream workflows it invokes.
-
-[npm provenance](https://docs.npmjs.com/generating-provenance-statements) is valuable for increasing supply-chain security for your npm packages. Before trusted publishing was available, generating provenance attestations required configuring your project to enable publishing with provenance. With trusted publishing, npm provenance is automatically generated for packages published to npm from GitHub Actions without any additional configuration.
-
-## Important: Avoid `registry-url` in `setup-node`
-
-**Do not** set the `registry-url` option in the `actions/setup-node` step when using semantic-release for npm publishing. The `registry-url` option causes `setup-node` to create an `.npmrc` file that can conflict with semantic-release's npm authentication mechanism, leading to `EINVALIDNPMTOKEN` errors even when your token is valid.
-
-```yaml
-# ❌ Don't do this - can cause conflicts with semantic-release
-- name: Setup Node.js
-  uses: actions/setup-node@v4
-  with:
-    node-version: "lts/*"
-    registry-url: "https://registry.npmjs.org"
-
-# ✅ Do this instead - let semantic-release handle npm authentication
-- name: Setup Node.js
-  uses: actions/setup-node@v4
-  with:
-    node-version: "lts/*"
-```
-
-If you need to specify a custom registry, configure it in your project's `.npmrc` file instead. This ensures consistent behavior between local development and CI environments, and avoids conflicts with semantic-release.
-
-## Node project configuration
-
-[GitHub Actions](https://github.com/features/actions) supports [workflows](https://docs.github.com/en/actions/writing-workflows), allowing you to run tests on multiple Node versions and publish a release only when all tests pass.
+Use this as a starting point for `.github/workflows/release.yml`.
 
 **Note**: The publish pipeline must run on a [Node version that meets our version requirement](/support/node-version).
-
-### `.github/workflows/release.yml` configuration for Node projects
-
-The following is a minimal configuration for [`semantic-release`](https://github.com/semantic-release/semantic-release) with a build running on the latest LTS version of Node when a new commit is pushed to a `master/main` branch. See the [Workflow syntax for GitHub Actions](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions) for additional configuration options.
 
 ```yaml
 name: Release
@@ -114,6 +73,44 @@ jobs:
         run: npx semantic-release
 ```
 
+## Environment variables
+
+The [Authentication](/usage/ci-configuration#authentication) environment variables can be configured with [GitHub Actions secrets](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions).
+
+If you are not using trusted publishing, an [`NPM_TOKEN`](https://docs.npmjs.com/creating-and-viewing-authentication-tokens) is required to publish a package to the npm registry. GitHub Actions [automatically populates](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) a [`GITHUB_TOKEN`](https://docs.github.com/en/actions/security-for-github-actions/security-guides/automatic-token-authentication) environment variable that can be used in workflows.
+
+## Trusted publishing and npm provenance
+
+For improved security and automation, it is recommended to leverage [trusted publishing](https://docs.npmjs.com/trusted-publishers) through [OpenID Connect (OIDC)](https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect) when publishing to npm from GitHub Actions. GitHub Actions is a [trusted identity provider](https://docs.npmjs.com/trusted-publishers#identity-providers) for npm, enabling configuration of a trust relationship between your GitHub repository and npm so that no long-lived secret (like an `NPM_TOKEN`) is required to publish packages to npm from GitHub Actions. The npm registry [recently increased restrictions for use of long-lived access tokens](https://github.blog/changelog/2025-09-29-strengthening-npm-security-important-changes-to-authentication-and-token-management/), further encouraging trusted publishing as the preferred approach for publishing to npm from GitHub Actions. Enabling trusted publishing requires granting the `id-token: write` permission to the job performing the publish step and [configuring a trust relationship](https://docs.npmjs.com/trusted-publishers#step-1-add-a-trusted-publisher-on-npmjscom) between your GitHub repository and npm.
+
+**Note**: When setting up a Trusted Publisher on npmjs for GitHub Actions, it's crucial to specify the workflow file that triggers the release process, not necessarily the one that contains the release logic itself.\
+If your release job is encapsulated in a [reusable workflow](https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows), the workflow file you must reference is the caller workflow—typically the one triggered by events like `push` or `workflow_dispatch` on your main branch.\
+This is because npm's Trusted Publisher mechanism authorizes the workflow that initiates the run, not any downstream workflows it invokes.
+
+[npm provenance](https://docs.npmjs.com/generating-provenance-statements) is valuable for increasing supply-chain security for your npm packages. Before trusted publishing was available, generating provenance attestations required configuring your project to enable publishing with provenance. With trusted publishing, npm provenance is automatically generated for packages published to npm from GitHub Actions without any additional configuration.
+
+## Common pitfalls checklist
+
+- Do not set `registry-url` in `actions/setup-node` when using semantic-release for npm publishing. It creates an `.npmrc` that can conflict with semantic-release auth and lead to `EINVALIDNPMTOKEN` errors.
+- If you need a custom npm registry, set it in your project `.npmrc`.
+- If using npm trusted publishing, keep `id-token: write` permission in the release job.
+- If using `NPM_TOKEN`, ensure it is configured as a repository or organization secret.
+
+```yaml
+# ❌ Don't do this - can cause conflicts with semantic-release
+- name: Setup Node.js
+  uses: actions/setup-node@v4
+  with:
+    node-version: "lts/*"
+    registry-url: "https://registry.npmjs.org"
+
+# ✅ Do this instead - let semantic-release handle npm authentication
+- name: Setup Node.js
+  uses: actions/setup-node@v4
+  with:
+    node-version: "lts/*"
+```
+
 ## Pushing `package.json` changes to your repository
 
 If you choose to commit changes to your `package.json` [against our recommendation](/support/faq#making-commits-during-the-release-process-adds-significant-complexity), the [`@semantic-release/git`](https://github.com/semantic-release/git) plugin can be used.
@@ -129,6 +126,15 @@ If the risk is acceptable, some extra configuration is needed. The [actions/chec
     fetch-depth: 0
     persist-credentials: false # <--- this
 ```
+
+## Release readiness checklist
+
+- Your workflow triggers on the branch you release from (`main` or `master`).
+- `fetch-depth: 0` is enabled in checkout.
+- `GITHUB_TOKEN` is available to semantic-release.
+- You chose one npm auth path: trusted publishing (`id-token: write`) or `NPM_TOKEN` secret.
+- `registry-url` is not set in `actions/setup-node`.
+- Your runtime meets the [supported Node version policy](/support/node-version).
 
 ## Trigger semantic-release on demand
 
