@@ -1,6 +1,7 @@
 ---
 title: "Running semantic-release"
 ---
+
 How to run **semantic-release** in your CI pipeline using `npx`, including version pinning strategies and tradeoffs of local installation.
 
 ## Using npx (recommended)
@@ -51,7 +52,7 @@ Since **semantic-release** isn't truly a development dependency, but rather a re
 - installing dependencies that could conflict with other development dependencies, like **commitlint**
 
 :::note
-A tradeoff of running via `npx` instead of installing locally is that the full **semantic-release** dependency graph is not pinned by your project's lockfile. 
+A tradeoff of running via `npx` instead of installing locally is that the full **semantic-release** dependency graph is not pinned by your project's lockfile.
 
 The [version pinning strategies](#notes) above help mitigate this.
 :::
