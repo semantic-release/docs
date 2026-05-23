@@ -148,11 +148,13 @@ If the risk is acceptable, some extra configuration is needed. The [actions/chec
 
 ## Trigger semantic-release on demand
 
-### Using GUI:
+Use these options when you want to trigger a release outside the normal push-based workflow.
+
+### Using GUI
 
 You can use [`workflow_dispatch`](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#onworkflow_dispatch) to run the release workflow manually from the GitHub UI.
 
-### Using HTTP:
+### Using HTTP
 
 Use the [`repository_dispatch`](https://docs.github.com/en/actions/writing-workflows/choosing-when-your-workflow-runs/events-that-trigger-workflows#repository_dispatch) event to control when to generate a release by making an HTTP request, for example:
 
