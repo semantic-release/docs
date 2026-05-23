@@ -153,7 +153,8 @@ Example using GitHub App authentication:
 
 - Your workflow triggers on the branch you release from (`main` or `master`).
 - `fetch-depth: 0` is enabled in checkout.
-- `GITHUB_TOKEN` is available to semantic-release.
+- `GITHUB_TOKEN` is available to semantic-release for the default release flow.
+- If you commit files during release on a protected branch (for example with `@semantic-release/git`), GitHub App auth is configured and checkout uses the app token.
 - You chose one npm auth path: trusted publishing (`id-token: write`) or `NPM_TOKEN` secret.
 - `registry-url` is not set in `actions/setup-node`.
 - Your runtime meets the [supported Node version policy](/support/node-version).
