@@ -1,8 +1,33 @@
 ---
 title: "GitHub Actions"
 ---
+import { Steps } from "@astrojs/starlight/components";
 
 Use this recipe to run semantic-release on GitHub Actions with a secure default setup. It covers authentication options, trusted publishing with OIDC and npm provenance, a minimal release workflow for Node projects, and common pitfalls to avoid when configuring npm and GitHub tokens.
+
+## Quick start
+
+<Steps>
+1. Create `.github/workflows/release.yml` using the minimal workflow in this page.
+2. Use **trusted publishing** (recommended): configure npm Trusted Publisher for your repository and keep `id-token: write` in the release job.
+3. If you cannot use trusted publishing, add `NPM_TOKEN` as a GitHub Actions secret.
+4. Push a commit to `main`/`master` (or run `workflow_dispatch`) and let semantic-release publish.
+</Steps>
+
+## Choose a publishing path
+
+### Path A (recommended): Trusted publishing (OIDC)
+
+- No long-lived npm token in GitHub secrets.
+- npm provenance is generated automatically.
+- Requires `id-token: write` permission in the job that runs semantic-release.
+- Requires an npm Trusted Publisher configured for the workflow that triggers the run.
+
+### Path B (fallback): `NPM_TOKEN`
+
+- Add `NPM_TOKEN` to repository or organization secrets.
+- Keep `GITHUB_TOKEN` for GitHub release notes, issue comments, and pull request comments.
+- Use this only when trusted publishing is not available for your setup.
 
 ## Environment variables
 
