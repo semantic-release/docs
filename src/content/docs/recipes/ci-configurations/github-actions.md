@@ -2,6 +2,8 @@
 title: "GitHub Actions"
 ---
 
+Use this recipe to run semantic-release on GitHub Actions with a secure default setup. It covers authentication options, trusted publishing with OIDC and npm provenance, a minimal release workflow for Node projects, and common pitfalls to avoid when configuring npm and GitHub tokens.
+
 ## Environment variables
 
 The [Authentication](/usage/ci-configuration#authentication) environment variables can be configured with [GitHub Actions secrets](https://docs.github.com/en/actions/security-for-github-actions/security-guides/using-secrets-in-github-actions).
