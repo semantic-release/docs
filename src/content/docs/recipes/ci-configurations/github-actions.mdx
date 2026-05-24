@@ -9,17 +9,12 @@ Use this recipe to run semantic-release on GitHub Actions with a secure default 
 ## Quick start
 
 <Steps>
-  1. Create `.github/workflows/release.yml` using the [minimal workflow
-  configuration](#githubworkflowsreleaseyml-configuration-for-node-projects). 2.
-  Use **trusted publishing** (recommended): follow [Path
-  A](#path-a-recommended-trusted-publishing-oidc), then review [Trusted
-  publishing and npm provenance](#trusted-publishing-and-npm-provenance). 3. If
-  you cannot use trusted publishing, add `NPM_TOKEN` as a GitHub Actions secret
-  as described in [Environment variables](#environment-variables) and [Choose a
-  publishing path](#choose-a-publishing-path). 4. Push a commit to
-  `main`/`master` (or run `workflow_dispatch`) and verify with the [Release
-  readiness checklist](#release-readiness-checklist). For manual runs, see
-  [Trigger semantic-release on demand](#trigger-semantic-release-on-demand).
+
+1. Create `.github/workflows/release.yml` using the [minimal workflow configuration](#githubworkflowsreleaseyml-configuration-for-node-projects).
+2. Use **trusted publishing** (recommended): follow [Path A](#path-a-recommended-trusted-publishing-oidc), then review [Trusted publishing and npm provenance](#trusted-publishing-and-npm-provenance).
+3. If you cannot use trusted publishing, add `NPM_TOKEN` as a GitHub Actions secret as described in [Environment variables](#environment-variables) and [Choose a publishing path](#choose-a-publishing-path).
+4. Push a commit to `main`/`master` (or run `workflow_dispatch`) and verify with the [Release readiness checklist](#release-readiness-checklist). For manual runs, see [Trigger semantic-release on demand](#trigger-semantic-release-on-demand).
+
 </Steps>
 
 ## Choose a publishing path
