@@ -10,7 +10,7 @@ Use this recipe to run semantic-release on GitHub Actions with a secure default 
 
 <Steps>
 
-1. Create `.github/workflows/release.yml` using the [minimal workflow configuration](#githubworkflowsreleaseyml-configuration-for-node-projects).
+1. Create `.github/workflows/verify-and-release.yml` using the [verify-and-release workflow configuration](#githubworkflowsverify-and-releaseyml-configuration-for-node-projects).
 2. Use **trusted publishing** (recommended): follow [Path A](#path-a-recommended-trusted-publishing-oidc), then review [Trusted publishing and npm provenance](#trusted-publishing-and-npm-provenance).
 3. If you cannot use trusted publishing, add `NPM_TOKEN` as a GitHub Actions secret as described in [Environment variables](#environment-variables) and [Choose a publishing path](#choose-a-publishing-path).
 4. Push a commit to `main`/`master` (or run `workflow_dispatch`) and verify with the [Release readiness checklist](#release-readiness-checklist). For manual runs, see [Trigger semantic-release on demand](#trigger-semantic-release-on-demand).
@@ -36,16 +36,16 @@ Use this recipe to run semantic-release on GitHub Actions with a secure default 
 
 [GitHub Actions](https://github.com/features/actions) supports [workflows](https://docs.github.com/en/actions/writing-workflows), allowing you to run tests on multiple Node versions and publish a release only when all tests pass.
 
-### `.github/workflows/release.yml` configuration for Node projects
+### `.github/workflows/verify-and-release.yml` configuration for Node projects
 
-Use this as a starting point for `.github/workflows/release.yml`. Make sure to adjust the trigger and branch name as needed. The example below is configured for trusted publishing with OIDC, but it can be easily adapted to use `NPM_TOKEN` instead by removing the `id-token: write` permission and ensuring `NPM_TOKEN` is available in secrets.
+Use this as a starting point for `.github/workflows/verify-and-release.yml`. This example runs verification first and only runs semantic-release if verification succeeds. Make sure to adjust the trigger and branch name as needed. The example below is configured for trusted publishing with OIDC, but it can be easily adapted to use `NPM_TOKEN` instead by removing the `id-token: write` permission and ensuring `NPM_TOKEN` is available in secrets.
 
 :::note
 The publish pipeline must run on a [Node version that meets our version requirement](/support/node-version), but can be different than the Node version used in your verification job(s).
 :::
 
 ```yaml
-name: Release
+name: Verify and Release
 on:
   push:
     branches:
@@ -55,9 +55,29 @@ permissions:
   contents: read # for checkout
 
 jobs:
+  verify:
+    name: Verify
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "lts/*"
+      - name: Install dependencies
+        run: npm clean-install
+      - name: Verify the integrity of provenance attestations and registry signatures for installed dependencies
+        run: npm audit signatures
+      - name: Run tests
+        run: npm test
+
   release:
     name: Release
     runs-on: ubuntu-latest
+    needs: verify
     permissions:
       contents: write # to be able to publish a GitHub release
       issues: write # to be able to comment on released issues
@@ -82,7 +102,7 @@ jobs:
         run: npx semantic-release # <- The Run Commnand
 ```
 
-The workflow above shows a simple release setup with the default semantic-release flow. If your release process needs a different invocation style or non-default behavior (for example, plugins or shareable configurations), refer to [Running semantic-release](/usage/running).
+The workflow above shows a verify-then-release setup with the default semantic-release flow. If your release process needs a different invocation style or non-default behavior (for example, plugins or shareable configurations), refer to [Running semantic-release](/usage/running).
 
 ## Environment variables
 
