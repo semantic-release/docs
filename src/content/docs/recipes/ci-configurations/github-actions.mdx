@@ -156,20 +156,43 @@ The automatically populated `GITHUB_TOKEN` cannot be used if branch protection i
 Personal Access Tokens are not recommended here. They create a broader security risk because a secret exposed to any workflow run can be reused with elevated permissions, which makes branch protection much less effective. Only consider a PAT in tightly controlled environments where the security tradeoff is acceptable.
 :::
 
-Example using GitHub App authentication:
+Example release job using GitHub App authentication with `@semantic-release/git` (assuming a preceding `verify` job):
 
 ```yaml
-- name: Create GitHub App token
-  id: app-token
-  uses: actions/create-github-app-token@v1
-  with:
-    app-id: ${{ vars.RELEASE_APP_ID }}
-    private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
-- name: Checkout
-  uses: actions/checkout@v4
-  with:
-    fetch-depth: 0
-    token: ${{ steps.app-token.outputs.token }}
+# verify:
+#   # ... your existing verify job
+
+release:
+  name: Release
+  runs-on: ubuntu-latest
+  needs: verify
+  permissions:
+    contents: write
+    issues: write
+    pull-requests: write
+    id-token: write
+  steps:
+    - name: Create GitHub App token
+      id: app-token
+      uses: actions/create-github-app-token@v1
+      with:
+        app-id: ${{ vars.RELEASE_APP_ID }}
+        private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+    - name: Checkout
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        token: ${{ steps.app-token.outputs.token }}
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: "lts/*"
+    - name: Install dependencies
+      run: npm clean-install
+    - name: Release
+      env:
+        GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+      run: npx semantic-release
 ```
 
 ## Release readiness checklist
