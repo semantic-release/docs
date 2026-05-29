@@ -119,7 +119,7 @@ This is because npm's Trusted Publisher mechanism authorizes the workflow that i
     node-version: "lts/*"
     registry-url: "https://registry.npmjs.org"
 
-# ✅ Do this instead - let semantic-release handle npm authentication
+# ✅ Do this instead - let semantic-release handle registry configuration through normal npm conventions
 - name: Setup Node.js
   uses: actions/setup-node@v4
   with:
