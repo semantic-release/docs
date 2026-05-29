@@ -24,7 +24,7 @@ Use this recipe to run semantic-release on GitHub Actions with a secure default 
 - No long-lived npm token in GitHub secrets.
 - npm provenance is generated automatically.
 - Requires `id-token: write` permission in the job that runs semantic-release.
-- Requires an npm Trusted Publisher configured for the workflow that triggers the run.
+- Requires an npm [Trusted Publisher](https://docs.npmjs.com/trusted-publishers#for-github-actions) configured for the workflow that triggers the run.
 
 ### Path B (fallback): `NPM_TOKEN`
 
