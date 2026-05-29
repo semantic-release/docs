@@ -166,6 +166,14 @@ Example using GitHub App authentication:
 
 Use these options when you want to trigger a release outside the normal push-based workflow.
 
+:::caution[Discouraged in most setups]
+Manual or API-triggered releases are generally **not recommended** with semantic-release.
+
+semantic-release is designed for continuous delivery: once changes are merged to your primary release branch, releases should happen automatically and predictably from CI. Adding ad-hoc triggers increases operational complexity, weakens release consistency, and can bypass the normal branch-based release flow your team relies on.
+
+Use the options below only for exceptional operational scenarios.
+:::
+
 ### Using GUI
 
 You can use [`workflow_dispatch`](https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#onworkflow_dispatch) to run the release workflow manually from the GitHub UI.
