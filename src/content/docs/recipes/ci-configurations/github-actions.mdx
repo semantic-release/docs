@@ -41,7 +41,7 @@ Use this recipe to run semantic-release on GitHub Actions with a secure default 
 Use this as a starting point for `.github/workflows/release.yml`. Make sure to adjust the trigger and branch name as needed. The example below is configured for trusted publishing with OIDC, but it can be easily adapted to use `NPM_TOKEN` instead by removing the `id-token: write` permission and ensuring `NPM_TOKEN` is available in secrets.
 
 :::note
-The publish pipeline must run on a [Node version that meets our version requirement](/support/node-version).
+The publish pipeline must run on a [Node version that meets our version requirement](/support/node-version), but can be different than the Node version used in your verification job(s).
 :::
 
 ```yaml
