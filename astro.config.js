@@ -78,11 +78,14 @@ export default defineConfig({
             {
               label: "CI Configurations",
               items: [
-                { slug: "recipes/ci-configurations" },
-                { slug: "recipes/ci-configurations/circleci-workflows" },
-                { slug: "recipes/ci-configurations/travis" },
-                { slug: "recipes/ci-configurations/gitlab-ci" },
+                { slug: "recipes/ci-configurations", label: "Overview" },
                 { slug: "recipes/ci-configurations/github-actions" },
+                { slug: "recipes/ci-configurations/gitlab-ci" },
+                {
+                  slug: "recipes/ci-configurations/circleci-workflows",
+                  label: "CircleCI Workflows",
+                },
+                { slug: "recipes/ci-configurations/travis" },
                 { slug: "recipes/ci-configurations/jenkins-ci" },
               ],
             },

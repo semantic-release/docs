@@ -12,7 +12,7 @@ title: Considerations
 
 If your primary attraction is for automatic release note generation rather than semantic versioning, you may want to reconsider if **semantic-release** is the right fit for your goals.
 
-:::tip[Recommendation] 
+:::tip[Recommendation]
 Adopt **semantic-release** when semantic versioning is your primary objective, with release-step automation as a secondary benefit.
 :::
 
@@ -29,7 +29,7 @@ Applications that are deployed directly to a runtime environment lack an audienc
 Docker images that are published to a registry only for the purpose of deploying directly to a runtime environment fall into this category, even though they are a published asset.
 Often, using the git SHA as the version for such assets is a better choice than versioning them semantically.
 
-:::tip[Recommendation] 
+:::tip[Recommendation]
 Prioritize semantic versioning for artifacts consumed as dependencies; for directly deployed artifacts, consider using git SHAs instead.
 :::
 
@@ -43,7 +43,7 @@ and [making commits during the release process adds significant complexity](/sup
 
 Please consider the trade-offs of adding those plugins to your release configuration for potentially unnecessary goals.
 
-:::tip[Recommendation] 
+:::tip[Recommendation]
 Keep your configuration minimal and only add release-time commits when there is a clear, justified need.
 :::
 

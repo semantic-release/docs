@@ -4,7 +4,7 @@ title: Supported Branching Models
 
 This page summarizes branching models that align well with **semantic-release** and those that are officially unsupported.
 
-:::tip[Recommendation] 
+:::tip[Recommendation]
 Default to workflows that keep changes flowing to a stable trunk quickly and continuously.
 :::
 
@@ -35,7 +35,7 @@ These models align with the delivery and release assumptions built into **semant
 
 - [Continuous Deployment](https://trunkbaseddevelopment.com/continuous-delivery/#continuous-deployment)
 
-:::tip[Recommendation] 
+:::tip[Recommendation]
 Choose a trunk-based workflow that keeps branch lifetime short and integration frequent.
 :::
 
@@ -44,7 +44,7 @@ Choose a trunk-based workflow that keeps branch lifetime short and integration f
 - [GitHub Docs: GitHub Flow](https://docs.github.com/en/get-started/using-github/github-flow)
 - [GitHub Flow](https://githubflow.github.io/)
 
-:::tip[Recommendation] 
+:::tip[Recommendation]
 GitHub Flow is a practical fit when pull requests are short-lived and releases are frequent.
 :::
 
@@ -73,7 +73,7 @@ While the [same reflection](https://nvie.com/posts/a-successful-git-branching-mo
 While some have found that the [Pre-release workflow](/foundation/workflow-configuration/#prerelease) enabled by **semantic-release** can be used to _simulate_ a git-flow-like workflow,
 it is also worth noting that this orchestration pattern is not an intended use case and requests for support when attempting to use it that way will be closed by our team.
 
-:::tip[Recommendation] 
+:::tip[Recommendation]
 Avoid Git flow-style long-lived branch orchestration when using **semantic-release**.
 :::
 
@@ -81,7 +81,7 @@ Avoid Git flow-style long-lived branch orchestration when using **semantic-relea
 
 - [The Importance of a Local Build](https://trunkbaseddevelopment.com/styles/#the-importance-of-a-local-build)
 
-:::tip[Recommendation] 
+:::tip[Recommendation]
 Prefer workflows where confidence comes from CI quality signals, with production release as the promotion event.
 :::
 
