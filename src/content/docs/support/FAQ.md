@@ -35,7 +35,7 @@ However, if you are choosing to follow this path because you can't use the offic
 
 ## Should release notes be committed to a `CHANGELOG.md` in my repository during a release?
 
-[`@semantic-release/changelog`](https://github.com/semantic-release/changelog) can be used to add release notes to a `CHANGELOG.md` file within your repository as part of each release. Committing changes to a `CHANGELOG.md` or similar file introduces the same [complexities](FAQ.md#making-commits-during-the-release-process-adds-significant-complexity) as committing an updated version within a `package.json` file. In addition, the release notes that would be added to a changelog file are likely redundant with the release notes added as GitHub releases, if that is also configured for your project (enabled by default).
+[`@semantic-release/changelog`](https://github.com/semantic-release/changelog) can be used to add release notes to a `CHANGELOG.md` file within your repository as part of each release. Committing changes to a `CHANGELOG.md` or similar file introduces the same [complexities](#making-commits-during-the-release-process-adds-significant-complexity) as committing an updated version within a `package.json` file. In addition, the release notes that would be added to a changelog file are likely redundant with the release notes added as GitHub releases, if that is also configured for your project (enabled by default).
 
 Before deciding that a changelog file is necessary for your project, please consider whether the added complexity is worth it when GitHub releases (or similar for your host, if not GitHub) might accomplish the same goal. It could also be worth considering whether having a `CHANGELOG.md` in your repository that only contains a link to the project's GitHub releases could be an acceptable middle ground.
 
@@ -70,7 +70,7 @@ If using npm hook scripts is not possible, and alternative solution is to [`@sem
 
 ## Is there a way to preview which version would currently get published?
 
-Yes with the [dry-run options](../usage/configuration.md#dryrun) which prints to the console the next version to be published and the release notes.
+Yes with the [dry-run options](/usage/configuration#dryrun) which prints to the console the next version to be published and the release notes.
 
 ## Can I use semantic-release to publish non-JavaScript packages?
 
@@ -78,13 +78,13 @@ Yes, **semantic-release** is a Node CLI application, but it can be used to publi
 
 To publish a non-Node package (without a `package.json`) you would need to:
 
-- Use a [global](../usage/running.md#using-npx-recommended) **semantic-release** installation
-- Set **semantic-release** [options](../usage/configuration.md#options) via [CLI arguments or `.rc` file](../usage/configuration.md#configuration)
+- Use a [global](/usage/running#using-npx-recommended) **semantic-release** installation
+- Set **semantic-release** [options](/usage/configuration#options) via [CLI arguments or Configuration file](/usage/configuration)
 - Make sure your CI job executing the `semantic-release` command has access to a version of Node that [meets our version requirement](node-version.md) to execute the `semantic-release` command
 
-See the [CI configuration recipes](../recipes/release-workflow/#ci-configurations) for more details on specific CI environments.
+See the [CI configuration recipes](/recipes/release-workflow/#ci-configurations) for more details on specific CI environments.
 
-In addition, you will need to configure the **semantic-release** [plugins](../usage/plugins.md#plugins) to disable the [`@semantic-release/npm`](https://github.com/semantic-release/npm) plugin which is used by default and use a plugin for your project type.
+In addition, you will need to configure the **semantic-release** [plugins](/foundation/plugins) to disable the [`@semantic-release/npm`](https://github.com/semantic-release/npm) plugin which is used by default and use a plugin for your project type.
 
 If there is no specific plugin for your project type you can use the [`@semantic-release/exec`](https://github.com/semantic-release/exec) plugin to publish the release with a shell command.
 
@@ -109,20 +109,20 @@ Here is a basic example to create [GitHub releases](https://help.github.com/arti
 
 **Note**: This is a theoretical example where the command `set-version` update the project version with the value passed as its first argument and `publish-package` publishes the package to a registry.
 
-See the [package managers and languages recipes](../recipes/release-workflow/#package-managers-and-languages) for more details on specific project types and the [available plugins list](../extending/plugins-list.md) to see if there are community-supported plugins already available for the stack you are interested in.
+See the [package managers and languages recipes](/recipes/release-workflow/#package-managers-and-languages) for more details on specific project types and the [available plugins list](/extending/plugins-list.md) to see if there are community-supported plugins already available for the stack you are interested in.
 
 ## Can I use semantic-release with any CI service?
 
 Yes, **semantic-release** can be used with any CI service, as long as it provides:
 
-- A way to set [authentication](../usage/ci-configuration.md#authentication) via environment variables
-- A way to guarantee that the `semantic-release` command is [executed only after all the tests of all the jobs in the CI build pass](../usage/ci-configuration.md#run-semantic-release-only-after-all-tests-succeeded)
+- A way to set [authentication](/usage/ci-configuration#authentication) via environment variables
+- A way to guarantee that the `semantic-release` command is [executed only after all the tests of all the jobs in the CI build pass](/usage/ci-configuration#run-semantic-release-only-after-all-tests-succeeded)
 
-See the [CI configuration recipes](../recipes/release-workflow/#ci-configurations) for more details on specific CI environments.
+See the [CI configuration recipes](/recipes/release-workflow/#ci-configurations) for more details on specific CI environments.
 
 ## Can I run semantic-release on my local machine rather than on a CI server?
 
-Yes, you can by explicitly setting the [`--no-ci` CLI option](../usage/configuration.md#ci) option. You will also have to set the required [authentication](../usage/ci-configuration.md#authentication) via environment variables on your local machine, for example:
+Yes, you can by explicitly setting the [`--no-ci` CLI option](/usage/configuration#ci) option. You will also have to set the required [authentication](/usage/ci-configuration#authentication) via environment variables on your local machine, for example:
 
 ```bash
 $ NPM_TOKEN=<your_npm_token> GH_TOKEN=<your_github_token> npx semantic-release --no-ci
@@ -134,11 +134,11 @@ However this is not the recommended approach, as running unit and integration te
 
 Yes, with the [`@semantic-release/gitlab-config`](https://github.com/semantic-release/gitlab-config) shareable configuration.
 
-See the [GitLab CI recipes](../recipes/ci-configurations/gitlab-ci.md#using-semantic-release-with-gitlab-ci) for the CI configuration.
+See the [GitLab CI recipes](/recipes/ci-configurations/gitlab-ci) for the CI configuration.
 
 ## Can I use semantic-release with any Git hosted environment?
 
-By default **semantic-release** uses the [`@semantic-release/github`](https://github.com/semantic-release/github) plugin to publish a [GitHub release](https://help.github.com/articles/about-releases). For other Git hosted environment the [`@semantic-release/git`](https://github.com/semantic-release/git) and [`@semantic-release/changelog`](https://github.com/semantic-release/changelog) plugins can be used via [plugins configuration](../usage/plugins.md).
+By default **semantic-release** uses the [`@semantic-release/github`](https://github.com/semantic-release/github) plugin to publish a [GitHub release](https://help.github.com/articles/about-releases). For other Git hosted environment the [`@semantic-release/git`](https://github.com/semantic-release/git) and [`@semantic-release/changelog`](https://github.com/semantic-release/changelog) plugins can be used via [plugins configuration](/usage/plugins.md).
 
 See the [`@semantic-release/git`](https://github.com/semantic-release/git#semantic-releasegit) [`@semantic-release/changelog`](https://github.com/semantic-release/changelog#semantic-releasechangelog) plugins documentation for more details.
 
@@ -218,15 +218,15 @@ From [Understanding the GitHub Flow](https://guides.github.com/introduction/flow
 
 > Branching is a core concept in Git, and the entire GitHub Flow is based upon it. There's only one rule: anything in the master/main branch is always deployable.
 
-If you need more control over the timing of releases, see [Triggering a release](../../#triggering-a-release) for different options.
+If you need more control over the timing of releases, see [Triggering a release](/intro#triggering-a-release) for different options.
 
-**Note**: Only the codebase changes altering the published package will trigger a release (for example new features, bug fixes or performance improvements would trigger a release while refactoring or changing code style would not). See [How can I change the type of commits that trigger a release?](FAQ.md#how-can-i-change-the-type-of-commits-that-trigger-a-release) for more details.
+**Note**: Only the codebase changes altering the published package will trigger a release (for example new features, bug fixes or performance improvements would trigger a release while refactoring or changing code style would not). See [How can I change the type of commits that trigger a release?](#how-can-i-change-the-type-of-commits-that-trigger-a-release) for more details.
 
 ## Can I set the initial release version of my package to `0.0.1`?
 
 This is not supported by semantic-release. [Semantic Versioning](https://semver.org/) rules apply differently to major version zero and supporting those differences is out of scope and not one of the goals of the semantic-release project.
 
-If your project is under heavy development, with frequent breaking changes, and is not production ready yet we recommend [publishing pre-releases](../recipes/release-workflow/pre-releases.md#publishing-pre-releases).
+If your project is under heavy development, with frequent breaking changes, and is not production ready yet we recommend [publishing pre-releases](/recipes/release-workflow/pre-releases).
 
 See [“Introduction to SemVer” - Irina Gebauer](https://blog.greenkeeper.io/introduction-to-semver-d272990c44f2) for more details on [Semantic Versioning](https://semver.org) and the recommendation to start at version `1.0.0`.
 
@@ -234,7 +234,7 @@ See [“Introduction to SemVer” - Irina Gebauer](https://blog.greenkeeper.io/i
 
 **semantic-release** has a full unit and integration test suite that tests `npm` publishes against the [verdaccio](https://www.npmjs.com/package/verdaccio).
 
-In addition, the [verify conditions step](../../#release-steps) verifies that all necessary conditions for proceeding with a release are met, and a new release will be performed [only if all your tests pass](../usage/ci-configuration.md#run-semantic-release-only-after-all-tests-succeeded).
+In addition, the [verify conditions step](/foundation/release-steps) verifies that all necessary conditions for proceeding with a release are met, and a new release will be performed [only if all your tests pass](/usage/ci-configuration#run-semantic-release-only-after-all-tests-succeeded).
 
 ## What is npx?
 
