@@ -24,7 +24,7 @@ If no commits since the last release carry a recognized type, no release is publ
 
 Tools like [commitizen](https://github.com/commitizen/cz-cli) and [commitlint](https://github.com/conventional-changelog/commitlint) can help contributors author valid commit messages consistently.
 
-For deeper details on commit analysis, release steps, and plugin hooks, see [Release Steps](/foundation/steps/) and [Plugins](/foundation/plugins/).
+For deeper details on commit analysis, release steps, and plugin hooks, see [Release Steps](/foundation/release-steps/) and [Plugins](/foundation/plugins/).
 
 ## Why CI is central
 

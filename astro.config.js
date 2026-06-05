@@ -57,7 +57,7 @@ export default defineConfig({
           items: [
             { slug: "foundation", label: "Overview" },
             { slug: "foundation/how-it-works" },
-            { slug: "foundation/steps" },
+            { slug: "foundation/release-steps" },
             { slug: "foundation/considerations" },
             { slug: "foundation/supported-branching" },
             { slug: "foundation/workflow-configuration" },
