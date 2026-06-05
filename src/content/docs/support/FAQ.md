@@ -80,7 +80,7 @@ To publish a non-Node package (without a `package.json`) you would need to:
 
 - Use a [global](/usage/running#using-npx-recommended) **semantic-release** installation
 - Set **semantic-release** [options](/usage/configuration#options) via [CLI arguments or Configuration file](/usage/configuration)
-- Make sure your CI job executing the `semantic-release` command has access to a version of Node that [meets our version requirement](node-version.md) to execute the `semantic-release` command
+- Make sure your CI job executing the `semantic-release` command has access to a version of Node that [meets our version requirement](/support/node-version) to execute the `semantic-release` command
 
 See the [CI configuration recipes](/recipes/release-workflow/#ci-configurations) for more details on specific CI environments.
 
@@ -109,7 +109,7 @@ Here is a basic example to create [GitHub releases](https://help.github.com/arti
 
 **Note**: This is a theoretical example where the command `set-version` update the project version with the value passed as its first argument and `publish-package` publishes the package to a registry.
 
-See the [package managers and languages recipes](/recipes/release-workflow/#package-managers-and-languages) for more details on specific project types and the [available plugins list](/extending/plugins-list.md) to see if there are community-supported plugins already available for the stack you are interested in.
+See the [package managers and languages recipes](/recipes/release-workflow/#package-managers-and-languages) for more details on specific project types and the [available plugins list](/extending/plugins-list) to see if there are community-supported plugins already available for the stack you are interested in.
 
 ## Can I use semantic-release with any CI service?
 
@@ -138,7 +138,7 @@ See the [GitLab CI recipes](/recipes/ci-configurations/gitlab-ci) for the CI con
 
 ## Can I use semantic-release with any Git hosted environment?
 
-By default **semantic-release** uses the [`@semantic-release/github`](https://github.com/semantic-release/github) plugin to publish a [GitHub release](https://help.github.com/articles/about-releases). For other Git hosted environment the [`@semantic-release/git`](https://github.com/semantic-release/git) and [`@semantic-release/changelog`](https://github.com/semantic-release/changelog) plugins can be used via [plugins configuration](/usage/plugins.md).
+By default **semantic-release** uses the [`@semantic-release/github`](https://github.com/semantic-release/github) plugin to publish a [GitHub release](https://help.github.com/articles/about-releases). For other Git hosted environment the [`@semantic-release/git`](https://github.com/semantic-release/git) and [`@semantic-release/changelog`](https://github.com/semantic-release/changelog) plugins can be used via [plugins configuration](/foundation/plugins).
 
 See the [`@semantic-release/git`](https://github.com/semantic-release/git#semantic-releasegit) [`@semantic-release/changelog`](https://github.com/semantic-release/changelog#semantic-releasechangelog) plugins documentation for more details.
 
