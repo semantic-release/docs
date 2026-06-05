@@ -74,7 +74,7 @@ try {
 
 ### semanticRelease(\[options], \[config]) => Promise
 
-Run **semantic-release** and returns a `Promise` that resolves to a [Result](js-api.md#result) object.
+Run **semantic-release** and returns a `Promise` that resolves to a [Result](#result) object.
 
 #### options
 
@@ -82,9 +82,9 @@ Type: `Object`
 
 **semantic-release** options.
 
-Can be used to set any [core option](../usage/configuration.md#configuration) or [plugin options](../usage/plugins.md#configuration).
+Can be used to set any [core option](/usage/configuration#option) or [plugin options](/usage/configuration/#plugins).
 
-Each option, will take precedence over options configured in the [configuration file](../usage/configuration.md#configuration) and [shareable configurations](../usage/configuration.md#extends).
+Each option, will take precedence over options configured in the [configuration file](/usage/configuration#configuration-file) and [shareable configurations](/usage/configuration#extends).
 
 #### config
 
@@ -132,7 +132,7 @@ It allows to configure **semantic-release** to write errors to a specific stream
 
 Type: `Object` `Boolean`<br>
 
-An object with [`lastRelease`](js-api.md#lastrelease), [`nextRelease`](js-api.md#nextrelease), [`commits`](js-api.md#commits) and [`releases`](js-api.md#releases) if a release is published or `false` if no release was published.
+An object with [`lastRelease`](#lastrelease), [`nextRelease`](#nextrelease), [`commits`](#commits) and [`releases`](#releases) if a release is published or `false` if no release was published.
 
 #### lastRelease
 

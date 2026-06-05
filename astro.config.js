@@ -47,12 +47,22 @@ export default defineConfig({
           label: "Usage",
           items: [
             { slug: "usage/getting-started" },
-            { slug: "usage/installation" },
-            { slug: "usage/ci-configuration" },
             { slug: "usage/configuration" },
-            { slug: "usage/plugins" },
-            { slug: "usage/workflow-configuration" },
-            { slug: "usage/shareable-configurations" },
+            { slug: "usage/ci-configuration" },
+            { slug: "usage/running" },
+          ],
+        },
+        {
+          label: "Foundations",
+          items: [
+            { slug: "foundation", label: "Overview" },
+            { slug: "foundation/how-it-works" },
+            { slug: "foundation/release-steps" },
+            { slug: "foundation/considerations" },
+            { slug: "foundation/supported-branching" },
+            { slug: "foundation/workflow-configuration" },
+            { slug: "foundation/plugins" },
+            { slug: "foundation/shareable-configurations" },
           ],
         },
         {
@@ -68,25 +78,28 @@ export default defineConfig({
             {
               label: "CI Configurations",
               items: [
-                { slug: "recipes/ci-configurations" },
-                { slug: "recipes/ci-configurations/circleci-workflows" },
-                { slug: "recipes/ci-configurations/travis" },
-                { slug: "recipes/ci-configurations/gitlab-ci" },
+                { slug: "recipes/ci-configurations", label: "Overview" },
                 { slug: "recipes/ci-configurations/github-actions" },
+                { slug: "recipes/ci-configurations/gitlab-ci" },
+                {
+                  slug: "recipes/ci-configurations/circleci-workflows",
+                  label: "CircleCI Workflows",
+                },
+                { slug: "recipes/ci-configurations/travis" },
                 { slug: "recipes/ci-configurations/jenkins-ci" },
               ],
             },
             {
               label: "Git Hosted Services",
               items: [
-                { slug: "recipes/git-hosted-services" },
+                { slug: "recipes/git-hosted-services", label: "Overview" },
                 { slug: "recipes/git-hosted-services/git-auth-ssh-keys" },
               ],
             },
             {
               label: "Release Workflow",
               items: [
-                { slug: "recipes/release-workflow" },
+                { slug: "recipes/release-workflow", label: "Overview" },
                 { slug: "recipes/release-workflow/distribution-channels" },
                 { slug: "recipes/release-workflow/maintenance-releases" },
                 { slug: "recipes/release-workflow/pre-releases" },

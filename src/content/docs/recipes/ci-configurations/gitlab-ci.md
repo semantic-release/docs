@@ -4,7 +4,7 @@ title: "GitLab CI"
 
 ## Environment variables
 
-The [Authentication](../../usage/ci-configuration.md#authentication) environment variables can be configured with [Protected variables](https://docs.gitlab.com/ce/ci/variables/README.html#protected-environment-variables).
+The [Authentication](/usage/ci-configuration#authentication) environment variables can be configured with [Protected variables](https://docs.gitlab.com/ce/ci/variables/README.html#protected-environment-variables).
 
 **Note**: Make sure to configure your release branch as [protected](https://docs.gitlab.com/ce/user/project/protected_branches.html) in order for the CI/CD build to access the protected variables.
 
@@ -16,13 +16,13 @@ Since GitLab CI is a [supported provider](https://docs.npmjs.com/generating-prov
 
 GitLab CI supports [Pipelines](https://docs.gitlab.com/ee/ci/pipelines.html) allowing to test on multiple Node versions and publishing a release only when all test pass.
 
-**Note**: The publish pipeline must run a [Node version that meets our version requirement](../../support/node-version.md).
+**Note**: The publish pipeline must run a [Node version that meets our version requirement](/support/node-version).
 
 ### `.gitlab-ci.yml` configuration for Node projects
 
 This example is a minimal configuration for **semantic-release** with a build running Node 10 and 12. See [GitLab CI - Configuration of your jobs with `.gitlab-ci.yml`](https://docs.gitlab.com/ee/ci/yaml/README.html) for additional configuration options.
 
-**Note**: The`semantic-release` execution command varies depending on whether you are using a [local](../../usage/installation.md#local-installation) or [global](../../usage/installation.md#global-installation) **semantic-release** installation.
+**Note**: The`semantic-release` execution command varies depending on whether you are using a [local](/usage/running#local-installation-not-recommended) or [global](/usage/running#using-npx-recommended) **semantic-release** installation.
 
 ```yaml
 # The release pipeline will run only if all jobs in the test pipeline are successful
@@ -56,7 +56,7 @@ publish:
 
 This example is a minimal configuration for **semantic-release** with a build running Node 10 and 12. See [GitLab CI - Configuration of your jobs with `.gitlab-ci.yml`](https://docs.gitlab.com/ee/ci/yaml/README.html) for additional configuration options.
 
-**Note**: The`semantic-release` execution command varies depending if you are using a [local](../../usage/installation.md#local-installation) or [global](../../usage/installation.md#global-installation) **semantic-release** installation.
+**Note**: The`semantic-release` execution command varies depending if you are using a [local](/usage/running#local-installation-not-recommended) or [global](/usage/running#using-npx-recommended) **semantic-release** installation.
 
 ```yaml
 # The release pipeline will run only on the master/main branch a commit is triggered
@@ -88,7 +88,7 @@ release:
 
 ### `package.json` configuration
 
-A `package.json` is required only for [local](../../usage/installation.md#local-installation) **semantic-release** installation.
+A `package.json` is required only for [local](/usage/running#local-installation-not-recommended) **semantic-release** installation.
 
 ```json
 {
