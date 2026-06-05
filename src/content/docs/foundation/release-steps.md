@@ -11,7 +11,7 @@ This page explains the release steps that make up a `semantic-release` run.
 
 If you are new to the overall model, read [How it Works](/foundation/how-it-works/) first.
 
-## Release step sequence
+## Step sequence
 
 After tests pass and `semantic-release` starts, it evaluates the repository state and executes release steps in a fixed order.
 

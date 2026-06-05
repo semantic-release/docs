@@ -148,7 +148,7 @@ The `tagFormat` must contain the `version` variable exactly once and compile to 
 **default**: `['@semantic-release/commit-analyzer', '@semantic-release/release-notes-generator', '@semantic-release/npm', '@semantic-release/github']`\
 **CLI arguments**: `-p`, `--plugins`
 
-Define the list of plugins to use. Plugins will run in series, in the order defined, for each [release step](/foundation/steps/) whose lifecycle hook they implement.
+Define the list of plugins to use. Plugins will run in series, in the order defined, for each [release step](/foundation/release-steps/) whose lifecycle hook they implement.
 
 Plugins configuration can defined by wrapping the name and an options object in an array.
 

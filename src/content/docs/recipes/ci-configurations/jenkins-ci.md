@@ -4,15 +4,15 @@ title: "Jenkins CI"
 
 ## Environment variables
 
-The [Authentication](../../usage/ci-configuration.md#authentication) environment variables can be configured in [Jenkins Project Settings](https://www.jenkins.io/doc/pipeline/tour/environment/)..
+The [Authentication](/usage/ci-configuration#authentication) environment variables can be configured in [Jenkins Project Settings](https://www.jenkins.io/doc/pipeline/tour/environment/)..
 
-Alternatively, the default `NPM_TOKEN` and `GH_TOKEN` can be easily [setup with semantic-release-cli](../../usage/getting-started.md#getting-started).
+Alternatively, the default `NPM_TOKEN` and `GH_TOKEN` can be easily [setup with semantic-release-cli](/usage/getting-started).
 
 ## Node.js project configuration
 
 ### `Jenkinsfile (Declarative Pipeline)` configuration for a Node.js job
 
-**Note**: The publish pipeline must run a Node version that [meets our requirement](../../support/node-version.md).
+**Note**: The publish pipeline must run a Node version that [meets our requirement](/support/node-version).
 
 This example is a minimal configuration for **semantic-release** with a build running a version of Node labelled as "node LTS". Since versions of Node are manually downloaded and labelled, we recommend keeping the version used for the release steps up-to-date with the latest LTS version. See the [Jenkins documentation](https://www.jenkins.io/doc/) for additional configuration options.
 
@@ -50,7 +50,7 @@ pipeline {
 
 ### `package.json` configuration for a Node job
 
-A `package.json` is required only for [local](../../usage/running.md#local-installation-not-recommended) **semantic-release** installation.
+A `package.json` is required only for [local](/usage/running#local-installation-not-recommended) **semantic-release** installation.
 
 ```json
 {

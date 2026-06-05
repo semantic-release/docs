@@ -57,7 +57,7 @@ export default defineConfig({
           items: [
             { slug: "foundation", label: "Overview" },
             { slug: "foundation/how-it-works" },
-            { slug: "foundation/steps" },
+            { slug: "foundation/release-steps" },
             { slug: "foundation/considerations" },
             { slug: "foundation/supported-branching" },
             { slug: "foundation/workflow-configuration" },
@@ -92,14 +92,14 @@ export default defineConfig({
             {
               label: "Git Hosted Services",
               items: [
-                { slug: "recipes/git-hosted-services" },
+                { slug: "recipes/git-hosted-services", label: "Overview" },
                 { slug: "recipes/git-hosted-services/git-auth-ssh-keys" },
               ],
             },
             {
               label: "Release Workflow",
               items: [
-                { slug: "recipes/release-workflow" },
+                { slug: "recipes/release-workflow", label: "Overview" },
                 { slug: "recipes/release-workflow/distribution-channels" },
                 { slug: "recipes/release-workflow/maintenance-releases" },
                 { slug: "recipes/release-workflow/pre-releases" },
