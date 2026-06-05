@@ -700,4 +700,26 @@ Open a PR adding a new plugin to this page!
   }}
 />
 
+<PluginCard
+  name="semantic-release-linear-issue-status"
+  url="https://github.com/noahlaux/semantic-release-linear-issue-status"
+  steps={{
+    verifyConditions:
+      "Verify the presence of the <code>LINEAR_API_KEY</code> environment variable and required configuration options (<code>teamKey</code>, <code>issuePrefixes</code>).",
+    success:
+      'Move linked <a href="https://linear.app">Linear</a> issues to a completed workflow state after a successful release, based on issue identifiers found in release commits.',
+  }}
+/>
+
+<PluginCard
+  name="semantic-release-jira-fixversion"
+  url="https://github.com/danbka33/semantic-release-jira-fixversion"
+  steps={{
+    verifyConditions:
+      "Verify Jira Server/Data Center connectivity, authentication, and plugin configuration.",
+    success:
+      "Create or reuse Jira Versions for affected projects, update <code>fixVersions</code>, add release comments to referenced issues, and transition them to the configured workflow state.",
+  }}
+/>
+
 </div>
