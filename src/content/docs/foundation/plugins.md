@@ -20,7 +20,7 @@ A plugin is a npm module that can implement one or more lifecycle methods for th
 | `success`          | Notify                 | No       | Notify consumers or maintainers after a successful release.                                                                                                                                                           |
 | `fail`             | Notify                 | No       | Notify consumers or maintainers after a failed release.                                                                                                                                                               |
 
-For each [release step](/foundation/steps/), **semantic-release** runs every plugin in the [`plugins` array](plugins.md#plugins-declaration-and-execution-order) that implements the hook for that step.
+For each [release step](/foundation/steps/), **semantic-release** runs every plugin in the [`plugins` array](#plugins-declaration-and-execution-order) that implements the hook for that step.
 
 Not every release step is hook-backed. For example, core handles `Get Last Release` and `Create Git Tag` directly. `addChannel` is a special-case hook used only when channel management applies.
 
