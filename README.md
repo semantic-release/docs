@@ -54,7 +54,8 @@ src/
 ├── assets/          # Images and static assets
 ├── components/      # Custom Astro components
 ├── content/docs/    # Documentation pages (Markdown/MDX)
-│   ├── usage/       # Getting started, configuration, plugins
+│   ├── usage/       # Getting started, configuration, running semantic-release
+│   ├── foundation/  # Concepts, constraints, and mental models of semantic-release
 │   ├── extending/   # Plugin and shareable configuration lists
 │   ├── recipes/     # CI configurations, git services, workflows
 │   ├── support/     # FAQ, troubleshooting, version requirements
@@ -76,4 +77,4 @@ To contribute to the docs:
 
 ## License
 
-This project is part of the [semantic-release](https://github.com/semantic-release/semantic-release) organization.
+This project is part of the [semantic-release](https://github.com/semantic-release) organization.

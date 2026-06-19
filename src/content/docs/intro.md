@@ -2,12 +2,6 @@
 title: "Introduction"
 ---
 
-<h3 align="center">Fully automated version management and package publishing</h3>
-
-<p align="center"><a href="https://github.com/semantic-release/semantic-release/discussions"><img src="https://img.shields.io/badge/Join%20the%20community-on%20GitHub%20Discussions-blue" alt="Join the community on GitHub Discussions"> </a><a href="https://github.com/semantic-release/semantic-release/actions/workflows/test.yml"><img src="https://github.com/semantic-release/semantic-release/actions/workflows/test.yml/badge.svg" alt="Build states"> </a><a href="https://securityscorecards.dev/viewer/?uri=github.com/semantic-release/semantic-release"><img src="https://api.securityscorecards.dev/projects/github.com/semantic-release/semantic-release/badge" alt="OpenSSF Scorecard"> </a><a href="./#badge"><img src="https://img.shields.io/badge/semantic--release-angular-e10079?logo=semantic-release" alt="semantic-release: angular"></a></p>
-
-<p align="center"><a href="https://www.npmjs.com/package/semantic-release"><img src="https://img.shields.io/npm/v/semantic-release/latest.svg" alt="npm latest version"> </a><a href="https://www.npmjs.com/package/semantic-release"><img src="https://img.shields.io/npm/v/semantic-release/next.svg" alt="npm next version"> </a><a href="https://www.npmjs.com/package/semantic-release"><img src="https://img.shields.io/npm/v/semantic-release/beta.svg" alt="npm beta version"></a></p>
-
 **semantic-release** automates the whole package release workflow including: determining the next version number, generating the release notes, and publishing the package.
 
 This removes the immediate connection between human emotions and version numbers, strictly following the [Semantic Versioning](http://semver.org) specification and communicating the **impact** of changes to consumers.
@@ -22,10 +16,10 @@ This removes the immediate connection between human emotions and version numbers
 - Notify maintainers and users of new releases
 - Use formalized commit message convention to document changes in the codebase
 - Publish on different distribution channels (such as [npm dist-tags](https://docs.npmjs.com/cli/dist-tag)) based on git merges
-- Integrate with your [continuous integration workflow](docs/recipes/release-workflow/#ci-configurations)
+- Integrate with your [continuous integration workflow](/recipes/release-workflow/#ci-configurations)
 - Avoid potential errors associated with manual releases
-- Support any [package managers and languages](docs/recipes/release-workflow/#package-managers-and-languages) via [plugins](docs/usage/plugins.md)
-- Simple and reusable configuration via [shareable configurations](docs/usage/shareable-configurations.md)
+- Support any [package managers and languages](/recipes/release-workflow/#package-managers-and-languages) via [plugins](/foundation/plugins)
+- Simple and reusable configuration via [shareable configurations](/usage/shareable-configurations)
 - Support for [npm package provenance](https://github.com/semantic-release/npm#npm-provenance) that promotes increased supply-chain security via signed attestations on GitHub Actions
 
 ## How does it work?
@@ -34,7 +28,7 @@ This removes the immediate connection between human emotions and version numbers
 
 **semantic-release** uses the commit messages to determine the consumer impact of changes in the codebase. Following formalized conventions for commit messages, **semantic-release** automatically determines the next [semantic version](https://semver.org) number, generates a changelog and publishes the release.
 
-By default, **semantic-release** uses [Angular Commit Message Conventions](https://github.com/angular/angular/blob/main/contributing-docs/commit-message-guidelines.md). The commit message format can be changed with the [`preset` or `config` options](docs/usage/configuration.md#options) of the [@semantic-release/commit-analyzer](https://github.com/semantic-release/commit-analyzer#options) and [@semantic-release/release-notes-generator](https://github.com/semantic-release/release-notes-generator#options) plugins.
+By default, **semantic-release** uses [Angular Commit Message Conventions](https://github.com/angular/angular/blob/main/contributing-/commit-message-guidelines.md). The commit message format can be changed with the [`preset` or `config` options](/usage/configuration#options) of the [@semantic-release/commit-analyzer](https://github.com/semantic-release/commit-analyzer#options) and [@semantic-release/release-notes-generator](https://github.com/semantic-release/release-notes-generator#options) plugins.
 
 Tools such as [commitizen](https://github.com/commitizen/cz-cli) or [commitlint](https://github.com/conventional-changelog/commitlint) can be used to help contributors and enforce valid commit messages.
 
@@ -56,9 +50,9 @@ For each new commit added to one of the release branches (for example: `master`,
 
 **semantic-release** offers various ways to control the timing, the content and the audience of published releases. See example workflows in the following recipes:
 
-- [Using distribution channels](docs/recipes/release-workflow/distribution-channels.md#publishing-on-distribution-channels)
-- [Maintenance releases](docs/recipes/release-workflow/maintenance-releases.md#publishing-maintenance-releases)
-- [Pre-releases](docs/recipes/release-workflow/pre-releases.md#publishing-pre-releases)
+- [Using distribution channels](/recipes/release-workflow/distribution-channels)
+- [Maintenance releases](/recipes/release-workflow/maintenance-releases)
+- [Pre-releases](/recipes/release-workflow/pre-releases)
 
 ### Release steps
 
@@ -81,9 +75,9 @@ After running the tests, the command `semantic-release` will execute the followi
 In order to use **semantic-release** you need:
 
 - To host your code in a [Git repository](https://git-scm.com)
-- Use a Continuous Integration service that allows you to [securely set up credentials](docs/usage/ci-configuration.md#authentication)
-- A Git CLI version that meets [our version requirement](docs/support/git-version.md) installed in your Continuous Integration environment
-- A [Node.js](https://nodejs.org) version that meets [our version requirement](docs/support/node-version.md) installed in your Continuous Integration environment
+- Use a Continuous Integration service that allows you to [securely set up credentials](/usage/ci-configuration#authentication)
+- A Git CLI version that meets [our version requirement](/support/git-version) installed in your Continuous Integration environment
+- A [Node.js](https://nodejs.org) version that meets [our version requirement](/support/node-version) installed in your Continuous Integration environment
 
 ## Get help
 

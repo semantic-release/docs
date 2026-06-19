@@ -60,6 +60,7 @@ article.card,
 .dialog-frame,
 .pagefind-ui__search-input,
 dialog-frame,
+.sl-link-card,
 .page-context-action__compact-copy-btn,
 .page-context-action__compact-scroll-top-btn,
 .page-context-action__compact-kebab-btn,
@@ -80,5 +81,19 @@ dialog-frame,
 
   .right-sidebar-container {
     width: var(--sl-sidebar-width);
+  }
+}
+
+/* Plugin card grid */
+.plugin-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+@media (min-width: 40rem) {
+  .plugin-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
