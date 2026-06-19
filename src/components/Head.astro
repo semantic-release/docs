@@ -1,16 +1,15 @@
 ---
 import Default from "@astrojs/starlight/components/Head.astro";
-import { inject } from "@vercel/analytics";
+import Analytics from "@vercel/analytics/astro";
 
 const { pathname } = Astro.url;
 const slug = pathname.replace(/^\/|\/$/g, "");
 const ogImagePath = slug ? `/og/${slug}.png` : "/og/index.png";
 const ogImageUrl = new URL(ogImagePath, Astro.url.origin);
-
-inject();
 ---
 
 <Default {...Astro.props}><slot /></Default>
+<Analytics />
 <meta property="og:image" content={ogImageUrl.href} />
 <meta name="twitter:image" content={ogImageUrl.href} />
 <meta name="twitter:card" content="summary_large_image" />
