@@ -21,7 +21,7 @@
     "lint:fix": "prettier --write ."
   },
   "dependencies": {
-    "@astrojs/starlight": "^0.37.7",
+    "@astrojs/starlight": "^0.41.0",
     "@astrojs/starlight-tailwind": "^4.0.2",
     "@tailwindcss/vite": "^4.2.1",
     "@vercel/analytics": "^2.0.1",
