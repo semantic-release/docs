@@ -1,5 +1,6 @@
 ---
 title: How it Works
+description: "Understand how semantic-release analyzes commits, calculates versions, and publishes releases automatically."
 ---
 
 **semantic-release** automates package release workflows by turning commit history into predictable versioning and publishing decisions.
