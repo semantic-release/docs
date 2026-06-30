@@ -1,5 +1,6 @@
 ---
 title: "Jenkins CI"
+description: "Configure semantic-release on Jenkins CI, including environment variables and non-interactive authentication."
 ---
 
 ## Environment variables
