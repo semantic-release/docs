@@ -1,5 +1,6 @@
 ---
 title: "CI Configuration"
+description: "Configure CI so semantic-release runs only on release branches with the required credentials."
 ---
 
 Configure CI to run **semantic-release** by following two requirements: run it only after all tests pass, and configure the authentication needed to publish releases.
