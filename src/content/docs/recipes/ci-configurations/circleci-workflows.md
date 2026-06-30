@@ -1,5 +1,6 @@
 ---
 title: "CircleCI 2.0"
+description: "Set up semantic-release on CircleCI 2.0 with secure tokens and a reliable release job pipeline."
 ---
 
 ## Environment variables
