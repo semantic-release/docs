@@ -147,6 +147,8 @@ The following keys are commonly available on `context` across lifecycle hooks:
 
 ### Context object keys by lifecycle
 
+The `context` object evolves as semantic-release moves through each release step. Start with `verifyConditions` to see the baseline shape, then use the later lifecycle sections to understand which additional keys are available at that point in the run.
+
 #### verifyConditions
 
 Initially the context object contains the following keys for the `verifyConditions` lifecycle hook:
