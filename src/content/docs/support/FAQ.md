@@ -1,5 +1,6 @@
 ---
 title: "Frequently Asked Questions"
+description: "Find quick answers to common semantic-release questions about setup, behavior, and best practices."
 ---
 
 ## Why is the `package.json`’s version not updated in my repository?

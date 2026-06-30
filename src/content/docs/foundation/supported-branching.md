@@ -1,5 +1,6 @@
 ---
 title: Supported Branching Models
+description: "See supported branching models and channel strategies for stable, maintenance, and pre-release lines."
 ---
 
 This page summarizes branching models that align well with **semantic-release** and those that are officially unsupported.

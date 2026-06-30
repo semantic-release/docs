@@ -131,6 +131,9 @@ export default defineConfig({
         starlightPageContextAction({
           position: "below-toc",
           sticky: true,
+          actions: {
+            viewMarkdown: true,
+          },
         }),
       ],
     }),

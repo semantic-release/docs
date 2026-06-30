@@ -1,5 +1,6 @@
 ---
 title: "Publishing pre-releases"
+description: "Configure semantic-release pre-releases for beta, alpha, and next channels before stable promotion."
 ---
 
 This recipe will walk you through a simple example that uses pre-releases to publish beta versions while working on a future major release and then make only one release on the default distribution.

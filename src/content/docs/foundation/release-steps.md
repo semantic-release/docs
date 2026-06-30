@@ -1,5 +1,6 @@
 ---
 title: Release Steps
+description: "Explore the release lifecycle steps semantic-release runs from verification to publishing and notifications."
 ---
 
 This page explains the release steps that make up a `semantic-release` run.

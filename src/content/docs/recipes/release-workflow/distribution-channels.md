@@ -1,5 +1,6 @@
 ---
 title: "Publishing on distribution channels"
+description: "Publish semantic-release versions to distribution channels such as npm dist-tags and maintenance lines."
 ---
 
 This recipe will walk you through a simple example that uses distribution channels to make releases available only to a subset of users, in order to collect feedback before distributing the release to all users.

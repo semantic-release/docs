@@ -1,5 +1,6 @@
 ---
 title: "GitLab CI"
+description: "Run semantic-release in GitLab CI with protected variables and a release stage in your pipeline."
 ---
 
 ## Environment variables

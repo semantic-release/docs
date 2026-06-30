@@ -1,5 +1,6 @@
 ---
 title: "Introduction"
+description: "Learn how semantic-release automates versioning, changelogs, and publishing using commit messages and CI."
 ---
 
 **semantic-release** automates the whole package release workflow including: determining the next version number, generating the release notes, and publishing the package.
