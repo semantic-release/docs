@@ -3,9 +3,9 @@ title: "Plugin development"
 description: "Build semantic-release plugins by implementing lifecycle steps and handling release context safely."
 ---
 
-To create a plugin for `semantic-release`, decide which [parts of the release lifecycle](/foundation/release-steps/#step-sequence) your plugin needs to participate in by implementing/binding to its hook.
+To create a plugin for `semantic-release`, decide which [release steps](/foundation/release-steps/#step-sequence) your plugin needs to participate in by implementing the corresponding lifecycle hooks.
 
-In practice, most plugins should implement at least `verifyConditions` hook so they can validate user input and fail early with a clear error. A plugin can implement/bind any of the following lifecycle hooks:
+In practice, most plugins should implement at least the `verifyConditions` lifecycle hook so they can validate user input and fail early with a clear error. A plugin can implement any of the following lifecycle hooks:
 
 - `verifyConditions`
 - `analyzeCommits`
@@ -19,7 +19,7 @@ In practice, most plugins should implement at least `verifyConditions` hook so t
 
 `semantic-release` loads the plugin in Node.js and looks for exported functions whose names match lifecycle hooks. Those exported functions are your plugin's [lifecycle methods](#exposing-lifecycle-methods).
 
-For example, exporting `verifyConditions` and `success` binds your plugin to the `verifyConditions` and `success` hooks of the **Verify Conditions** and **Notify** [release steps](/foundation/release-steps/#step-sequence) respectively.
+For example, exporting lifecycle methods named `verifyConditions` and `success` binds your plugin to the `verifyConditions` and `success` lifecycle hooks, which run during the **Verify Conditions** and **Notify** [release steps](/foundation/release-steps/#step-sequence) respectively.
 
 When semantic-release calls a lifecycle method, it passes two arguments:
 
@@ -46,7 +46,7 @@ import verify from "./lib/verify.js";
 let verified;
 
 /**
- * Called by semantic-release during the verify conditions step
+ * Called by semantic-release during the Verify Conditions release step via the verifyConditions lifecycle hook
  * @param {*} pluginConfig The semantic-release plugin config
  * @param {*} context The context provided by semantic-release
  */
@@ -75,7 +75,7 @@ export default async (pluginConfig, context) => {
 };
 ```
 
-As of right now, this code won't do anything. However, if you were to run this plugin via `semantic-release`, it would run when the `verify` step occurred.
+As of right now, this code won't do anything. However, if you were to run this plugin via `semantic-release`, this `verifyConditions()` lifecycle method would run when semantic-release executes the **Verify Conditions** release step.
 
 Following this structure, you can add other lifecycle methods and checks throughout the release process.
 
@@ -144,7 +144,7 @@ Think of `context` as the shared source of truth for the current release executi
 
 #### verifyConditions
 
-Initially the context object contains the following keys (`verifyConditions` lifecycle):
+Initially the context object contains the following keys for the `verifyConditions` lifecycle hook:
 
 - `cwd`
   - Current working directory
@@ -177,7 +177,7 @@ Initially the context object contains the following keys (`verifyConditions` lif
 
 #### analyzeCommits
 
-Compared to the verifyConditions, `analyzeCommits` lifecycle context has keys
+Compared to `verifyConditions`, the `analyzeCommits` lifecycle hook context has keys:
 
 - `commits` (List)
   - List of commits taken into account when determining the new version.
