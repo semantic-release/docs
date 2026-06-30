@@ -177,7 +177,7 @@ Initially the context object contains the following keys for the `verifyConditio
 
 #### `analyzeCommits`
 
-Compared to `verifyConditions`, the `analyzeCommits` lifecycle hook context adds the following keys:
+The `analyzeCommits` lifecycle hook adds the following keys:
 
 - `commits` (Array): List of commits considered when determining the next version.
   - Each commit object can include:
@@ -207,7 +207,7 @@ Compared to `verifyConditions`, the `analyzeCommits` lifecycle hook context adds
 
 #### `verifyRelease`
 
-Compared to `analyzeCommits`, the `verifyRelease` lifecycle hook adds:
+The `verifyRelease` lifecycle hook adds:
 
 - `nextRelease` (Object): Information about the calculated next release
   - `type` (String): Release type
@@ -219,7 +219,7 @@ Compared to `analyzeCommits`, the `verifyRelease` lifecycle hook adds:
 
 #### `generateNotes`
 
-Compared to `verifyRelease`, the `generateNotes` lifecycle hook adds no new keys.
+The `generateNotes` lifecycle hook adds no new keys.
 
 #### `addChannel`
 
@@ -229,11 +229,11 @@ Context content is similar to the `verifyRelease` lifecycle hook.
 
 #### `prepare`
 
-Compared to `generateNotes`, the `prepare` lifecycle hook adds populated release notes at `nextRelease.notes`.
+The `prepare` lifecycle hook adds populated release notes at `nextRelease.notes`.
 
 #### `publish`
 
-Compared to `prepare`, the `publish` lifecycle hook adds no new keys.
+The `publish` lifecycle hook adds no new keys.
 
 #### `success`
 
