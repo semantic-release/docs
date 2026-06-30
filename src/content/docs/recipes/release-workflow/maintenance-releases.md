@@ -1,5 +1,6 @@
 ---
 title: "Publishing maintenance releases"
+description: "Publish maintenance releases from support branches while continuing development on main."
 ---
 
 This recipe will walk you through a simple example that uses Git branches and distribution channels to publish fixes and features for old versions of a package.
