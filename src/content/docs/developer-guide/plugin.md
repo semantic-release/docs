@@ -3,7 +3,7 @@ title: "Plugin development"
 description: "Build semantic-release plugins by implementing lifecycle steps and handling release context safely."
 ---
 
-To create a plugin for `semantic-release`, you need to decide which parts of the release lifecycle are important to that plugin. For example, it is best to always have a `verifyConditions` step because you may be receiving inputs from a user and want to make sure they exist. A plugin can abide by any of the following lifecycles:
+To create a plugin for `semantic-release`, decide which parts of the release lifecycle your plugin needs to participate in. In practice, most plugins should implement at least `verifyConditions` so they can validate user input and fail early with a clear error. A plugin can implement any of the following lifecycles:
 
 - `verifyConditions`
 - `analyzeCommits`
@@ -15,26 +15,26 @@ To create a plugin for `semantic-release`, you need to decide which parts of the
 - `success`
 - `fail`
 
-`semantic-release` will require the plugin via `node` and look through the required object for methods named like the lifecycles stated above. For example, if your plugin only had a `verifyConditions` and `success` step, the `main` file for your object would need to `export` an object with `verifyConditions` and `success` functions.
+`semantic-release` loads the plugin in Node.js and looks for exported methods whose names match those lifecycle hooks. For example, if your plugin only implements `verifyConditions` and `success`, your package entry module needs to export functions with those names.
 
 In addition to the lifecycle methods, each lifecycle is passed two objects:
 
-1. `pluginConfig` - an object containing the options that a user may pass in via their `release.config.js` file (or similar)
-2. `context` - provided by `semantic-release` for access to things like `env` variables set on the running process.
+1. `pluginConfig` - the options passed to your plugin from the user's `release.config.js` file or other semantic-release configuration
+2. `context` - runtime information provided by `semantic-release`, including values such as environment variables and release metadata
 
 For each lifecycle you create, you will want to ensure it can accept `pluginConfig` and `context` as parameters.
 
 ## Creating a Plugin Project
 
-It is recommended that you generate a new project with `yarn init`. This will provide you with a basic node project to get started with. From there, create an `index.js` file, set `"type": "module"` in your `package.json`, and make sure `index.js` is specified as the `main` entry. We will use this file to orchestrate the lifecycle methods later on.
+Start by creating a new Node.js package with your preferred package manager, for example `npm init`, `pnpm init`, or `yarn init`. Then create an `index.js` file, set `"type": "module"` in `package.json`, and point your package entry to that file with `main` or `exports`. We will use `index.js` to expose the plugin lifecycle methods.
 
-Next, create a `lib` (or `src`)  folder in the root of the project. This is where we will store our logic and code for how our lifecycle methods work. Finally, create a `test` folder so you can write tests related to your logic.
+Next, create a `lib` or `src` folder in the root of the project. This is where the lifecycle implementation code will live. Finally, create a `test` folder so you can add automated tests for your plugin.
 
-We recommend you setup a linting system to ensure good javascript practices are enforced. ESLint is usually the system of choice, and the configuration can be whatever you or your team fancies.
+We recommend setting up linting so the plugin stays consistent and easy to maintain. ESLint is a common choice, but any tooling that fits your team is fine.
 
 ## Exposing Lifecycle Methods
 
-In your `index.js` file, you can start by writing the following code
+In your `index.js` file, you can start with the following code:
 
 ```javascript
 import verify from "./lib/verify.js";
@@ -46,28 +46,24 @@ let verified;
  * @param {*} pluginConfig The semantic-release plugin config
  * @param {*} context The context provided by semantic-release
  */
-async function verifyConditions(pluginConfig, context) {
+export async function verifyConditions(pluginConfig, context) {
   await verify(pluginConfig, context);
+
   verified = true;
 }
-
-export { verifyConditions };
-export default { verifyConditions };
 ```
 
-Then, in your `lib` (or `src`) folder, create a file called `verify.js` and add the following
+Then, in your `lib` or `src` folder, create a file called `verify.js` and add the following:
 
 ```javascript
 import AggregateError from "aggregate-error";
 
 /**
- * A method to verify that the user has given us a slack webhook url to post to
+ * Verify that the plugin has the configuration it needs.
  */
 export default async (pluginConfig, context) => {
   const { logger } = context;
   const errors = [];
-
-  logger.log("Running plugin checks");
 
   // Throw any errors we accumulated during the validation
   if (errors.length > 0) {
@@ -78,29 +74,32 @@ export default async (pluginConfig, context) => {
 
 As of right now, this code won't do anything. However, if you were to run this plugin via `semantic-release`, it would run when the `verify` step occurred.
 
-Following this structure, you can create different steps and checks to run through out the release process.
+Following this structure, you can add other lifecycle methods and checks throughout the release process.
 
 ## Supporting Options
 
-Let's say we want to verify that an `option` is passed. An `option` is a configuration object that is specific to your plugin. For example, the user may set an `option` in their release config like:
+Let's say you want to verify that an option is passed. Plugin options are configured in the `plugins` array in the semantic-release configuration. For example:
 
 ```js
 {
   plugins: [
-    ["@semantic-release/my-special-plugin", {
-      message: "My cool release message"
-    }]
+    [
+      "@semantic-release/my-special-plugin", 
+      {
+        message: "My cool release message"
+      }
+    ]
   ]
 }
 ```
 
-This `message` option will be passed to the `pluginConfig` object mentioned earlier. We can use the validation method we created to verify this option exists so we can perform logic based on that knowledge. In our `verify` file, we can add the following:
+That `message` value is passed to your plugin as part of `pluginConfig`. You can validate it in `verify.js` before using it later in the release process:
 
 ```js
 const { message } = pluginConfig;
 
-if (message.length) {
-  //...
+if (!message) {
+  // Throw a SemanticReleaseError or collect it for AggregateError.
 }
 ```
 
@@ -236,7 +235,7 @@ Additional keys:
 
 ### Supporting Environment Variables
 
-Similar to `options`, environment variables exist to allow users to pass tokens and set special URLs. These are set on the `context` object instead of the `pluginConfig` object. Let's say we wanted to check for `GITHUB_TOKEN` in the environment because we want to post to GitHub on the user's behalf. To do this, we can add the following to our `verify` command:
+Similar to `options`, environment variables can be used for tokens and service-specific URLs. These values are available on `context`, not `pluginConfig`. For example, if your plugin needs `GITHUB_TOKEN` to call the GitHub API, you can check for it in your `verify` function:
 
 ```js
 const { env } = context;
@@ -268,7 +267,7 @@ For the lifecycles, the list at the top of the readme contains the order. If the
 
 ## Handling errors
 
-In order to be able to detect and handle errors properly, the errors thrown from the must be of type [SemanticReleaseError](https://github.com/semantic-release/error) or extend it as described in the package readme. This way the errors are handled properly and plugins using the `fail` lifecycle receive the errors correctly. For any other types of errors the internal error handling does nothing, lets them through up until the final catch and does not call any `fail` plugins.
+To be detected and handled properly, errors thrown by the plugin must be of type [SemanticReleaseError](https://github.com/semantic-release/error) or extend it as described in that package's README. If you need to report multiple validation problems at once, wrap those `SemanticReleaseError` instances in `AggregateError`. Other error types are treated as unexpected failures, bubble up to the final catch, and do not trigger `fail` plugins.
 
 ## Advanced
 
