@@ -237,15 +237,17 @@ _It runs after `generateNotes`, so `nextRelease.notes` is available when it was 
 
 #### `publish`
 
-The `publish` lifecycle hook adds no new keys.
+When a plugin implements this hook (for example, `@semantic-release/npm` or `@semantic-release/github`), the `publish` lifecycle hook can populate a new top-level context key:
+
+- `releases` (Array): Release entries returned by `publish` plugins.
 
 #### `success`
 
 The `success` lifecycle hook runs only when the release execution completes successfully. In failure scenarios, semantic-release runs the `fail` lifecycle hook instead.
 
-Additional keys:
+Available keys:
 
-- `releases` (Array): Releases populated by the `publish` lifecycle hook
+- `releases` (Array): Releases already populated during the `publish` lifecycle hook
 
 #### `fail`
 
