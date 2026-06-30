@@ -1,5 +1,6 @@
 ---
 title: "Plugins"
+description: "Learn how semantic-release plugins execute each release step and how to combine them effectively."
 ---
 
 Plugins let `semantic-release` extend release steps through configurable lifecycle methods. Core owns the release lifecycle, exposes lifecycle hooks for selected release steps, and invokes plugin methods bound to those hooks.
