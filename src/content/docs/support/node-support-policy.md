@@ -1,5 +1,6 @@
 ---
 title: "Node Support Policy"
+description: "Review the Node.js support policy and maintenance window followed by semantic-release."
 ---
 
 We will always support at least the latest [Long-Term Support](https://github.com/nodejs/Release) version of Node, but provide no promise of support for older versions. The supported range will always be defined in the `engines.node` property of the `package.json` of our packages.
