@@ -1,5 +1,6 @@
 ---
 title: "Running semantic-release"
+description: "Run semantic-release locally or in CI, understand dry runs, and interpret release logs."
 ---
 
 How to run **semantic-release** in your CI pipeline using `npx`, including version pinning strategies and tradeoffs of local installation.
