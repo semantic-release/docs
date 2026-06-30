@@ -1,5 +1,6 @@
 ---
 title: "JavaScript API"
+description: "Reference the JavaScript API to run semantic-release programmatically and integrate custom release workflows."
 ---
 
 ## Usage
