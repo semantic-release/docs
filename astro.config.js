@@ -132,8 +132,8 @@ export default defineConfig({
           position: "below-toc",
           sticky: true,
           actions: {
-            viewMarkdown: true
-          }
+            viewMarkdown: true,
+          },
         }),
       ],
     }),
