@@ -26,9 +26,9 @@ For each lifecycle you create, you will want to ensure it can accept `pluginConf
 
 ## Creating a Plugin Project
 
-It is recommended that you generate a new project with `yarn init`. This will provide you with a basic node project to get started with. From there, create an `index.js` file, and make sure it is specified as the `main` in the `package.json`. We will use this file to orchestrate the lifecycle methods later on.
+It is recommended that you generate a new project with `yarn init`. This will provide you with a basic node project to get started with. From there, create an `index.js` file, set `"type": "module"` in your `package.json`, and make sure `index.js` is specified as the `main` entry. We will use this file to orchestrate the lifecycle methods later on.
 
-Next, create a `src` or `lib` folder in the root of the project. This is where we will store our logic and code for how our lifecycle methods work. Finally, create a `test` folder so you can write tests related to your logic.
+Next, create a `lib` (or `src`)  folder in the root of the project. This is where we will store our logic and code for how our lifecycle methods work. Finally, create a `test` folder so you can write tests related to your logic.
 
 We recommend you setup a linting system to ensure good javascript practices are enforced. ESLint is usually the system of choice, and the configuration can be whatever you or your team fancies.
 
@@ -37,7 +37,7 @@ We recommend you setup a linting system to ensure good javascript practices are 
 In your `index.js` file, you can start by writing the following code
 
 ```javascript
-const verify = require("./src/verify");
+import verify from "./lib/verify.js";
 
 let verified;
 
@@ -51,20 +51,23 @@ async function verifyConditions(pluginConfig, context) {
   verified = true;
 }
 
-module.exports = { verifyConditions };
+export { verifyConditions };
+export default { verifyConditions };
 ```
 
-Then, in your `src` folder, create a file called `verify.js` and add the following
+Then, in your `lib` (or `src`) folder, create a file called `verify.js` and add the following
 
 ```javascript
-const AggregateError = require("aggregate-error");
+import AggregateError from "aggregate-error";
 
 /**
  * A method to verify that the user has given us a slack webhook url to post to
  */
-module.exports = async (pluginConfig, context) => {
+export default async (pluginConfig, context) => {
   const { logger } = context;
   const errors = [];
+
+  logger.log("Running plugin checks");
 
   // Throw any errors we accumulated during the validation
   if (errors.length > 0) {
@@ -83,10 +86,11 @@ Let's say we want to verify that an `option` is passed. An `option` is a configu
 
 ```js
 {
-  prepare: {
-    path: "@semantic-release/my-special-plugin";
-    message: "My cool release message";
-  }
+  plugins: [
+    ["@semantic-release/my-special-plugin", {
+      message: "My cool release message"
+    }]
+  ]
 }
 ```
 
@@ -249,7 +253,7 @@ Use `context.logger` to provide debug logging in the plugin. Available logging f
 ```js
 const { logger } = context;
 
-logger.log('Some message from plugin.').
+logger.log("Some message from plugin.");
 ```
 
 The above usage yields the following where `PLUGIN_PACKAGE_NAME` is automatically inferred.
