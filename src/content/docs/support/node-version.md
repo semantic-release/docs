@@ -1,5 +1,6 @@
 ---
 title: "Node version requirement"
+description: "Verify Node.js version requirements needed to execute semantic-release in CI."
 ---
 
 **semantic-release** is written using the latest [ECMAScript 2017](https://www.ecma-international.org/publications/standards/Ecma-262.htm) features, without transpilation which **requires Node version 22.14.0 or higher**.
