@@ -1,5 +1,6 @@
 ---
 title: "Git authentication with SSH keys"
+description: "Configure Git authentication with SSH keys so semantic-release can push tags and notes securely."
 ---
 
 When using [environment variables](/usage/ci-configuration#authentication) to set up the Git authentication, the remote Git repository will automatically be accessed via [https](https://git-scm.com/book/en/v2/Git-on-the-Server-The-Protocols#_the_http_protocols), independently of the [`repositoryUrl`](/usage/configuration#repositoryurl) format configured in the **semantic-release** [Configuration](/usage/configuration) (the format will be automatically converted as needed).
