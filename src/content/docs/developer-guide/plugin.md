@@ -130,6 +130,10 @@ export default async (pluginConfig, context) => {
 
 ## Context
 
+The `context` object is the runtime state that `semantic-release` builds and passes to every plugin lifecycle method during a release run. It gives your plugin access to release data (for example branch, commits, and next release info), execution details (for example `cwd` and `options`), integration values (for example `env` and CI metadata), and helper utilities such as `logger`.
+
+Think of `context` as the shared source of truth for the current release execution: each lifecycle can read from it, and semantic-release may add more keys to it as the run progresses.
+
 ### Common context keys
 
 - `stdout`
