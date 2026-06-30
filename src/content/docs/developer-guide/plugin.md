@@ -145,129 +145,109 @@ The following keys are commonly available on `context` across lifecycle hooks:
 - `logger`
   - **semantic-release** logger with `log`, `warn`, `success`, and `error` methods.
 
-### Context object keys by lifecycle
+### Context object keys by lifecycle hook
 
 The `context` object evolves as semantic-release moves through each release step. Start with `verifyConditions` to see the baseline shape, then use the later lifecycle sections to understand which additional keys are available at that point in the run.
 
-#### verifyConditions
+#### `verifyConditions`
 
 Initially the context object contains the following keys for the `verifyConditions` lifecycle hook:
 
-- `cwd`
-  - Current working directory
-- `env`
-  - Environment variables
-- `envCi`
-  - Information about CI environment
+- `cwd` (String): Current working directory
+- `env` (Object): Environment variables
+- `envCi` (Object): Information about CI environment
   - Contains (at least) the following keys:
-    - `isCi`
-      - Boolean, true if the environment is a CI environment
-    - `commit`
-      - Commit hash
-    - `branch`
-      - Current branch
-- `options`
-  - Options passed to `semantic-release` via CLI, configuration files etc.
-- `branch`
-  - Information on the current branch
+    - `isCi` (Boolean): `true` if the environment is a CI environment
+    - `commit` (String): Commit hash
+    - `branch` (String): Current branch
+- `options` (Object): Options passed to `semantic-release` via CLI, configuration files etc.
+- `branch` (Object): Information on the current branch
   - Object keys:
-    - `channel`
-    - `tags`
-    - `type`
-    - `name`
-    - `range`
-    - `accept`
-    - `main`
-- `branches`
-  - Information on branches
+    - `channel` (String | null)
+    - `tags` (Array)
+    - `type` (String)
+    - `name` (String)
+    - `range` (String)
+    - `accept` (Array)
+    - `main` (Boolean)
+- `branches` (Array): Information on branches
   - List of branch objects (see above)
 
-#### analyzeCommits
+#### `analyzeCommits`
 
-Compared to `verifyConditions`, the `analyzeCommits` lifecycle hook context has keys:
+Compared to `verifyConditions`, the `analyzeCommits` lifecycle hook context adds the following keys:
 
-- `commits` (List)
-  - List of commits taken into account when determining the new version.
-  - Keys:
-    - `commit` (Object)
-      - Keys:
-        - `long` (String, Commit hash)
-        - `short` (String, Commit hash)
-    - `tree` (Object)
-      - Keys:
-        - `long` (String, Commit hash)
-        - `short` (String, Commit hash)
-    - `author` (Object)
-      - Keys:
-        - `name` (String)
-        - `email` (String)
-        - `date` (String, ISO 8601 timestamp)
-    - `committer` (Object)
-      - Keys:
-        - `name` (String)
-        - `email` (String)
-        - `date` (String, ISO 8601 timestamp)
-    - `subject` (String, Commit message subject)
-    - `body` (String, Commit message body)
-    - `hash` (String, Commit hash)
-    - `committerDate` (String, ISO 8601 timestamp)
-    - `message` (String)
-    - `gitTags` (String, List of git tags)
-- `releases` (List)
-- `lastRelease` (Object)
-  - Keys
-    - `version` (String)
-    - `gitTag` (String)
-    - `channels` (List)
-    - `gitHead` (String, Commit hash)
-    - `name` (String)
+- `commits` (Array): List of commits considered when determining the next version.
+  - Each commit object can include:
+    - `commit.long` (String): Full commit hash
+    - `commit.short` (String): Short commit hash
+    - `tree.long` (String): Full tree hash
+    - `tree.short` (String): Short tree hash
+    - `author.name` (String): Author name
+    - `author.email` (String): Author email
+    - `author.date` (String): ISO 8601 timestamp
+    - `committer.name` (String): Committer name
+    - `committer.email` (String): Committer email
+    - `committer.date` (String): ISO 8601 timestamp
+    - `subject` (String): Commit message subject
+    - `body` (String): Commit message body
+    - `hash` (String): Commit hash
+    - `committerDate` (String): ISO 8601 timestamp
+    - `message` (String): Full commit message
+    - `gitTags` (String): Git tags associated with the commit
+- `releases` (Array): List of releases created in the current run
+- `lastRelease` (Object): Information about the most recent release
+  - `version` (String): Version
+  - `gitTag` (String): Git tag
+  - `channels` (Array): List of channels
+  - `gitHead` (String): Commit hash
+  - `name` (String): Release name
 
-#### verifyRelease
+#### `verifyRelease`
 
-Additional keys:
+Compared to `analyzeCommits`, the `verifyRelease` lifecycle hook adds:
 
-- `nextRelease` (Object)
-  - `type` (String)
-  - `channel` (String)
-  - `gitHead` (String, Git hash)
-  - `version` (String, version without `v`)
-  - `gitTag` (String, version with `v`)
-  - `name` (String)
+- `nextRelease` (Object): Information about the calculated next release
+  - `type` (String): Release type
+  - `channel` (String | null): Release channel
+  - `gitHead` (String): Git hash
+  - `version` (String): Version without `v`
+  - `gitTag` (String): Version with `v`
+  - `name` (String): Release name
 
-#### generateNotes
+#### `generateNotes`
 
-No new content in the context.
+Compared to `verifyRelease`, the `generateNotes` lifecycle hook adds no new keys.
 
-#### addChannel
+#### `addChannel`
 
-_This is run only if there are releases that have been merged from a higher branch but not added on the channel of the current branch._
+_This lifecycle runs only if there are releases merged from a higher branch that have not been added to the current branch channel._
 
-Context content is similar to lifecycle `verifyRelease`.
+Context content is similar to the `verifyRelease` lifecycle hook.
 
-#### prepare
+#### `prepare`
 
-Only change is that `generateNotes` has populated `nextRelease.notes`.
+Compared to `generateNotes`, the `prepare` lifecycle hook adds populated release notes at `nextRelease.notes`.
 
-#### publish
+#### `publish`
 
-No new content in the context.
+Compared to `prepare`, the `publish` lifecycle hook adds no new keys.
 
-#### success
+#### `success`
 
-Lifecycles `success` and `fail` are mutually exclusive, only one of them will be run.
+The `success` and `fail` lifecycle hooks are mutually exclusive, so only one runs in a given release execution.
 
 Additional keys:
 
-- `releases`
-  - Populated by `publish` lifecycle
+- `releases` (Array): Releases populated by the `publish` lifecycle hook
 
-#### fail
+#### `fail`
 
-Lifecycles `success` and `fail` are mutually exclusive, only one of them will be run.
+The `success` and `fail` lifecycle hooks are mutually exclusive, so only one runs in a given release execution.
 
 Additional keys:
 
-- `errors`
+- `errors` (Array): Errors collected during the failed release execution
 
 ### Supporting Environment Variables
 
