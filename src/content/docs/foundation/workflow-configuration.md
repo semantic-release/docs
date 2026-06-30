@@ -1,5 +1,6 @@
 ---
 title: "Release Workflow Configuration"
+description: "Configure release branches, channels, and rules that control the semantic-release workflow."
 ---
 
 **semantic-release** enables managing and automating complex release workflows, based on multiple Git branches and distribution channels. This enables:
