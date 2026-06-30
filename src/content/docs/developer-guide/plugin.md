@@ -241,7 +241,7 @@ The `publish` lifecycle hook adds no new keys.
 
 #### `success`
 
-The `success` and `fail` lifecycle hooks are mutually exclusive, so only one runs in a given release execution.
+The `success` lifecycle hook runs only when the release execution completes successfully. In failure scenarios, semantic-release runs the `fail` lifecycle hook instead.
 
 Additional keys:
 
@@ -249,7 +249,7 @@ Additional keys:
 
 #### `fail`
 
-The `success` and `fail` lifecycle hooks are mutually exclusive, so only one runs in a given release execution.
+The `fail` lifecycle hook runs only when the release execution fails. In successful scenarios, semantic-release runs the `success` lifecycle hook instead.
 
 Additional keys:
 
