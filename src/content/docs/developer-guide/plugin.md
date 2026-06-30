@@ -219,7 +219,9 @@ The `verifyRelease` lifecycle hook adds:
 
 #### `generateNotes`
 
-The `generateNotes` lifecycle hook adds no new keys.
+When a plugin implements this hook (for example, `@semantic-release/release-notes-generator`), the `generateNotes` lifecycle hook populates a new key on `nextRelease` (Object):
+
+- `nextRelease.notes` (String): Generated release notes.
 
 #### `addChannel`
 
@@ -229,7 +231,9 @@ Context content is similar to the `verifyRelease` lifecycle hook.
 
 #### `prepare`
 
-The `prepare` lifecycle hook adds populated release notes at `nextRelease.notes`.
+The `prepare` lifecycle hook does not add new context keys.
+
+_It runs after `generateNotes`, so `nextRelease.notes` is available when it was populated by a `generateNotes` plugin._
 
 #### `publish`
 
