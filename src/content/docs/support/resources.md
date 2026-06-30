@@ -1,5 +1,6 @@
 ---
 title: "Resources"
+description: "Explore official semantic-release resources, plugins, guides, and community links."
 ---
 
 ## Videos
