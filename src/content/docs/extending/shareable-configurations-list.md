@@ -1,5 +1,6 @@
 ---
 title: "Shareable configuration"
+description: "Browse community shareable configurations for semantic-release and find setups for common workflows."
 ---
 
 ## Official configurations
