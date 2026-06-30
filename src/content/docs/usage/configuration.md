@@ -1,5 +1,6 @@
 ---
 title: "Configuration"
+description: "Learn all semantic-release configuration options, including branches, plugins, and repository settings."
 ---
 
 Configure semantic-release options, plugins, and release branches via config files, CLI arguments, or shareable configurations.
