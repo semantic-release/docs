@@ -1,5 +1,6 @@
 ---
 title: "Shareable Configurations"
+description: "Understand shareable configurations in semantic-release and how they simplify reusable setup."
 ---
 
 A shareable configuration is an [npm](https://www.npmjs.com/) package that exports a reusable **semantic-release** configuration object. It lets teams define a common release workflow once and apply it across several projects.
