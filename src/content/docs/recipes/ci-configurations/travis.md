@@ -1,5 +1,6 @@
 ---
 title: "Travis CI"
+description: "Use semantic-release with Travis CI to automate versioning and publication from your release branch."
 ---
 
 ## Environment variables
