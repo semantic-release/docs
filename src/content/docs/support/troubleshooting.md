@@ -1,5 +1,6 @@
 ---
 title: "Troubleshooting"
+description: "Resolve common semantic-release errors related to permissions, tags, branches, and CI configuration."
 ---
 
 ## You do not have permission to publish 'package-name'
