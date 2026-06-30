@@ -136,9 +136,14 @@ Think of `context` as the shared source of truth for the current release executi
 
 ### Common context keys
 
+The following keys are commonly available on `context` across lifecycle hooks:
+
 - `stdout`
+  - Writable stream for standard output.
 - `stderr`
+  - Writable stream for error output.
 - `logger`
+  - **semantic-release** logger with `log`, `warn`, `success`, and `error` methods.
 
 ### Context object keys by lifecycle
 
