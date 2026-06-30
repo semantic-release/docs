@@ -1,5 +1,6 @@
 ---
 title: Considerations
+description: "Evaluate whether semantic-release and semantic versioning fit your project goals, artifacts, and release process."
 ---
 
 **semantic-release** is
