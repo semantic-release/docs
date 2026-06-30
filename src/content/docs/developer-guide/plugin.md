@@ -257,7 +257,7 @@ Additional keys:
 
 - `errors` (Array): Errors collected during the failed release execution
 
-### Supporting Environment Variables
+## Supporting Environment Variables
 
 Similar to `options`, environment variables can be used for tokens and service-specific URLs. These values are available on `context`, not `pluginConfig`. For example, if your plugin needs `GITHUB_TOKEN` to call the GitHub API, you can check for it in your `verify` function:
 
