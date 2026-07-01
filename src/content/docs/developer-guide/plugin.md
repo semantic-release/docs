@@ -87,12 +87,12 @@ Let's say you want to verify that an option is passed. Plugin options are config
 {
   plugins: [
     [
-      "@semantic-release/my-special-plugin", 
+      "@semantic-release/my-special-plugin",
       {
-        message: "My cool release message"
-      }
-    ]
-  ]
+        message: "My cool release message",
+      },
+    ],
+  ];
 }
 ```
 
@@ -100,7 +100,7 @@ That `message` value is passed to your plugin as part of `pluginConfig`. You can
 
 ```js ins={2, 10, 12-21}
 import AggregateError from "aggregate-error";
-import SemanticReleaseError from "@semantic-release/error"
+import SemanticReleaseError from "@semantic-release/error";
 
 /**
  * Verify that the plugin has the configuration it needs.
@@ -141,7 +141,7 @@ The following keys are commonly available on `context` across lifecycle hooks:
 - `stdout`: Writable stream for standard output.
 - `stderr`: Writable stream for error output.
 - `logger`: **semantic-release** logger
-  - Available methods: 
+  - Available methods:
     - `log`
     - `warn`
     - `success`
@@ -287,7 +287,7 @@ The above usage yields the following where `PLUGIN_PACKAGE_NAME` is automaticall
 
 ## Execution order
 
-For the lifecycles, the list at the top of the readme contains the order. If there are multiple plugins for the same lifecycle, then the order of the plugins determines the order in which they are executed.
+Release step order is defined in [Release Steps](/foundation/release-steps/#step-sequence). For lifecycle hooks implemented by multiple plugins, semantic-release executes those lifecycle methods in the order the plugins are declared in the `plugins` configuration.
 
 ## Handling errors
 
