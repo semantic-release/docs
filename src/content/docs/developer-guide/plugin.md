@@ -291,7 +291,7 @@ Release step order is defined in [Release Steps](/foundation/release-steps/#step
 
 ## Handling errors
 
-To be detected and handled properly, errors thrown by the plugin must be of type [SemanticReleaseError](https://github.com/semantic-release/error) or extend it as described in that package's README. If you need to report multiple validation problems at once, wrap those `SemanticReleaseError` instances in `AggregateError`. Other error types are treated as unexpected failures, bubble up to the final catch, and do not trigger `fail` plugins.
+To be detected and handled properly, errors thrown by the plugin must be instances of [SemanticReleaseError](https://github.com/semantic-release/error) (or subclasses), as shown in the earlier `verify.js` validation example. If you need to report multiple validation problems at once, wrap those `SemanticReleaseError` instances in `AggregateError`. Other error types are treated as unexpected failures, bubble up to the final catch, and do not trigger `fail` plugins.
 
 ## Advanced
 
