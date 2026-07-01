@@ -223,7 +223,7 @@ The `verifyRelease` lifecycle hook adds:
 
 #### `generateNotes`
 
-When a plugin implements this hook (for example, `@semantic-release/release-notes-generator`), the `generateNotes` lifecycle hook populates a new key on `nextRelease` (Object):
+When a plugin implements this hook (for example, `@semantic-release/release-notes-generator`), the `generateNotes` lifecycle hook populates a new key on `context`'s `nextRelease` (Object):
 
 - `nextRelease.notes` (String): Generated release notes.
 
