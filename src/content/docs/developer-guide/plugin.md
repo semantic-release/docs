@@ -181,16 +181,20 @@ The `analyzeCommits` lifecycle hook adds the following keys:
 
 - `commits` (Array): List of commits considered when determining the next version.
   - Each commit object can include:
-    - `commit.long` (String): Full commit hash
-    - `commit.short` (String): Short commit hash
-    - `tree.long` (String): Full tree hash
-    - `tree.short` (String): Short tree hash
-    - `author.name` (String): Author name
-    - `author.email` (String): Author email
-    - `author.date` (String): ISO 8601 timestamp
-    - `committer.name` (String): Committer name
-    - `committer.email` (String): Committer email
-    - `committer.date` (String): ISO 8601 timestamp
+    - `commit` (Object): Commit hash metadata
+      - `long` (String): Full commit hash
+      - `short` (String): Short commit hash
+    - `tree` (Object): Tree hash metadata
+      - `long` (String): Full tree hash
+      - `short` (String): Short tree hash
+    - `author` (Object): Commit author information
+      - `name` (String): Author name
+      - `email` (String): Author email
+      - `date` (String): ISO 8601 timestamp
+    - `committer` (Object): Committer information
+      - `name` (String): Committer name
+      - `email` (String): Committer email
+      - `date` (String): ISO 8601 timestamp
     - `subject` (String): Commit message subject
     - `body` (String): Commit message body
     - `hash` (String): Commit hash
