@@ -297,11 +297,11 @@ To be detected and handled properly, errors thrown by the plugin must be instanc
 
 Knowledge that might be useful for plugin developers.
 
-### Multiple analyzeCommits plugins
+### Multiple `analyzeCommits` plugins
 
-While it may be trivial that multiple analyzeCommits (or any lifecycle plugins) can be defined, it is not that self-evident that the plugins executed AFTER the first one (for example, the default one: `commit-analyzer`) can change the result. This way it is possible to create more advanced rules or situations, e.g. if none of the commits would result in new release, then a default can be defined.
+It is straightforward to define multiple plugins that implements the `analyzeCommits` hook, but it is less obvious that plugins executed after the first one (for example, the default `commit-analyzer`) can change the result. This makes it possible to create more advanced rules or fallback behavior, such as defining a default when none of the commits would produce a new release.
 
-The commit must be a known release type, for example the commit-analyzer has the following default types:
+The returned value must be a known release type. For example, `commit-analyzer` recognizes the following default types:
 
 - major
 - premajor
@@ -311,4 +311,4 @@ The commit must be a known release type, for example the commit-analyzer has the
 - prepatch
 - prerelease
 
-If the analyzeCommits-lifecycle plugin does not return anything, then the earlier result is used, but if it returns a supported string value, then that overrides the previous result.
+If an `analyzeCommits` lifecycle hook plugin does not return anything, the earlier result is used. If it returns a supported string value, that value overrides the previous result.
