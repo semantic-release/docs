@@ -3,7 +3,9 @@ title: "Plugin development"
 description: "Build semantic-release plugins by implementing lifecycle steps and handling release context safely."
 ---
 
-To create a plugin for `semantic-release`, you need to decide which parts of the release lifecycle are important to that plugin. For example, it is best to always have a `verifyConditions` step because you may be receiving inputs from a user and want to make sure they exist. A plugin can abide by any of the following lifecycles:
+To create a plugin for `semantic-release`, decide which [release steps](/foundation/release-steps/#step-sequence) your plugin needs to participate in by implementing the corresponding lifecycle hooks.
+
+In practice, most plugins should implement at least the `verifyConditions` lifecycle hook so they can validate user input and fail early with a clear error. A plugin can implement any of the following lifecycle hooks:
 
 - `verifyConditions`
 - `analyzeCommits`
@@ -15,54 +17,54 @@ To create a plugin for `semantic-release`, you need to decide which parts of the
 - `success`
 - `fail`
 
-`semantic-release` will require the plugin via `node` and look through the required object for methods named like the lifecycles stated above. For example, if your plugin only had a `verifyConditions` and `success` step, the `main` file for your object would need to `export` an object with `verifyConditions` and `success` functions.
+`semantic-release` loads the plugin in Node.js and looks for exported functions whose names match lifecycle hooks. Those exported functions are your plugin's [lifecycle methods](#exposing-lifecycle-methods).
 
-In addition to the lifecycle methods, each lifecycle is passed two objects:
+For example, exporting lifecycle methods named `verifyConditions` and `success` binds your plugin to the `verifyConditions` and `success` lifecycle hooks, which run during the **Verify Conditions** and **Notify** [release steps](/foundation/release-steps/#step-sequence) respectively.
 
-1. `pluginConfig` - an object containing the options that a user may pass in via their `release.config.js` file (or similar)
-2. `context` - provided by `semantic-release` for access to things like `env` variables set on the running process.
+When semantic-release calls a lifecycle method, it passes two arguments:
 
-For each lifecycle you create, you will want to ensure it can accept `pluginConfig` and `context` as parameters.
+1. `pluginConfig` - plugin options from the user's [semantic-release configuration](/usage/configuration/#configuration-file) (for example, `release.config.js`)
+2. `context` - runtime information from semantic-release, including environment variables and release metadata
+
+As you add lifecycle methods, make sure each one accepts `pluginConfig` and `context` in its function signature.
 
 ## Creating a Plugin Project
 
-It is recommended that you generate a new project with `yarn init`. This will provide you with a basic node project to get started with. From there, create an `index.js` file, and make sure it is specified as the `main` in the `package.json`. We will use this file to orchestrate the lifecycle methods later on.
+Start by creating a new Node.js package with your preferred package manager, for example `npm init`, `pnpm init`, or `yarn init`. Then create an `index.js` file, set `"type": "module"` in `package.json`, and point your package entry to that file with `main` or `exports`. We will use `index.js` to expose the plugin lifecycle methods.
 
-Next, create a `src` or `lib` folder in the root of the project. This is where we will store our logic and code for how our lifecycle methods work. Finally, create a `test` folder so you can write tests related to your logic.
+Next, create a `lib` folder in the root of the project. This is where the lifecycle implementation code will live. Finally, create a `test` folder so you can add automated tests for your plugin.
 
-We recommend you setup a linting system to ensure good javascript practices are enforced. ESLint is usually the system of choice, and the configuration can be whatever you or your team fancies.
+We recommend setting up linting so the plugin stays consistent and easy to maintain. ESLint is a common choice, but any tooling that fits your team is fine.
 
 ## Exposing Lifecycle Methods
 
-In your `index.js` file, you can start by writing the following code
+In your `index.js` file, you can start with the following code:
 
-```javascript
-const verify = require("./src/verify");
+```js title="index.js"
+import verify from "./lib/verify.js";
 
 let verified;
 
 /**
- * Called by semantic-release during the verification step
+ * Called by semantic-release during the Verify Conditions release step via the verifyConditions lifecycle hook
  * @param {*} pluginConfig The semantic-release plugin config
  * @param {*} context The context provided by semantic-release
  */
-async function verifyConditions(pluginConfig, context) {
+export async function verifyConditions(pluginConfig, context) {
   await verify(pluginConfig, context);
   verified = true;
 }
-
-module.exports = { verifyConditions };
 ```
 
-Then, in your `src` folder, create a file called `verify.js` and add the following
+Then, in your `lib` folder, create a file called `verify.js` and add the following:
 
-```javascript
-const AggregateError = require("aggregate-error");
+```js title="verify.js"
+import AggregateError from "aggregate-error";
 
 /**
- * A method to verify that the user has given us a slack webhook url to post to
+ * Verify that the plugin has the configuration it needs.
  */
-module.exports = async (pluginConfig, context) => {
+export default async (pluginConfig, context) => {
   const { logger } = context;
   const errors = [];
 
@@ -73,166 +75,195 @@ module.exports = async (pluginConfig, context) => {
 };
 ```
 
-As of right now, this code won't do anything. However, if you were to run this plugin via `semantic-release`, it would run when the `verify` step occurred.
+As of right now, this code won't do anything. However, if you were to run this plugin via `semantic-release`, this `verifyConditions()` lifecycle method would run when semantic-release executes the **Verify Conditions** release step.
 
-Following this structure, you can create different steps and checks to run through out the release process.
+Following this structure, you can add other lifecycle methods and checks throughout the release process.
 
 ## Supporting Options
 
-Let's say we want to verify that an `option` is passed. An `option` is a configuration object that is specific to your plugin. For example, the user may set an `option` in their release config like:
+Let's say you want to verify that an option is passed. Plugin options are configured in the `plugins` array in the semantic-release configuration. For example:
 
-```js
+```js title="release.config.js"
 {
-  prepare: {
-    path: "@semantic-release/my-special-plugin";
-    message: "My cool release message";
-  }
+  plugins: [
+    [
+      "@semantic-release/my-special-plugin",
+      {
+        message: "My cool release message",
+      },
+    ],
+  ];
 }
 ```
 
-This `message` option will be passed to the `pluginConfig` object mentioned earlier. We can use the validation method we created to verify this option exists so we can perform logic based on that knowledge. In our `verify` file, we can add the following:
+That `message` value is passed to your plugin as part of `pluginConfig`. You can validate it in `verify.js` before using it later in the release process:
 
-```js
-const { message } = pluginConfig;
+```js ins={2, 10, 12-21}
+import AggregateError from "aggregate-error";
+import SemanticReleaseError from "@semantic-release/error";
 
-if (message.length) {
-  //...
-}
+/**
+ * Verify that the plugin has the configuration it needs.
+ */
+export default async (pluginConfig, context) => {
+  const { logger } = context;
+  const errors = [];
+  const { message } = pluginConfig;
+
+  if (!message) {
+    // Add a SemanticReleaseError to AggregateError.
+    errors.push(
+      new SemanticReleaseError(
+        "Missing `message` option.",
+        "EMISSINGMESSAGE",
+        "Add a `message` option to this plugin's entry in the `plugins` array.",
+      ),
+    );
+  }
+
+  // Throw any errors we accumulated during the validation
+  if (errors.length > 0) {
+    throw new AggregateError(errors);
+  }
+};
 ```
 
 ## Context
 
+The `context` object is the runtime state that `semantic-release` builds and passes to every plugin lifecycle method during a release run. It gives your plugin access to release data (for example branch, commits, and next release info), execution details (for example `cwd` and `options`), integration values (for example `env` and CI metadata), and helper utilities such as `logger`.
+
+Think of `context` as the shared source of truth for the current release execution: each lifecycle can read from it, and semantic-release may add more keys to it as the run progresses.
+
 ### Common context keys
 
-- `stdout`
-- `stderr`
-- `logger`
+The following keys are commonly available on `context` across lifecycle hooks:
 
-### Context object keys by lifecycle
+- `stdout`: Writable stream for standard output.
+- `stderr`: Writable stream for error output.
+- `logger`: **semantic-release** logger
+  - Available methods:
+    - `log`
+    - `warn`
+    - `success`
+    - `error`
 
-#### verifyConditions
+### Context object keys by lifecycle hook
 
-Initially the context object contains the following keys (`verifyConditions` lifecycle):
+The `context` object evolves as semantic-release moves through each release step. Start with `verifyConditions` to see the baseline shape, then use the later lifecycle sections to understand which additional keys are available at that point in the run.
 
-- `cwd`
-  - Current working directory
-- `env`
-  - Environment variables
-- `envCi`
-  - Information about CI environment
+#### `verifyConditions`
+
+Initially the context object contains the following keys for the `verifyConditions` lifecycle hook:
+
+- `cwd` (String): Current working directory
+- `env` (Object): Environment variables
+- `envCi` (Object): Information about CI environment
   - Contains (at least) the following keys:
-    - `isCi`
-      - Boolean, true if the environment is a CI environment
-    - `commit`
-      - Commit hash
-    - `branch`
-      - Current branch
-- `options`
-  - Options passed to `semantic-release` via CLI, configuration files etc.
-- `branch`
-  - Information on the current branch
+    - `isCi` (Boolean): `true` if the environment is a CI environment
+    - `commit` (String): Commit hash
+    - `branch` (String): Current branch
+- `options` (Object): Options passed to `semantic-release` via CLI, configuration files etc.
+- `branch` (Object): Information on the current branch
   - Object keys:
-    - `channel`
-    - `tags`
-    - `type`
-    - `name`
-    - `range`
-    - `accept`
-    - `main`
-- `branches`
-  - Information on branches
+    - `channel` (String | null)
+    - `tags` (Array)
+    - `type` (String)
+    - `name` (String)
+    - `range` (String)
+    - `accept` (Array)
+    - `main` (Boolean)
+- `branches` (Array): Information on branches
   - List of branch objects (see above)
 
-#### analyzeCommits
+#### `analyzeCommits`
 
-Compared to the verifyConditions, `analyzeCommits` lifecycle context has keys
+The `analyzeCommits` lifecycle hook adds the following keys:
 
-- `commits` (List)
-  - List of commits taken into account when determining the new version.
-  - Keys:
-    - `commit` (Object)
-      - Keys:
-        - `long` (String, Commit hash)
-        - `short` (String, Commit hash)
-    - `tree` (Object)
-      - Keys:
-        - `long` (String, Commit hash)
-        - `short` (String, Commit hash)
-    - `author` (Object)
-      - Keys:
-        - `name` (String)
-        - `email` (String)
-        - `date` (String, ISO 8601 timestamp)
-    - `committer` (Object)
-      - Keys:
-        - `name` (String)
-        - `email` (String)
-        - `date` (String, ISO 8601 timestamp)
-    - `subject` (String, Commit message subject)
-    - `body` (String, Commit message body)
-    - `hash` (String, Commit hash)
-    - `committerDate` (String, ISO 8601 timestamp)
-    - `message` (String)
-    - `gitTags` (String, List of git tags)
-- `releases` (List)
-- `lastRelease` (Object)
-  - Keys
-    - `version` (String)
-    - `gitTag` (String)
-    - `channels` (List)
-    - `gitHead` (String, Commit hash)
-    - `name` (String)
+- `commits` (Array): List of commits considered when determining the next version.
+  - Each commit object can include:
+    - `commit` (Object): Commit hash metadata
+      - `long` (String): Full commit hash
+      - `short` (String): Short commit hash
+    - `tree` (Object): Tree hash metadata
+      - `long` (String): Full tree hash
+      - `short` (String): Short tree hash
+    - `author` (Object): Commit author information
+      - `name` (String): Author name
+      - `email` (String): Author email
+      - `date` (String): ISO 8601 timestamp
+    - `committer` (Object): Committer information
+      - `name` (String): Committer name
+      - `email` (String): Committer email
+      - `date` (String): ISO 8601 timestamp
+    - `subject` (String): Commit message subject
+    - `body` (String): Commit message body
+    - `hash` (String): Commit hash
+    - `committerDate` (String): ISO 8601 timestamp
+    - `message` (String): Full commit message
+    - `gitTags` (String): Git tags associated with the commit
+- `releases` (Array): List of releases created in the current run
+- `lastRelease` (Object): Information about the most recent release
+  - `version` (String): Version
+  - `gitTag` (String): Git tag
+  - `channels` (Array): List of channels
+  - `gitHead` (String): Commit hash
+  - `name` (String): Release name
 
-#### verifyRelease
+#### `verifyRelease`
+
+The `verifyRelease` lifecycle hook adds:
+
+- `nextRelease` (Object): Information about the calculated next release
+  - `type` (String): Release type
+  - `channel` (String | null): Release channel
+  - `gitHead` (String): Git hash
+  - `version` (String): Version without `v`
+  - `gitTag` (String): Version with `v`
+  - `name` (String): Release name
+
+#### `generateNotes`
+
+When a plugin implements this hook (for example, `@semantic-release/release-notes-generator`), the `generateNotes` lifecycle hook populates a new key on `context`'s `nextRelease` (Object):
+
+- `nextRelease.notes` (String): Generated release notes.
+
+#### `addChannel`
+
+_This lifecycle runs only if there are releases merged from a higher branch that have not been added to the current branch channel._
+
+Context content is similar to the `verifyRelease` lifecycle hook.
+
+#### `prepare`
+
+The `prepare` lifecycle hook does not add new context keys.
+
+_It runs after `generateNotes`, so `nextRelease.notes` is available when it was populated by a `generateNotes` plugin._
+
+#### `publish`
+
+When a plugin implements this hook (for example, `@semantic-release/npm` or `@semantic-release/github`), the `publish` lifecycle hook can populate a new top-level context key:
+
+- `releases` (Array): Release entries returned by `publish` plugins.
+
+#### `success`
+
+The `success` lifecycle hook runs only when the release execution completes successfully. In failure scenarios, semantic-release runs the `fail` lifecycle hook instead.
+
+Available keys:
+
+- `releases` (Array): Releases already populated during the `publish` lifecycle hook
+
+#### `fail`
+
+The `fail` lifecycle hook runs only when the release execution fails. In successful scenarios, semantic-release runs the `success` lifecycle hook instead.
 
 Additional keys:
 
-- `nextRelease` (Object)
-  - `type` (String)
-  - `channel` (String)
-  - `gitHead` (String, Git hash)
-  - `version` (String, version without `v`)
-  - `gitTag` (String, version with `v`)
-  - `name` (String)
+- `errors` (Array): Errors collected during the failed release execution
 
-#### generateNotes
+## Supporting Environment Variables
 
-No new content in the context.
-
-#### addChannel
-
-_This is run only if there are releases that have been merged from a higher branch but not added on the channel of the current branch._
-
-Context content is similar to lifecycle `verifyRelease`.
-
-#### prepare
-
-Only change is that `generateNotes` has populated `nextRelease.notes`.
-
-#### publish
-
-No new content in the context.
-
-#### success
-
-Lifecycles `success` and `fail` are mutually exclusive, only one of them will be run.
-
-Additional keys:
-
-- `releases`
-  - Populated by `publish` lifecycle
-
-#### fail
-
-Lifecycles `success` and `fail` are mutually exclusive, only one of them will be run.
-
-Additional keys:
-
-- `errors`
-
-### Supporting Environment Variables
-
-Similar to `options`, environment variables exist to allow users to pass tokens and set special URLs. These are set on the `context` object instead of the `pluginConfig` object. Let's say we wanted to check for `GITHUB_TOKEN` in the environment because we want to post to GitHub on the user's behalf. To do this, we can add the following to our `verify` command:
+Similar to `options`, environment variables can be used for tokens and service-specific URLs. These values are available on `context`, not `pluginConfig`. For example, if your plugin needs `GITHUB_TOKEN` to call the GitHub API, you can check for it in your `verify` function:
 
 ```js
 const { env } = context;
@@ -249,7 +280,7 @@ Use `context.logger` to provide debug logging in the plugin. Available logging f
 ```js
 const { logger } = context;
 
-logger.log('Some message from plugin.').
+logger.log("Some message from plugin.");
 ```
 
 The above usage yields the following where `PLUGIN_PACKAGE_NAME` is automatically inferred.
@@ -260,21 +291,21 @@ The above usage yields the following where `PLUGIN_PACKAGE_NAME` is automaticall
 
 ## Execution order
 
-For the lifecycles, the list at the top of the readme contains the order. If there are multiple plugins for the same lifecycle, then the order of the plugins determines the order in which they are executed.
+Release step order is defined in [Release Steps](/foundation/release-steps/#step-sequence). For lifecycle hooks implemented by multiple plugins, semantic-release executes those lifecycle methods in the order the plugins are declared in the `plugins` configuration.
 
 ## Handling errors
 
-In order to be able to detect and handle errors properly, the errors thrown from the must be of type [SemanticReleaseError](https://github.com/semantic-release/error) or extend it as described in the package readme. This way the errors are handled properly and plugins using the `fail` lifecycle receive the errors correctly. For any other types of errors the internal error handling does nothing, lets them through up until the final catch and does not call any `fail` plugins.
+To be detected and handled properly, errors thrown by the plugin must be instances of [SemanticReleaseError](https://github.com/semantic-release/error) (or subclasses), as shown in the earlier `verify.js` validation example. If you need to report multiple validation problems at once, wrap those `SemanticReleaseError` instances in `AggregateError`. Other error types are treated as unexpected failures, bubble up to the final catch, and do not trigger `fail` plugins.
 
 ## Advanced
 
 Knowledge that might be useful for plugin developers.
 
-### Multiple analyzeCommits plugins
+### Multiple `analyzeCommits` plugins
 
-While it may be trivial that multiple analyzeCommits (or any lifecycle plugins) can be defined, it is not that self-evident that the plugins executed AFTER the first one (for example, the default one: `commit-analyzer`) can change the result. This way it is possible to create more advanced rules or situations, e.g. if none of the commits would result in new release, then a default can be defined.
+It is straightforward to define multiple plugins that implements the `analyzeCommits` hook, but it is less obvious that plugins executed after the first one (for example, the default `commit-analyzer`) can change the result. This makes it possible to create more advanced rules or fallback behavior, such as defining a default when none of the commits would produce a new release.
 
-The commit must be a known release type, for example the commit-analyzer has the following default types:
+The returned value must be a known release type. For example, `commit-analyzer` recognizes the following default types:
 
 - major
 - premajor
@@ -284,4 +315,4 @@ The commit must be a known release type, for example the commit-analyzer has the
 - prepatch
 - prerelease
 
-If the analyzeCommits-lifecycle plugin does not return anything, then the earlier result is used, but if it returns a supported string value, then that overrides the previous result.
+If an `analyzeCommits` lifecycle hook plugin does not return anything, the earlier result is used. If it returns a supported string value, that value overrides the previous result.
