@@ -21,7 +21,12 @@ npx --package semantic-release --package @semantic-release/exec --package conven
 
 ### Notes
 
-1. When running **semantic-release** with `npx`, we recommend setting at least the major version. For example, by using `npx semantic-release@25`. This way you control which major version of **semantic-release** is used by your pipeline, and thus avoid breaking the release when there's a new major version of **semantic-release**.
+1. When running **semantic-release** with `npx`, we recommend setting at least the major version. For example, by using `npx semantic-release@25`. This way you control which major version of **semantic-release** is used by your pipeline, and thus avoid breaking the release when there's a new major version of **semantic-release**. The same recommendation applies to any additional plugins and presets included in your `npx` command. Since plugins and presets, many of them developed by third-party projects, release new major versions on their own schedule, an unpinned plugin or preset can break your release just as unexpectedly. We recommend pinning all packages in your `npx` command:
+
+   ```sh
+   npx --package semantic-release@25 --package conventional-changelog-conventionalcommits@9 semantic-release
+   ```
+
 2. Pinning **semantic-release** to an exact version makes your releases even more deterministic. But pinning also means you, or a bot, must upgrade **semantic-release** when a new version is released.
 3. You can use [Renovate's regex manager](https://docs.renovatebot.com/modules/manager/regex/) to get automatic updates for **semantic-release** in either of the above scenarios. Put this in your Renovate configuration file:
 
