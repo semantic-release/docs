@@ -35,12 +35,9 @@ export default defineConfig({
           icon: "npm",
           label: "npm",
           href: "https://www.npmjs.com/package/semantic-release",
-        }
+        },
       ],
-      customCss: [
-        "~/styles/global.css",
-        "@fontsource-variable/geist/wght.css",
-      ],
+      customCss: ["~/styles/global.css", "@fontsource-variable/geist/wght.css"],
       components: {
         Hero: "~/components/Hero.astro",
         Header: "~/components/Header.astro",
