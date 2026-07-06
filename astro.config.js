@@ -32,7 +32,10 @@ export default defineConfig({
           href: "https://github.com/semantic-release/semantic-release",
         },
       ],
-      customCss: ["~/styles/global.css"],
+      customCss: [
+        "~/styles/global.css",
+        "@fontsource-variable/geist/wght.css",
+      ],
       components: {
         Hero: "~/components/Hero.astro",
         Header: "~/components/Header.astro",
