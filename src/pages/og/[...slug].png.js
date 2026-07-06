@@ -42,9 +42,9 @@ export async function GET({ props }) {
   const segments = slug.split("/").filter((s) => s && s !== "index");
   const breadcrumb = ["semantic-release.org", ...segments].join("  /  ");
 
-  const [interBold, interRegular] = await Promise.all([
-    loadGoogleFont("Inter", 700),
-    loadGoogleFont("Inter", 400),
+  const [geistBold, geistRegular] = await Promise.all([
+    loadGoogleFont("Geist", 700),
+    loadGoogleFont("Geist", 400),
   ]);
 
   const svg = await satori(
@@ -195,8 +195,8 @@ export async function GET({ props }) {
       width: 1200,
       height: 630,
       fonts: [
-        { name: "Inter", data: interBold, weight: 700, style: "normal" },
-        { name: "Inter", data: interRegular, weight: 400, style: "normal" },
+        { name: "Geist", data: geistBold, weight: 700, style: "normal" },
+        { name: "Geist", data: geistRegular, weight: 400, style: "normal" },
       ],
     },
   );

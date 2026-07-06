@@ -22,11 +22,16 @@
 
   /* Generated text size variables. */
   --sl-text-3xl: 1.8rem;
+  --sl-text-6xl: 3.8rem;
+
+  --sl-icon-size: 1.1em;
 }
 
 :root {
   --purple-hsl: 255, 60%, 60%;
   --overlay-blurple: hsla(var(--purple-hsl), 0.2);
+  --sl-font: "Geist Variable", sans-serif;
+
   scroll-behavior: smooth;
 }
 
