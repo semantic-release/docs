@@ -139,6 +139,7 @@ export default defineConfig({
           actions: {
             viewMarkdown: true,
           },
+          llmsTxt: true,
         }),
       ],
     }),
