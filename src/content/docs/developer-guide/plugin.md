@@ -312,7 +312,7 @@ The above usage yields the following where `PLUGIN_PACKAGE_NAME` is automaticall
 [3:24:04 PM] [semantic-release] [PLUGIN_PACKAGE_NAME] › ℹ  Some message from plugin.
 ```
 
-## Execution order
+## Execution Order
 
 Release step order is defined in [Release Steps](/foundation/release-steps/#step-sequence). For lifecycle hooks implemented by multiple plugins, semantic-release executes those lifecycle methods in the order the plugins are declared in the `plugins` configuration.
 
