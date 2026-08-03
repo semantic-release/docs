@@ -98,7 +98,30 @@ Let's say you want to verify that an option is passed. Plugin options are config
 
 That `message` value is passed to your plugin as part of `pluginConfig`. You can validate it in `verify.js` before using it later in the release process:
 
-```js ins={2, 10, 12-21}
+```js
+import SemanticReleaseError from "@semantic-release/error";
+
+/**
+ * Verify that the plugin has the configuration it needs.
+ */
+export default async (pluginConfig, context) => {
+  const { message } = pluginConfig;
+
+  if (!message) {
+    throw new SemanticReleaseError(
+      "Missing `message` option.",
+      "EMISSINGMESSAGE",
+      "Add a `message` option to this plugin's entry in the `plugins` array.",
+    );
+  }
+};
+```
+
+## Handling Errors
+
+To be detected and handled properly, errors thrown by the plugin must be instances of [SemanticReleaseError](https://github.com/semantic-release/error) (or subclasses). The example above shows the simplest case, throwing a single `SemanticReleaseError` when `message` is missing. If you need to report multiple validation problems at once, collect `SemanticReleaseError` instances and throw them together in an `AggregateError`, as shown in the example below. Other error types are treated as unexpected failures, bubble up to the final catch, and do not trigger `fail` plugins.
+
+```js ins={1, 14-20, 24-26}
 import AggregateError from "aggregate-error";
 import SemanticReleaseError from "@semantic-release/error";
 
@@ -289,13 +312,9 @@ The above usage yields the following where `PLUGIN_PACKAGE_NAME` is automaticall
 [3:24:04 PM] [semantic-release] [PLUGIN_PACKAGE_NAME] › ℹ  Some message from plugin.
 ```
 
-## Execution order
+## Execution Order
 
 Release step order is defined in [Release Steps](/foundation/release-steps/#step-sequence). For lifecycle hooks implemented by multiple plugins, semantic-release executes those lifecycle methods in the order the plugins are declared in the `plugins` configuration.
-
-## Handling errors
-
-To be detected and handled properly, errors thrown by the plugin must be instances of [SemanticReleaseError](https://github.com/semantic-release/error) (or subclasses), as shown in the earlier `verify.js` validation example. If you need to report multiple validation problems at once, wrap those `SemanticReleaseError` instances in `AggregateError`. Other error types are treated as unexpected failures, bubble up to the final catch, and do not trigger `fail` plugins.
 
 ## Advanced
 
