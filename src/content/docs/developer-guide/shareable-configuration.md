@@ -17,7 +17,8 @@ Then:
 
 1. Choose a package name (for example `@your-scope/semantic-release-config`).
 2. Add `semantic-release` as a peer dependency so consuming projects control the runtime version.
-3. Export a configuration object from the package entrypoint.
+3. Add each plugin you configure in `plugins` as a package dependency.
+4. Export a configuration object from the package entrypoint.
 
 Example `package.json`:
 
@@ -34,6 +35,12 @@ Example `package.json`:
   }
 }
 ```
+
+:::note
+If your shareable configuration declares plugin names in `plugins`, include those plugin packages in the shareable config package `dependencies`. This lets consumer projects install only your config package while still resolving all configured plugins.
+
+Keep `semantic-release` itself in `peerDependencies`.
+:::
 
 ## Exporting the Configuration
 
