@@ -21,7 +21,7 @@
     "lint:fix": "prettier --write ."
   },
   "dependencies": {
-    "@astrojs/starlight": "^0.41.2",
+    "@astrojs/starlight": "^0.42.0",
     "@astrojs/starlight-tailwind": "^5.0.0",
     "@fontsource-variable/geist": "^5.2.9",
     "@tailwindcss/vite": "^4.2.1",
