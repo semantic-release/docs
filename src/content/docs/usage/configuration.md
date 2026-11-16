@@ -192,7 +192,7 @@ The CLI arguments `--no-ci` is equivalent to `--ci false`.
 Output debugging information. This can also be enabled by setting the `DEBUG` environment variable to `semantic-release:*`.
 
 :::note
-The `debug` option is only supported via CLI argument. To enable debug mode from the [JS API](/developer-guide/js-api#javascript-api) use `require('debug').enable('semantic-release:*')`.
+The `debug` option is only supported via CLI argument. To enable debug output when calling semantic-release programmatically, use `require('debug').enable('semantic-release:*')`.
 :::
 
 ## Git environment variables

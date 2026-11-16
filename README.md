@@ -59,7 +59,7 @@ src/
 │   ├── extending/   # Plugin and shareable configuration lists
 │   ├── recipes/     # CI configurations, git services, workflows
 │   ├── support/     # FAQ, troubleshooting, version requirements
-│   └── developer-guide/  # JS API, plugin development
+│   └── developer-guide/  # Core API, plugin and shareable config development
 └── styles/          # Global styles
 ```
 
