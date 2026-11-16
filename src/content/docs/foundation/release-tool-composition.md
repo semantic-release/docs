@@ -3,9 +3,9 @@ title: Release Tool Composition
 description: "Understand how release engines, plugins, configuration, and tool-specific policies combine into release packages and scripts."
 ---
 
-**Release tool composition** is the practice of combining a release engine with configuration, plugins, and the policies and interface a particular tool needs. The engine provides the release lifecycle; the composing tool decides how developers configure and invoke it.
+**Release tool composition** is the practice of building a release tool around a composable engine. In semantic-release, [`@semantic-release/core`](https://github.com/semantic-release/core) provides the release lifecycle; a tool combines it with configuration, plugins, and its own policies and interface.
 
-This gives teams room to build different tools on the same release machinery: a reusable release package for multiple repositories, a custom CLI for an organization, or a script for a specific workflow.
+This gives teams room to build different tools on the same release machinery: a reusable release package for multiple repositories, a custom CLI for an organization, or a script for a specific workflow. The `semantic-release` package composes core with its CLI, default plugin profile, and wrapper-level CI policies. A custom release package or script can call core directly and define its own choices.
 
 ## The parts of a release tool
 
@@ -13,8 +13,6 @@ This gives teams room to build different tools on the same release machinery: a 
 - **Configuration**: sets release branches, options, and which plugins participate. A [shareable configuration](/foundation/shareable-configurations/) can package defaults for reuse.
 - **Plugins**: implement the release steps, such as analyzing commits, generating notes, preparing artifacts, or publishing. See [Plugins](/foundation/plugins/).
 - **Tool policy and interface**: handles concerns such as command-line arguments, CI-specific behavior, default plugin choices, logging, and output.
-
-In semantic-release, [`@semantic-release/core`](https://github.com/semantic-release/core) supplies the engine. The `semantic-release` package composes it with the familiar CLI, default plugin profile, and wrapper-level CI policies. A custom release package or script can call core directly and define its own choices.
 
 ## When to compose a tool
 
