@@ -27,6 +27,8 @@ Tools like [commitizen](https://github.com/commitizen/cz-cli) and [commitlint](h
 
 For deeper details on commit analysis, release steps, and plugin hooks, see [Release Steps](/foundation/release-steps/) and [Plugins](/foundation/plugins/).
 
+The engine can also be composed into different release tools. See [Release Tool Composition](/foundation/release-tool-composition/) for how packages and scripts build on the core release flow.
+
 ## Why CI is central
 
 The release command is designed to run in CI after successful builds. This keeps releases deterministic and removes manual, error-prone release actions.
