@@ -166,11 +166,20 @@ resolveEnvCi(input: {
 
 ## Composing a release tool
 
-A release tool can be a reusable package or a script for a specific workflow. Both forms call the same core API; they differ mainly in how they expose the workflow and choose its configuration and plugins.
+A release tool can be a reusable package or a script for a specific workflow. Start by choosing how your tool will supply plugins, then choose how to expose the workflow to its users. Either composition path works in either a package or a script.
 
-### Create a release package
+### Choose a composition path
 
-A reusable package can expose its own command or JavaScript API while using a shareable configuration to define release behavior. Let `resolveConfig` build that package's plugin pipeline:
+- **Config-driven composition**: Call `resolveConfig` with `buildPlugins: true`, then pass the returned `options` and `plugins` to core. Use this when configuration should determine the plugin pipeline.
+- **Direct composition**: Supply a plugin list or a complete pipeline directly to core. You can still call `resolveConfig` with `buildPlugins: false` to resolve options, inspect `options.plugins`, and apply your own plugin selection policy before passing the final input to core. The supplied `plugins` input is authoritative; `options.plugins` is not used as a fallback plugin list.
+
+For either path, `baseConfig` is optional: it can be a plain object or a module or file containing defaults. The discovered release configuration can override those defaults, and `runtimeOptions` takes precedence over both. See [Configuration layers](#configuration-layers) for the full order.
+
+The examples below pair a reusable package with config-driven composition and a custom script with direct composition. These are examples, not restrictions: a package can use direct composition, and a script can use config-driven composition.
+
+### Config-driven example: a release package
+
+A reusable package can expose its own command or JavaScript API. This example uses a shareable configuration as its optional base config and lets `resolveConfig` build the plugin pipeline:
 
 ```js title="release-tool.js"
 import semanticReleaseCore, {
@@ -207,11 +216,11 @@ export async function release({ cwd = process.cwd(), env = process.env } = {}) {
 }
 ```
 
-The package can add its own configuration defaults or command-line handling before calling `release`. With `buildPlugins: true`, core resolves configuration and constructs the plugin pipeline for the run.
+The package can provide a plain object instead of the shareable config, or omit `baseConfig` altogether. The project's release configuration can override the base defaults, including its plugin list; the package can also pass runtime options to override discovered configuration. With `buildPlugins: true`, core constructs the pipeline from the resolved configuration.
 
-### Create a custom script
+### Direct example: a custom script
 
-A script can resolve release options and pass an explicit plugin list. In this direct composition path, the `plugins` argument passed to core is authoritative:
+This script resolves release options and passes an explicit plugin list. A reusable package can use the same approach, for example to enforce its own plugin selection:
 
 ```js title="release.mjs"
 import semanticReleaseCore, {
@@ -257,9 +266,5 @@ if (result) {
 ```
 
 Install and configure the plugins your tool needs. Core does not provide the default plugin profile from the `semantic-release` wrapper, and it does not automatically apply wrapper policies such as skipping pull requests or choosing dry-run mode.
-
-### Choose a composition path
-
-Use config-driven composition when a config file or shareable configuration should define the plugin pipeline. Use direct composition when the package or script must own plugin selection, for example to enforce required plugins or support a fixed workflow.
 
 For a larger example, see [`monorepo-semantic-release`](https://github.com/semantic-release/monorepo-semantic-release), which composes core to plan and run releases for packages in a monorepo. For the conceptual model and how it relates to plugins and shareable configurations, see [Release Tool Composition](/foundation/release-tool-composition/).
