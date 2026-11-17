@@ -175,7 +175,7 @@ A release tool can be a reusable package or a script for a specific workflow. St
 
 For either path, `baseConfig` is optional: it can be a plain object or a module or file containing defaults. The discovered release configuration can override those defaults, and `runtimeOptions` takes precedence over both. See [Configuration layers](#configuration-layers) for the full order.
 
-The examples below pair a reusable package with config-driven composition and a custom script with direct composition. These are examples, not restrictions: a package can use direct composition, and a script can use config-driven composition.
+The examples below show a reusable package, a custom script run in CI, and a package that enforces a plugin policy. These are examples, not restrictions: a package can use direct composition, and a script can use config-driven composition.
 
 ### Config-driven example: a release package
 
@@ -266,5 +266,84 @@ if (result) {
 ```
 
 Install and configure the plugins your tool needs. Core does not provide the default plugin profile from the `semantic-release` wrapper, and it does not automatically apply wrapper policies such as skipping pull requests or choosing dry-run mode.
+
+Run the script in CI after your tests succeed. For example, a GitHub Actions workflow can install dependencies and invoke `release.mjs` directly:
+
+```yaml title=".github/workflows/release.yml"
+name: Release
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: node release.mjs
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+```
+
+This example runs on pushes to `main` and assumes the repository has a lockfile and the required release dependencies. Choose permissions and credentials for the plugins you use; npm publishing requires its own [CI configuration](/usage/ci-configuration/). Gate the release job on successful tests in your workflow. For an actual script and workflow, see [`testing-sr-core`](https://github.com/babblebey/testing-sr-core).
+
+### Direct example: enforce a required plugin
+
+A release package can offer overridable defaults while enforcing its own policy after configuration has been resolved. This example preserves configured plugin options and adds `@semantic-release/git` only when it is absent:
+
+```js title="release-policy.js"
+import semanticReleaseCore, { resolveConfig } from "@semantic-release/core";
+
+const baseConfig = {
+  plugins: [
+    "@semantic-release/commit-analyzer",
+    "@semantic-release/release-notes-generator",
+    "@semantic-release/git",
+  ],
+};
+
+function pluginName(spec) {
+  if (typeof spec === "string") return spec;
+  if (Array.isArray(spec)) return pluginName(spec[0]);
+  return spec && typeof spec.path === "string" ? spec.path : undefined;
+}
+
+export async function release(context, runtimeOptions = {}) {
+  const { options } = await resolveConfig(context, runtimeOptions, {
+    baseConfig,
+    buildPlugins: false,
+  });
+
+  if (!Array.isArray(options.plugins)) {
+    throw new TypeError("The plugins option must be an array");
+  }
+
+  const plugins = [...options.plugins];
+  if (!plugins.some((spec) => pluginName(spec) === "@semantic-release/git")) {
+    plugins.push("@semantic-release/git");
+  }
+
+  return semanticReleaseCore({ context: { ...context, options }, plugins });
+}
+```
+
+Pass a runtime context such as the one constructed in the [release package example](#config-driven-example-a-release-package), and declare the required plugins as dependencies. This policy recognizes the package name in string, tuple, and `path` object forms; it does not identify aliases or inline equivalents. It ensures the plugin is present in the input list, not that every hook executes: step-specific configuration and dry-run mode can affect execution.
+
+[`semantic-release-react`](https://github.com/babblebey/semantic-release-react) uses this pattern to keep `@semantic-release/git` in its plugin list and adds an internal version-writing plugin. Its defaults can still be overridden by project configuration.
 
 For a larger example, see [`monorepo-semantic-release`](https://github.com/babblebey/monorepo-semantic-release), which composes core to plan and run releases for packages in a monorepo. For the conceptual model and how it relates to plugins and shareable configurations, see [Release Tool Composition](/foundation/release-tool-composition/).
