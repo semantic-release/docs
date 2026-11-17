@@ -23,4 +23,4 @@ Core supports two common approaches:
 - **Config-driven**: resolve configuration and let core build the plugin pipeline.
 - **Direct**: resolve options and pass an explicit plugin list or pipeline from your tool.
 
-The [Core API guide](/developer-guide/core-api/) shows examples of both approaches, including a release package and a custom script. The [How it Works](/foundation/how-it-works/) page describes the release lifecycle these tools compose.
+To compose your own release tool, see [Composing a release tool](/developer-guide/core-api/#composing-a-release-tool) for guidance and examples of both approaches. The [How it Works](/foundation/how-it-works/) page describes the release lifecycle these tools compose.
