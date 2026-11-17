@@ -8,7 +8,9 @@ const ogImagePath = slug ? `/og/${slug}.png` : "/og/index.png";
 const ogImageUrl = new URL(ogImagePath, Astro.url.origin);
 ---
 
-<Default {...Astro.props}><slot /></Default>
+<Default {...Astro.props}>
+  <slot />
+</Default>
 <Analytics />
 <meta property="og:image" content={ogImageUrl.href} />
 <meta name="twitter:image" content={ogImageUrl.href} />
