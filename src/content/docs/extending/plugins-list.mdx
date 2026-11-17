@@ -722,4 +722,23 @@ Open a PR adding a new plugin to this page!
   }}
 />
 
+<PluginCard
+  name="semantic-release-workspace"
+  url="https://github.com/enkhjile/semantic-release-workspace"
+  description="Independent package releases for pnpm, npm, Yarn, and Cargo workspaces, including mixed repositories."
+  steps={{
+    verifyConditions: "Discover workspace packages and validate configuration.",
+    analyzeCommits:
+      "Attribute commits by changed files and plan independent versions for changed packages.",
+    verifyRelease: "Validate the package release plan before publication.",
+    generateNotes:
+      "Generate aggregate release notes with sections per package.",
+    prepare: "Prepare versioned manifests and an optional root changelog.",
+    publish: "Publish changed npm packages and Cargo crates.",
+    addChannel: "Promote existing releases to another release channel.",
+    success: "Mark release history complete.",
+    fail: "Report failures while preserving pending release state for retries.",
+  }}
+/>
+
 </div>
