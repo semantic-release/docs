@@ -19,12 +19,12 @@ Your release tool should also declare the plugins and shareable configurations i
 
 The package exports a default release function and three helpers:
 
-| Export                                                    | Purpose                                                           |
-| --------------------------------------------------------- | ----------------------------------------------------------------- |
-| `semanticReleaseCore(input)`                              | Run one release using a context and explicit plugin input.        |
-| `resolveConfig(context, runtimeOptions?, configOptions?)` | Resolve release options and optionally build the plugin pipeline. |
-| `getLogger({ stdout, stderr })`                           | Create the logger used by core and plugins.                       |
-| `resolveEnvCi({ env?, cwd? })`                            | Detect CI metadata for an environment and working directory.      |
+| Export                                                                      | Purpose                                                           |
+| --------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| [`semanticReleaseCore(input)`](#default-export)                             | Run one release using a context and explicit plugin input.        |
+| [`resolveConfig(context, runtimeOptions?, configOptions?)`](#resolveconfig) | Resolve release options and optionally build the plugin pipeline. |
+| [`getLogger({ stdout, stderr })`](#getlogger)                               | Create the logger used by core and plugins.                       |
+| [`resolveEnvCi({ env?, cwd? })`](#resolveenvci)                             | Detect CI metadata for an environment and working directory.      |
 
 ### Default export
 
