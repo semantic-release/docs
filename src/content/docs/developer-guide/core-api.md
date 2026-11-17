@@ -164,7 +164,11 @@ resolveEnvCi(input: {
 
 `env` defaults to `process.env` and `cwd` defaults to `process.cwd()`. The returned object includes CI state such as `isCi`, `commit`, and `branch`; CI providers may add further metadata. Pass the result as `context.envCi`. If your release tool implements policies such as skipping pull requests, inspect the provider metadata in the context and apply that policy in the tool layer.
 
-## Create a release package
+## Composing a release tool
+
+A release tool can be a reusable package or a script for a specific workflow. Both forms call the same core API; they differ mainly in how they expose the workflow and choose its configuration and plugins.
+
+### Create a release package
 
 A reusable package can expose its own command or JavaScript API while using a shareable configuration to define release behavior. Let `resolveConfig` build that package's plugin pipeline:
 
@@ -205,7 +209,7 @@ export async function release({ cwd = process.cwd(), env = process.env } = {}) {
 
 The package can add its own configuration defaults or command-line handling before calling `release`. With `buildPlugins: true`, core resolves configuration and constructs the plugin pipeline for the run.
 
-## Create a custom script
+### Create a custom script
 
 A script can resolve release options and pass an explicit plugin list. In this direct composition path, the `plugins` argument passed to core is authoritative:
 
@@ -254,7 +258,7 @@ if (result) {
 
 Install and configure the plugins your tool needs. Core does not provide the default plugin profile from the `semantic-release` wrapper, and it does not automatically apply wrapper policies such as skipping pull requests or choosing dry-run mode.
 
-## Choose a composition path
+### Choose a composition path
 
 Use config-driven composition when a config file or shareable configuration should define the plugin pipeline. Use direct composition when the package or script must own plugin selection, for example to enforce required plugins or support a fixed workflow.
 
