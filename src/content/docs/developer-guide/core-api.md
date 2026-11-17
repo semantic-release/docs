@@ -267,4 +267,4 @@ if (result) {
 
 Install and configure the plugins your tool needs. Core does not provide the default plugin profile from the `semantic-release` wrapper, and it does not automatically apply wrapper policies such as skipping pull requests or choosing dry-run mode.
 
-For a larger example, see [`monorepo-semantic-release`](https://github.com/semantic-release/monorepo-semantic-release), which composes core to plan and run releases for packages in a monorepo. For the conceptual model and how it relates to plugins and shareable configurations, see [Release Tool Composition](/foundation/release-tool-composition/).
+For a larger example, see [`monorepo-semantic-release`](https://github.com/babblebey/monorepo-semantic-release), which composes core to plan and run releases for packages in a monorepo. For the conceptual model and how it relates to plugins and shareable configurations, see [Release Tool Composition](/foundation/release-tool-composition/).
