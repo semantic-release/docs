@@ -169,6 +169,9 @@ The following keys are commonly available on `context` across lifecycle hooks:
     - `warn`
     - `success`
     - `error`
+    - `start`
+    - `skip`
+    - `complete`
 
 ### Context object keys by lifecycle hook
 
