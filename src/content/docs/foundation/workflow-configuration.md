@@ -10,7 +10,7 @@ description: "Configure release branches, channels, and rules that control the s
 - Maintaining multiple lines of releases in parallel
 - Working on large future releases outside the normal flow of one version increment per Git push
 
-See [Release workflow recipes](../recipes/release-workflow/#release-workflow) for detailed examples.
+See [Release workflow recipes](/recipes/release-workflow/) for detailed examples.
 
 The release workflow is configured via the [branches option](/usage/configuration/#branches), which accepts either a single branch definition or an array of branch definitions. Each branch can be defined as a string, a [glob](https://github.com/micromatch/micromatch#matching-features), or an object. For string and glob definitions, defaults are applied to each [property](#branch-properties).
 
