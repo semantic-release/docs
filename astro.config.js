@@ -13,6 +13,12 @@ const site = VERCEL_PREVIEW_SITE || "https://semantic-release.org/";
 // https://astro.build/config
 export default defineConfig({
   site,
+  redirects: {
+    "/developer-guide/js-api": {
+      destination: "/developer-guide/core-api/",
+      status: 301,
+    },
+  },
   integrations: [
     starlight({
       title: "Semantic Release",
@@ -68,6 +74,7 @@ export default defineConfig({
             { slug: "foundation/workflow-configuration" },
             { slug: "foundation/plugins" },
             { slug: "foundation/shareable-configurations" },
+            { slug: "foundation/release-tool-composition" },
           ],
         },
         {
@@ -115,7 +122,7 @@ export default defineConfig({
         {
           label: "Developer Guide",
           items: [
-            { slug: "developer-guide/js-api" },
+            { slug: "developer-guide/core-api" },
             { slug: "developer-guide/plugin" },
             { slug: "developer-guide/shareable-configuration" },
           ],
