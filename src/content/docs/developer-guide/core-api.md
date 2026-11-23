@@ -170,7 +170,7 @@ A release tool can be a reusable package or a script for a specific workflow. St
 
 ### Choose a composition path
 
-- **Config-driven composition**: Call `resolveConfig` with `buildPlugins: true`, then pass the returned `options` and `plugins` to core. Use this when configuration should determine the plugin pipeline.
+- **Config-driven composition**: Call [`resolveConfig`](#resolveconfig) with `buildPlugins: true`, then pass the returned `options` and `plugins` to core. Use this when configuration should determine the plugin pipeline.
 - **Direct composition**: Supply a plugin list or a complete pipeline directly to core. You can still call `resolveConfig` with `buildPlugins: false` to resolve options, inspect `options.plugins`, and apply your own plugin selection policy before passing the final input to core. The supplied `plugins` input is authoritative; `options.plugins` is not used as a fallback plugin list.
 
 For either path, `baseConfig` is optional: it can be a plain object or a module or file containing defaults. The discovered release configuration can override those defaults, and `runtimeOptions` takes precedence over both. See [Configuration layers](#configuration-layers) for the full order.
@@ -218,7 +218,7 @@ export async function release({ cwd = process.cwd(), env = process.env } = {}) {
 
 With `buildPlugins: true`, core constructs the pipeline from the resolved configuration. The package can provide a plain object instead of the shareable config, or omit `baseConfig` altogether. The project's release configuration can override those base defaults, including the plugin list, and runtime options can override the discovered configuration.
 
-[`semantic-release`](https://github.com/semantic-release/semantic-release) is a concrete example of this pattern. Its wrapper passes `SEMANTIC_RELEASE_DEFAULT_CONFIG` as `baseConfig`, which supplies the default plugin stack of `@semantic-release/commit-analyzer`, `@semantic-release/release-notes-generator`, `@semantic-release/npm`, and `@semantic-release/github`. It then calls `resolveConfig` with `buildPlugins: true` and delegates the resolved options and plugin pipeline to core, while applying wrapper policies such as pull-request handling and automatic dry-run behavior before that call.
+[`semantic-release`](https://github.com/semantic-release/semantic-release) is a concrete example of this pattern. Its wrapper passes `SEMANTIC_RELEASE_DEFAULT_CONFIG` as `baseConfig`, which supplies the default plugin stack of `@semantic-release/commit-analyzer`, `@semantic-release/release-notes-generator`, `@semantic-release/npm`, and `@semantic-release/github`. It then calls [`resolveConfig`](#resolveconfig) with `buildPlugins: true` and delegates the resolved options and plugin pipeline to core, while applying wrapper policies such as pull-request handling and automatic dry-run behavior before that call.
 
 ### Direct example: a custom script
 
