@@ -216,7 +216,9 @@ export async function release({ cwd = process.cwd(), env = process.env } = {}) {
 }
 ```
 
-The package can provide a plain object instead of the shareable config, or omit `baseConfig` altogether. The project's release configuration can override the base defaults, including its plugin list; the package can also pass runtime options to override discovered configuration. With `buildPlugins: true`, core constructs the pipeline from the resolved configuration.
+With `buildPlugins: true`, core constructs the pipeline from the resolved configuration. The package can provide a plain object instead of the shareable config, or omit `baseConfig` altogether. The project's release configuration can override those base defaults, including the plugin list, and runtime options can override the discovered configuration.
+
+[`semantic-release`](https://github.com/semantic-release/semantic-release) is a concrete example of this pattern. Its wrapper passes `SEMANTIC_RELEASE_DEFAULT_CONFIG` as `baseConfig`, which supplies the default plugin stack of `@semantic-release/commit-analyzer`, `@semantic-release/release-notes-generator`, `@semantic-release/npm`, and `@semantic-release/github`. It then calls `resolveConfig` with `buildPlugins: true` and delegates the resolved options and plugin pipeline to core, while applying wrapper policies such as pull-request handling and automatic dry-run behavior before that call.
 
 ### Direct example: a custom script
 
