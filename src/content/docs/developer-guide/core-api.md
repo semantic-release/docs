@@ -171,7 +171,7 @@ A release tool can be a reusable package or a script for a specific workflow. St
 ### Choose a composition path
 
 - **Config-driven composition**: Call [`resolveConfig`](#resolveconfig) with `buildPlugins: true`, then pass the returned `options` and `plugins` to core. Use this when configuration should determine the plugin pipeline.
-- **Direct composition**: Supply a plugin list or a complete pipeline directly to core. You can still call `resolveConfig` with `buildPlugins: false` to resolve options, inspect `options.plugins`, and apply your own plugin selection policy before passing the final input to core. The supplied `plugins` input is authoritative; `options.plugins` is not used as a fallback plugin list.
+- **Direct composition**: Supply a plugin list or a complete pipeline directly to core. You can still call [`resolveConfig`](#resolveconfig) with `buildPlugins: false` to resolve options, inspect `options.plugins`, and apply your own plugin selection policy before passing the final input to core. The supplied `plugins` input is authoritative; `options.plugins` is not used as a fallback plugin list.
 
 For either path, `baseConfig` is optional: it can be a plain object or a module or file containing defaults. The discovered release configuration can override those defaults, and `runtimeOptions` takes precedence over both. See [Configuration layers](#configuration-layers) for the full order.
 
@@ -179,7 +179,7 @@ The examples below show a reusable package, a custom script run in CI, and a pac
 
 ### Config-driven example: a release package
 
-A reusable package can expose its own command or JavaScript API. This example uses a shareable configuration as its optional base config and lets `resolveConfig` build the plugin pipeline:
+A reusable package can expose its own command or JavaScript API. This example uses a shareable configuration as its optional base config and lets [`resolveConfig`](#resolveconfig) build the plugin pipeline:
 
 ```js title="release-tool.js"
 import semanticReleaseCore, {
