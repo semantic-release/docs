@@ -58,7 +58,7 @@ The core runtime requires these fields on `context` when calling the default exp
 | `stdout`  | Yes                 | Writable stream for regular output.                                                                                                                  |
 | `stderr`  | Yes                 | Writable stream for errors and warnings.                                                                                                             |
 | `cwd`     | Recommended         | Repository working directory used for configuration and Git operations.                                                                              |
-| `env`     | Recommended         | Environment passed to configuration loading and Git operations. Core fills in missing Git identity and non-interactive prompt values on this object. |
+| `env`     | Yes         | Environment passed to configuration loading and Git operations. Core fills in missing Git identity and non-interactive prompt values on this object. |
 
 The declarations type the default export's context as already containing `branch` and `branches`. At runtime, core calculates those fields during the run, after calling `onInit`; do not rely on them inside `onInit`.
 
