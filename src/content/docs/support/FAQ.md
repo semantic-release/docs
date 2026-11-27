@@ -215,7 +215,7 @@ This is fully customizable with the [`@semantic-release/commit-analyzer`](https:
 
 It is indeed a great idea because it _forces_ you to follow best practices. If you don’t feel comfortable releasing every feature or fix on your `master`/`main` you might not treat your `master`/`main` branch as intended.
 
-From [Understanding the GitHub Flow](https://guides.github.com/introduction/flow/index.html):
+From [Understanding the GitHub Flow](https://docs.github.com/en/get-started/using-github/github-flow):
 
 > Branching is a core concept in Git, and the entire GitHub Flow is based upon it. There's only one rule: anything in the master/main branch is always deployable.
 
